@@ -10,13 +10,13 @@ import { ThemeService } from '../services/theme.service';
 })
 export class HomeComponent {
   private _themeService = inject(ThemeService);
+  private observer = inject(BreakpointObserver);
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   isMobile = true;
   isCollapsed = false;
 
-  constructor(private observer: BreakpointObserver) {}
 
   ngOnInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {

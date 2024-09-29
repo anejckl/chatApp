@@ -1,4 +1,7 @@
 {
+  "CHAT": {
+    "TITLE": "Chat bot"
+  },
   "HOME": {
     "CHAT": "Chat bot",
     "DASHBOARD": "Dashboard",
