@@ -1,0 +1,37 @@
+<mat-sidenav-container autosize>
+    <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'">
+        <div class="menu-container">
+            <button mat-icon-button (click)="toggleMenu()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="menu-title" *ngIf="!isCollapsed">{{'HOME.TITLE' | transloco}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-nav-list>
+            <a mat-list-item routerLink="/dashboard">
+                <span class="entry">
+                    <mat-icon>house</mat-icon>
+                    <span *ngIf="!isCollapsed">{{'HOME.DASHBOARD' | transloco}}</span>
+                </span>
+            </a>
+            <a mat-list-item routerLink="/chat">
+                <span class="entry">
+                    <mat-icon>smart_toy</mat-icon>
+                    <span *ngIf="!isCollapsed">{{'HOME.CHAT' | transloco}}</span>
+                </span>
+            </a>
+            <a mat-list-item routerLink="/help">
+                <span class="entry">
+                    <mat-icon>help</mat-icon>
+                    <span *ngIf="!isCollapsed">{{'HOME.HELP' | transloco}}</span>
+                </span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <button mat-button (click)="toggleTheme()">
+            <mat-icon>{{ isDarkTheme() ? 'brightness_4' : 'brightness_7' }}</mat-icon>
+        </button>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
