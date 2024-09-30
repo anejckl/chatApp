@@ -6,6 +6,13 @@
     "CHAT": "Chatbot",
     "DASHBOARD": "Dashboard",
     "HELP": "Help",
+    "SETTINGS": "Settings",
     "TITLE": "Anej Lazar"
+  },
+  "SETTINGS": {
+    "CHOOSE-LANG": "Choose language",
+    "DARKMODE-TOGGLE": "Dark mode",
+    "LANGUAGE": "Language",
+    "LANGUAGE-TOGGLE": "Change language"
   }
 }

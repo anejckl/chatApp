@@ -19,8 +19,8 @@
                     <mat-form-field appearance="outline">
                         <input matInput placeholder="Ask your question" [(ngModel)]="userInput">
                     </mat-form-field>
-                    <button mat-button (click)="sendMessage()">
-                        <mat-icon>send</mat-icon>
+                    <button mat-button [disabled]="!userInput" (click)="sendMessage()">
+                        <mat-icon>reply</mat-icon>
                     </button>
                 </div>
             </div>

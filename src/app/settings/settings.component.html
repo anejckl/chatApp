@@ -1,0 +1,20 @@
+<div class="settings-container">
+    <div class="general">
+        <h2>General</h2>
+        <div class="dark-mode">
+            <h3>{{'SETTINGS.DARKMODE-TOGGLE' | transloco}}</h3>
+            <mat-slide-toggle (change)="toggleTheme()"></mat-slide-toggle>
+        </div>
+
+        <div class="language">
+            <h3>{{'SETTINGS.LANGUAGE' | transloco}}</h3>
+            <mat-form-field>
+                <mat-select name="language" placeholder="{{'SETTINGS.LANGUAGE-TOGGLE' | transloco}}">
+                    <mat-option value="en">English</mat-option>
+                    <mat-option value="sl">Slovenščina</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+</div>

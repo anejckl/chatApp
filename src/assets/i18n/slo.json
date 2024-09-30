@@ -6,6 +6,13 @@
     "CHAT": "Chatbot",
     "DASHBOARD": "Nadzorna plošča",
     "HELP": "Pomoč/informacije",
+    "SETTINGS": "Nastavitve",
     "TITLE": "Anej Lazar"
+  },
+  "SETTINGS": {
+    "CHOOSE-LANG": "Izberi jezik",
+    "DARKMODE-TOGGLE": "Temni način",
+    "LANGUAGE": "Jezik",
+    "LANGUAGE-TOGGLE": "Spremeni jezik"
   }
 }
