@@ -1,10 +1,29 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title transloco="CHAT.TITLE"></mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div class="chat-box">
-
-        </div>
-    </mat-card-content>
-</mat-card>
+<div class="chat-card">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title transloco="CHAT.TITLE"></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <div class="chat-container">
+                <div class="message" *ngFor="let message of messages"
+                    [ngClass]="{ sender: message.isSender, receiver: !message.isSender }">
+                    <mat-card>
+                        <mat-card-content>
+                            {{ message.content }}
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <mat-divider *ngIf="messages.length > 0"></mat-divider>
+                <div class="user-input">
+                    <mat-form-field appearance="outline">
+                        <input matInput placeholder="Ask your question" [(ngModel)]="userInput">
+                    </mat-form-field>
+                    <button mat-button (click)="sendMessage()">
+                        <mat-icon>send</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

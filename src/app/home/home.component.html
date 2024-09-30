@@ -8,19 +8,19 @@
         </div>
         <mat-divider></mat-divider>
         <mat-nav-list>
-            <a mat-list-item routerLink="/dashboard">
+            <a mat-list-item (click)="showComponent('dashboard')">
                 <span class="entry">
                     <mat-icon>house</mat-icon>
                     <span *ngIf="!isCollapsed">{{'HOME.DASHBOARD' | transloco}}</span>
                 </span>
             </a>
-            <a mat-list-item routerLink="/chat">
+            <a mat-list-item (click)="showComponent('chat')">
                 <span class="entry">
                     <mat-icon>smart_toy</mat-icon>
                     <span *ngIf="!isCollapsed">{{'HOME.CHAT' | transloco}}</span>
                 </span>
             </a>
-            <a mat-list-item routerLink="/help">
+            <a mat-list-item (click)="showComponent('help')">
                 <span class="entry">
                     <mat-icon>help</mat-icon>
                     <span *ngIf="!isCollapsed">{{'HOME.HELP' | transloco}}</span>
@@ -29,9 +29,19 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <button mat-button (click)="toggleTheme()">
-            <mat-icon>{{ isDarkTheme() ? 'brightness_4' : 'brightness_7' }}</mat-icon>
-        </button>
+        <mat-toolbar>
+            <mat-toolbar-row>
+                <button mat-button (click)="toggleTheme()">
+                    <mat-icon>{{ isDarkTheme() ? 'brightness_4' : 'brightness_7' }}</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <app-dashboard *ngIf="currentComponent === 'dashboard'"></app-dashboard>
+        <app-chat *ngIf="currentComponent === 'chat'"></app-chat>
+        <app-help *ngIf="currentComponent === 'help'"></app-help>
+
+
+        
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

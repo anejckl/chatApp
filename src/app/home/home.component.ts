@@ -17,6 +17,8 @@ export class HomeComponent {
   isMobile = true;
   isCollapsed = false;
 
+  currentComponent: string = 'home';
+
 
   ngOnInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
@@ -46,4 +48,7 @@ export class HomeComponent {
     return this._themeService.getDarkThemeStatus();
   }
 
+  showComponent(currentComponent: string) {
+    this.currentComponent = currentComponent;
+  }
 }

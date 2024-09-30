@@ -1,0 +1,48 @@
+.chat-card {
+  margin: 10px;
+}
+
+.chat-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 16px;
+  overflow-y: auto;
+  margin-top: 30px;
+}
+
+    .message {
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .sender {
+      justify-content: flex-end;
+    }
+
+    .receiver {
+      justify-content: flex-start;
+    }
+
+    mat-card {
+      max-width: 75%;
+      padding: 8px;
+      border-radius: 16px;
+    }
+
+    .sender mat-card {
+      background-color: #f1f1f1;
+      border-bottom-right-radius: 0;
+    }
+
+    .receiver mat-card {
+      background-color: #f1f1f1;
+      border-bottom-left-radius: 0;
+    }
+
+    mat-form-field {
+      width: 90%;
+      margin-top: 10px;
+    }
+

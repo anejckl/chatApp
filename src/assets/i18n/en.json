@@ -1,11 +1,11 @@
 {
   "CHAT": {
-    "TITLE": "Chat bot"
+    "TITLE": "Chatbot app - Project"
   },
   "HOME": {
-    "CHAT": "Chat bot",
+    "CHAT": "Chatbot",
     "DASHBOARD": "Dashboard",
     "HELP": "Help",
-    "TITLE": "Project"
+    "TITLE": "Anej Lazar"
   }
 }
