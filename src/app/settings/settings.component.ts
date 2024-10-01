@@ -12,7 +12,7 @@ export class SettingsComponent {
   private _translocoService = inject(TranslocoService);
 
   public languages = ['slo', 'en'];
-  public selectedLanguage = '';
+  public browserLang = this._translocoService.getActiveLang();
 
 
   public toggleTheme(): void {

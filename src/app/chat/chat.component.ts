@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Messages } from '../models/messages.models';
+import { Message } from '../models/messages.models';
 import { ChatService } from '../services/chat.service';
 
 @Component({
@@ -8,26 +8,27 @@ import { ChatService } from '../services/chat.service';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent {
-  messages: Messages[] = [{
-    content: 'Ask me a question?',
-    isSender: false
-  }];
+  messages: Message[] = [];
   userInput: string = '';
 
   public _chatService = inject(ChatService);
 
   public sendMessage(): void {
     this.messages.push({
+      role: 'user',
       content: this.userInput,
-      isSender: true,
     });
+    
     this.userInput = '';
-    this._chatService.sendMessage(this.userInput).subscribe((response: any) => {
-      const assistantMessage = response.choices[0].message.content;
-      this.messages.push({
-        content: assistantMessage,
-        isSender: false,
-      });
-    });
+    const messagesToSend = [...this.messages];
+
+    this._chatService.sendMessage(messagesToSend).subscribe(
+      (response) => {
+        this.messages.push({
+          role: 'assistant',
+          content: response.choices[0].message.content,
+        });
+      },
+    );
   }
 }
