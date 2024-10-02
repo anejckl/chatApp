@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: "uYS/DXesE97sW2stOrLR20WFljW2mnP8",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },

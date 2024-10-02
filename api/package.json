@@ -17,8 +17,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "express-session": "^1.18.0",
-    "langchain": "^0.3.2",
-    "openai": "^4.67.0"
+    "langchain": "^0.3.2"
   },
   "devDependencies": {
     "concurrently": "^9.0.1"
