@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --open",
+    "start-backend": "node --env-file=api/.env api/server.js -",
+    "start:all": "concurrently \"npm run start\" \"npm run start-backend\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -22,6 +24,7 @@
     "@angular/router": "^17.3.0",
     "@jsverse/transloco": "^7.5.0",
     "@ngx-translate/core": "^15.0.0",
+    "dotenv": "^16.4.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
