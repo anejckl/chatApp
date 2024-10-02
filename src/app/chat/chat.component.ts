@@ -19,14 +19,13 @@ export class ChatComponent {
       content: this.userInput,
     });
     
+    const outGoingInput = this.userInput;
     this.userInput = '';
-    const messagesToSend = [...this.messages];
-
-    this._chatService.sendMessage(messagesToSend).subscribe(
-      (response) => {
+    this._chatService.sendMessage(outGoingInput).subscribe(
+      (message) => {
         this.messages.push({
           role: 'assistant',
-          content: response.choices[0].message.content,
+          content: message.response
         });
       },
     );

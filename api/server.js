@@ -1,41 +1,85 @@
-require('dotenv').config();
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const session = require("express-session");
+
+const { ChatOpenAI } = require("@langchain/openai");
+const { ConversationChain } = require("langchain/chains");
+const { BufferMemory, ChatMessageHistory } = require("langchain/memory");
+const { HumanMessage, AIMessage } = require("@langchain/core/messages");
 
 const app = express();
 const PORT = 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
-app.post('/api/chat', async (req, res) => {
+app.use(
+  session({
+    secret: "uYS/DXesE97sW2stOrLR20WFljW2mnP8",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+);
+
+const openaiApiKey = process.env.OPENAI_API_KEY;
+if (!openaiApiKey) {
+  throw new Error("OpenAI API key is undefined");
+}
+
+const model = new ChatOpenAI({
+  openAIApiKey: openaiApiKey,
+  modelName: "gpt-4",
+  temperature: 0.7,
+});
+
+app.post("/api/chat", async (req, res) => {
   try {
-    const openaiApiKey = process.env.OPENAI_API_KEY;
-    const { messages } = req.body;
+    const { input } = req.body;
+    if (!input) {
+      return res.status(400).json({ error: "Input is required." });
+    }
+    if (!req.session.chatHistory) {
+      req.session.chatHistory = [];
+    }
 
-    const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: 'gpt-4-turbo',
-        messages: messages,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openaiApiKey}`,
-        },
+    const historyMessages = req.session.chatHistory.map((msg) => {
+      if (msg.role === "user") {
+        return new HumanMessage(msg.content);
+      } else if (msg.role === "assistant") {
+        return new AIMessage(msg.content);
+      } else {
+        return new HumanMessage(msg.content);
       }
-    );
+    });
 
-    res.json(response.data);
+    const chatHistory = new ChatMessageHistory(historyMessages);
+    const memory = new BufferMemory({ chatHistory });
+    const conversation = new ConversationChain({
+      llm: model,
+      memory: memory,
+    });
+
+    const response = await conversation.call({ input });
+    const updatedMessages = await memory.chatHistory.getMessages();
+    const updatedMessagesArray = updatedMessages.map((msg) => ({
+      role: msg._getType() === "human" ? "user" : "assistant",
+      content: msg.content,
+    }));
+
+    req.session.chatHistory = updatedMessagesArray;
+    res.json({ response: response.response || response.text });
   } catch (error) {
-    console.error(
-      'Error calling OpenAI API:',
-      error.response ? error.response.data : error.message
-    );
+    console.error("Error handling chat:", error);
     res.status(500).json({
-      error: 'An error occurred while processing your request.',
+      error: "An error occurred while processing your request.",
     });
   }
 });
