@@ -1,4 +1,4 @@
-export interface Messages {
-    content: string,
-    isSender: boolean
+export interface Message {
+    role: 'user' | 'assistant' | 'system';
+    content: string;
 }

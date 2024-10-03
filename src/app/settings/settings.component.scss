@@ -1,0 +1,19 @@
+.settings-container {
+  padding: 16px;
+}
+
+.dark-mode {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.language {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+}
+
+mat-divider {
+  width: 30%;
+}

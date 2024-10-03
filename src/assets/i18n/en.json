@@ -1,11 +1,26 @@
 {
   "CHAT": {
-    "TITLE": "Chatbot app - Project"
+    "MODEL": {
+      "NAME": "Model name",
+      "TEMPERATURE": "Temperature",
+      "TITLE": "Chatbot app - Project"
+    },
+    "SETTINGS": {
+      "TITLE": "Model settings"
+    }
   },
   "HOME": {
     "CHAT": "Chatbot",
     "DASHBOARD": "Dashboard",
     "HELP": "Help",
+    "SETTINGS": "Settings",
     "TITLE": "Anej Lazar"
+  },
+  "SETTINGS": {
+    "CHOOSE-LANG": "Choose language",
+    "DARKMODE-TOGGLE": "Dark mode",
+    "GENERAL": "General",
+    "LANGUAGE": "Language",
+    "LANGUAGE-TOGGLE": "Change language"
   }
 }

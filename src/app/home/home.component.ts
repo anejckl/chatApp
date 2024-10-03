@@ -40,14 +40,6 @@ export class HomeComponent {
     }
   }
 
-  toggleTheme() {
-    this._themeService.toggleTheme();
-  }
-
-  isDarkTheme() {
-    return this._themeService.getDarkThemeStatus();
-  }
-
   showComponent(currentComponent: string) {
     this.currentComponent = currentComponent;
   }

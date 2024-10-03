@@ -26,20 +26,20 @@
                     <span *ngIf="!isCollapsed">{{'HOME.HELP' | transloco}}</span>
                 </span>
             </a>
+            <mat-divider></mat-divider>
+            <a mat-list-item (click)="showComponent('settings')">
+                <span class="entry">
+                    <mat-icon>settings</mat-icon>
+                    <span *ngIf="!isCollapsed">{{'HOME.SETTINGS' | transloco}}</span>
+                </span>
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar>
-            <mat-toolbar-row>
-                <button mat-button (click)="toggleTheme()">
-                    <mat-icon>{{ isDarkTheme() ? 'brightness_4' : 'brightness_7' }}</mat-icon>
-                </button>
-            </mat-toolbar-row>
-        </mat-toolbar>
         <app-dashboard *ngIf="currentComponent === 'dashboard'"></app-dashboard>
         <app-chat *ngIf="currentComponent === 'chat'"></app-chat>
         <app-help *ngIf="currentComponent === 'help'"></app-help>
-
+        <app-settings *ngIf="currentComponent === 'settings'"></app-settings>
 
         
         <router-outlet></router-outlet>

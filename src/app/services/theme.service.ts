@@ -17,7 +17,7 @@ export class ThemeService {
     }
   }
 
-  getDarkThemeStatus(): boolean {
+  isDarkMode() {
     return this.isDarkTheme;
   }
 }

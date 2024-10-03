@@ -1,11 +1,26 @@
 {
   "CHAT": {
-    "TITLE": "Chatbot aplikacija - Projekt"
+    "MODEL": {
+      "NAME": "Ime modela",
+      "TEMPERATURE": "Temperature",
+      "TITLE": "Chatbot aplikacija - Projekt"
+    },
+    "SETTINGS": {
+      "TITLE": "Nastavitve modela"
+    }
   },
   "HOME": {
     "CHAT": "Chatbot",
     "DASHBOARD": "Nadzorna plošča",
     "HELP": "Pomoč/informacije",
+    "SETTINGS": "Nastavitve",
     "TITLE": "Anej Lazar"
+  },
+  "SETTINGS": {
+    "CHOOSE-LANG": "Izberi jezik",
+    "DARKMODE-TOGGLE": "Temni način",
+    "GENERAL": "Splošno",
+    "LANGUAGE": "Jezik",
+    "LANGUAGE-TOGGLE": "Spremeni jezik"
   }
 }
