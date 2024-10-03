@@ -14,6 +14,8 @@ export class SettingsComponent {
   public languages = ['slo', 'en'];
   public browserLang = this._translocoService.getActiveLang();
 
+  public isDarkMode = this._themeService.isDarkMode();
+
 
   public toggleTheme(): void {
     this._themeService.toggleTheme();

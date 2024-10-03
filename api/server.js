@@ -11,9 +11,12 @@ const { HumanMessage, AIMessage } = require("@langchain/core/messages");
 const app = express();
 const PORT = 3000;
 
+var modelName = 'gpt-4';
+var temperature = 0.7;
+
 app.use(
   cors({
-    origin: "http://localhost:4200",
+    origin: process.env.ORIGIN,
     credentials: true,
   })
 );
@@ -36,8 +39,8 @@ if (!openaiApiKey) {
 
 const model = new ChatOpenAI({
   openAIApiKey: openaiApiKey,
-  modelName: "gpt-4",
-  temperature: 0.7,
+  modelName: modelName,
+  temperature: temperature,
 });
 
 app.post("/api/chat", async (req, res) => {
@@ -82,6 +85,26 @@ app.post("/api/chat", async (req, res) => {
       error: "An error occurred while processing your request.",
     });
   }
+});
+
+app.get("/api/model", (req, res) => {
+  res.json({ modelName: model.modelName, temperature: model.temperature });
+});
+
+app.post("/api/model/settings", (req, res) => {
+  const { modelName, temperature } = req.body;
+  if (modelName) {
+    model.modelName = modelName;
+  }
+
+  if (temperature !== undefined && temperature !== null) {
+    model.temperature = temperature;
+  }
+
+  res.json({
+    modelName: model.modelName,
+    temperature: model.temperature,
+  });
 });
 
 app.listen(PORT, () => {

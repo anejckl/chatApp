@@ -1,6 +1,13 @@
 {
   "CHAT": {
-    "TITLE": "Chatbot aplikacija - Projekt"
+    "MODEL": {
+      "NAME": "Ime modela",
+      "TEMPERATURE": "Temperature",
+      "TITLE": "Chatbot aplikacija - Projekt"
+    },
+    "SETTINGS": {
+      "TITLE": "Nastavitve modela"
+    }
   },
   "HOME": {
     "CHAT": "Chatbot",

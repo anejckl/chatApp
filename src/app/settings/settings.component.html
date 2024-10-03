@@ -3,7 +3,7 @@
         <h2>{{'SETTINGS.GENERAL' | transloco}}</h2>
         <div class="dark-mode">
             <h3>{{'SETTINGS.DARKMODE-TOGGLE' | transloco}}</h3>
-            <mat-slide-toggle (change)="toggleTheme()"></mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="isDarkMode" (change)="toggleTheme()"></mat-slide-toggle>
         </div>
 
         <div class="language">
