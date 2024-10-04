@@ -21,7 +21,7 @@ const model = new ChatOpenAI({
 
 app.use(
   cors({
-    origin: process.env.ORIGIN || "http://localhost:4200",
+    origin: process.env.ORIGIN,
     credentials: true,
   })
 );
@@ -30,7 +30,7 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: process.env.SECRET_KEY || "your_secret_key",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
