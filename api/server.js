@@ -11,8 +11,10 @@ const app = express();
 const PORT = 3000;
 
 const openaiApiKey = process.env.OPENAI_API_KEY;
-var modelName = process.env.MODEL_NAME;
-var temperature = 0.7;
+
+const modelName = process.env.MODEL_NAME;
+const temperature = 0.7;
+
 const model = new ChatOpenAI({
   openAIApiKey: openaiApiKey,
   modelName: modelName,
@@ -74,15 +76,20 @@ app.post("/api/chat", async (req, res) => {
 
       req.session.chatHistory = updatedMessagesArray;
     }
-    res.json({
-      response: responseText,
-      chatHistory: req.session.chatHistory,
-    });
+    
+    res.json({response: responseText});
   } catch (error) {
     res.status(500).json({
       error: "An error occurred while processing your request.",
     });
   }
+});
+
+app.get("/api/chat/history", (req, res) => {
+  if (!req.session.chatHistory) {
+    req.session.chatHistory = [];
+  }
+  res.json(req.session.chatHistory);
 });
 
 app.get("/api/model", (req, res) => {

@@ -19,7 +19,7 @@ export class SettingsCardComponent {
   private updateSubject$ = new Subject<Model>();
 
   ngOnInit() {
-    this._chatService.getModelInfo().subscribe((response) => {
+    this._chatService.getModelInfo().subscribe((response: Model) => {
       this.modelName = response.modelName;
       this.temperature = response.temperature;
     });

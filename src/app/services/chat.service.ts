@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Message } from '../models/messages.models';
 import { Model } from '../models/model.model';
 
 @Injectable({
@@ -16,13 +17,23 @@ export class ChatService {
     });
   }
 
-  updateModelSettings(model: Model): Observable<Model> {
-    return this._httpService.post<Model>(`${this.apiUrl}/model/settings`, model, {
+  getChatHistory(): Observable<Message[]> {
+    return this._httpService.get<Message[]>(`${this.apiUrl}/chat/history`, {
       withCredentials: true,
     });
   }
-  
-  sendMessage(input?: string): Observable<any> {
+
+  updateModelSettings(model: Model): Observable<Model> {
+    return this._httpService.post<Model>(
+      `${this.apiUrl}/model/settings`,
+      model,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  sendMessage(input: string): Observable<any> {
     return this._httpService.post<any>(
       `${this.apiUrl}/chat`,
       { input },
