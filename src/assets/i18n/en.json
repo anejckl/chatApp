@@ -1,13 +1,14 @@
 {
   "CHAT": {
     "MODEL": {
+      "ADD-SYS-MESSAGE": "Add a system message/prompt",
       "NAME": "Model name",
+      "SYS-MESSAGE": "System prompt",
       "TEMPERATURE": "Temperature",
-      "TITLE": "Chatbot app - Project"
+      "TITLE": "Chatbot app - Project",
+      "TUNE": "Model settings"
     },
-    "SETTINGS": {
-      "TITLE": "Model settings"
-    }
+    "PLACEHOLDER": "Ask your question"
   },
   "HOME": {
     "CHAT": "Chatbot",
