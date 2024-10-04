@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-system-message-card',
@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrl: './system-message-card.component.scss'
 })
 export class SystemMessageCardComponent {
+  @Input() systemMessage: string = '';
+  @Output() systemMessageChange: EventEmitter<string> = new EventEmitter<string>();
+  
 
+  public emitSystemMessage(message: string) {
+    console.log(message);
+    this.systemMessageChange.emit(message);
+  }
 }

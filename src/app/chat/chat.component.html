@@ -2,7 +2,9 @@
     <div class="chat-card">
         <mat-card>
             <mat-card-header>
-                <mat-card-title transloco="CHAT.MODEL.TITLE"></mat-card-title>
+                <mat-card-title>
+                    <span>{{'CHAT.MODEL.TITLE' | transloco}} <mat-icon class="icon-spacing">construction</mat-icon></span>
+                </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider>
             <mat-card-content>
@@ -18,7 +20,14 @@
                     <mat-divider *ngIf="messages.length > 0"></mat-divider>
                     <div class="user-input">
                         <mat-form-field appearance="outline">
-                            <input matInput [placeholder]="'CHAT.PLACEHOLDER' | transloco" [(ngModel)]="userInput">
+                            <textarea
+                                matInput
+                                [placeholder]="'CHAT.INPUT' | transloco"
+                                [(ngModel)]="userInput"
+                                cdkTextareaAutosize
+                                cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="20">
+                            </textarea>
                         </mat-form-field>
                         <button mat-button [disabled]="!userInput" (click)="sendMessage()">
                             <mat-icon>reply</mat-icon>
@@ -33,7 +42,7 @@
             <app-settings-card></app-settings-card>
         </div>
         <div class="system-card">
-            <app-system-message-card></app-system-message-card>
+            <app-system-message-card [(systemMessage)]="systemMessage"></app-system-message-card>
         </div>
     </div>
 </div>

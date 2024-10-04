@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { debounceTime } from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
 import { Model } from '../../models/model.model';
 import { ChatService } from '../../services/chat.service';
 
@@ -16,11 +16,19 @@ export class SettingsCardComponent {
   modelName: string = '';
   temperature: number = 0;
 
+  private updateSubject$ = new Subject<Model>();
+
   ngOnInit() {
     this._chatService.getModelInfo().subscribe((response) => {
       this.modelName = response.modelName;
       this.temperature = response.temperature;
     });
+
+    this.updateSubject$
+      .pipe(debounceTime(this.debounceTimeMs))
+      .subscribe((model: Model) => {
+        this._chatService.updateModelSettings(model).subscribe();
+      });
   }
 
   public updateModelSettings(): void {
@@ -28,11 +36,6 @@ export class SettingsCardComponent {
       modelName: this.modelName,
       temperature: this.temperature,
     };
-    this._chatService
-      .updateModelSettings(model)
-      .pipe(debounceTime(this.debounceTimeMs))
-      .subscribe((response) => {
-        console.log(response);
-      });
+    this.updateSubject$.next(model);
   }
 }

@@ -10,6 +10,7 @@ import { ChatService } from '../services/chat.service';
 export class ChatComponent implements OnInit {
   messages: Message[] = [];
   userInput: string = '';
+  systemMessage: string = '';
 
   private readonly debounceTimeMs = 300;
 
@@ -29,6 +30,7 @@ export class ChatComponent implements OnInit {
       content: this.userInput,
     });
     this.userInput = '';
+    
 
     this._chatService
       .sendMessage(outgoingInput)

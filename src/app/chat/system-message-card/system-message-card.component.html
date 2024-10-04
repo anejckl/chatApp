@@ -6,6 +6,20 @@
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-        
+        <div class="user-input">
+            <mat-form-field appearance="outline">
+                <textarea
+                    matInput
+                    [placeholder]="'CHAT.MODEL.ADD-SYS-MESSAGE' | transloco"
+                    [(ngModel)]="systemMessage"
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="20">
+                </textarea>
+            </mat-form-field>
+            <button mat-button (click)="emitSystemMessage(systemMessage)">
+                <mat-icon>reply</mat-icon>
+            </button>
+        </div>
     </mat-card-content>
 </mat-card>

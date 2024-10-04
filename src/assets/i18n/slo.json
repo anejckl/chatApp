@@ -1,5 +1,6 @@
 {
   "CHAT": {
+    "INPUT": "Vprašaj me karkoli",
     "MODEL": {
       "ADD-SYS-MESSAGE": "Dodaj sistemsko sporočilo",
       "NAME": "Ime modela",
@@ -7,8 +8,7 @@
       "TEMPERATURE": "Temperature",
       "TITLE": "Chatbot aplikacija - Projekt",
       "TUNE": "Nastavitve modela"
-    },
-    "PLACEHOLDER": "Vprašaj me karkoli"
+    }
   },
   "HOME": {
     "CHAT": "Chatbot",

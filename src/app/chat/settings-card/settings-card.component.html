@@ -10,16 +10,17 @@
             <div class="settings-container">
                 <h3>{{ 'CHAT.MODEL.NAME' | transloco }}</h3>
                 <mat-form-field>
-                    <mat-select [(ngModel)]="modelName" (selectionChange)="updateModelSettings()">
+                    <mat-select [(ngModel)]="modelName" (ngModelChange)="updateModelSettings()">
                         <mat-option value="gpt-4">GPT-4</mat-option>
                         <mat-option value="gpt-4-turbo">GPT-4 Turbo</mat-option>
+                        <mat-option disabled="true">More coming!</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="settings-container">
                 <h3>{{ 'CHAT.MODEL.TEMPERATURE' | transloco }}</h3>
                 <mat-slider min="0" max="1" step="0.1" showTickMarks>
-                    <input matSliderThumb [(ngModel)]="temperature" (valueChange)="updateModelSettings()" />
+                    <input matSliderThumb [(ngModel)]="temperature" (ngModelChange)="updateModelSettings()"/>
                 </mat-slider>
             </div>
         </div>
