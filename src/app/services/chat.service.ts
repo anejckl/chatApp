@@ -20,11 +20,13 @@ export class ChatService {
       withCredentials: true,
     });
   }
+
   updateModelSettings(model: Model): Observable<Model> {
     return this.http.post<Model>(`${this.apiUrl}/model/settings`, model, {
       withCredentials: true,
     });
   }
+  
   sendMessage(input?: string): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/chat`,
