@@ -1,12 +1,13 @@
 {
   "CHAT": {
+    "INPUT": "Ask your question",
     "MODEL": {
+      "ADD-SYS-MESSAGE": "Add a system message/prompt",
       "NAME": "Model name",
+      "SYS-MESSAGE": "System prompt",
       "TEMPERATURE": "Temperature",
-      "TITLE": "Chatbot app - Project"
-    },
-    "SETTINGS": {
-      "TITLE": "Model settings"
+      "TITLE": "Chatbot app - Project",
+      "TUNE": "Model settings"
     }
   },
   "HOME": {
@@ -14,7 +15,7 @@
     "DASHBOARD": "Dashboard",
     "HELP": "Help",
     "SETTINGS": "Settings",
-    "TITLE": "Anej Lazar"
+    "TITLE": "AI chat"
   },
   "SETTINGS": {
     "CHOOSE-LANG": "Choose language",

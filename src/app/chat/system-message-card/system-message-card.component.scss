@@ -1,0 +1,24 @@
+mat-card {
+    border-radius: 16px;
+    max-width: 100%;
+}
+
+.icon-spacing {
+    margin-left: 5px;
+    margin-bottom: 3px;
+    vertical-align: middle;
+}
+
+.user-input {
+    margin-top: 20px;
+}
+
+mat-form-field {
+    width: 80%;
+}
+
+textarea {
+    width: 100%;
+    overflow-y: auto;
+    word-wrap: break-word;
+}

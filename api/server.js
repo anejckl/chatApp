@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
-
 const { ChatOpenAI } = require("@langchain/openai");
 const { ConversationChain } = require("langchain/chains");
 const { BufferMemory, ChatMessageHistory } = require("langchain/memory");
@@ -11,8 +10,16 @@ const { HumanMessage, AIMessage } = require("@langchain/core/messages");
 const app = express();
 const PORT = 3000;
 
-var modelName = 'gpt-4';
-var temperature = 0.7;
+const openaiApiKey = process.env.OPENAI_API_KEY;
+
+const modelName = process.env.MODEL_NAME;
+const temperature = 0.7;
+
+const model = new ChatOpenAI({
+  openAIApiKey: openaiApiKey,
+  modelName: modelName,
+  temperature: temperature,
+});
 
 app.use(
   cors({
@@ -29,26 +36,13 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
+    maxAge: 1 * 60 * 60 * 1000,
   })
 );
-
-const openaiApiKey = process.env.OPENAI_API_KEY;
-if (!openaiApiKey) {
-  throw new Error("OpenAI API key is undefined");
-}
-
-const model = new ChatOpenAI({
-  openAIApiKey: openaiApiKey,
-  modelName: modelName,
-  temperature: temperature,
-});
 
 app.post("/api/chat", async (req, res) => {
   try {
     const { input } = req.body;
-    if (!input) {
-      return res.status(400).json({ error: "Input is required." });
-    }
     if (!req.session.chatHistory) {
       req.session.chatHistory = [];
     }
@@ -70,21 +64,32 @@ app.post("/api/chat", async (req, res) => {
       memory: memory,
     });
 
-    const response = await conversation.call({ input });
-    const updatedMessages = await memory.chatHistory.getMessages();
-    const updatedMessagesArray = updatedMessages.map((msg) => ({
-      role: msg._getType() === "human" ? "user" : "assistant",
-      content: msg.content,
-    }));
+    let responseText = null;
+    if (input) {
+      const response = await conversation.call({ input });
+      responseText = response.response || response.text;
+      const updatedMessages = await memory.chatHistory.getMessages();
+      const updatedMessagesArray = updatedMessages.map((msg) => ({
+        role: msg._getType() === "human" ? "user" : "assistant",
+        content: msg.content,
+      }));
 
-    req.session.chatHistory = updatedMessagesArray;
-    res.json({ response: response.response || response.text });
+      req.session.chatHistory = updatedMessagesArray;
+    }
+    
+    res.json({response: responseText});
   } catch (error) {
-    console.error("Error handling chat:", error);
     res.status(500).json({
       error: "An error occurred while processing your request.",
     });
   }
+});
+
+app.get("/api/chat/history", (req, res) => {
+  if (!req.session.chatHistory) {
+    req.session.chatHistory = [];
+  }
+  res.json(req.session.chatHistory);
 });
 
 app.get("/api/model", (req, res) => {
@@ -93,10 +98,10 @@ app.get("/api/model", (req, res) => {
 
 app.post("/api/model/settings", (req, res) => {
   const { modelName, temperature } = req.body;
+
   if (modelName) {
     model.modelName = modelName;
   }
-
   if (temperature !== undefined && temperature !== null) {
     model.temperature = temperature;
   }

@@ -1,0 +1,30 @@
+mat-card {
+    border-radius: 16px;
+    max-width: 100%;
+}
+
+.icon-spacing {
+    margin-left: 5px;
+    margin-bottom: 3px;
+    vertical-align: middle;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.settings-container {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.settings-container h3 {
+    margin: 0;
+    padding: 0;
+}
+  
+  mat-form-field {
+    margin-top: 5px;
+}

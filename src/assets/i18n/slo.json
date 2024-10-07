@@ -1,12 +1,13 @@
 {
   "CHAT": {
+    "INPUT": "Vprašaj me karkoli",
     "MODEL": {
+      "ADD-SYS-MESSAGE": "Dodaj sistemsko sporočilo",
       "NAME": "Ime modela",
+      "SYS-MESSAGE": "Sistemsko sporočilo",
       "TEMPERATURE": "Temperature",
-      "TITLE": "Chatbot aplikacija - Projekt"
-    },
-    "SETTINGS": {
-      "TITLE": "Nastavitve modela"
+      "TITLE": "Chatbot aplikacija - Projekt",
+      "TUNE": "Nastavitve modela"
     }
   },
   "HOME": {
@@ -14,7 +15,7 @@
     "DASHBOARD": "Nadzorna plošča",
     "HELP": "Pomoč/informacije",
     "SETTINGS": "Nastavitve",
-    "TITLE": "Anej Lazar"
+    "TITLE": "AI chat"
   },
   "SETTINGS": {
     "CHOOSE-LANG": "Izberi jezik",
