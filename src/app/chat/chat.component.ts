@@ -23,18 +23,21 @@ export class ChatComponent implements OnInit {
   public sendMessage(): void {
     if(this.userInput.trim() == '') { return; }
 
-    const outgoingInput = this.userInput;
+    const outgoingInput: Message = {
+      role: 'user',
+      content: this.userInput,
+    }
     this.userInput = '';
 
     this.messages.push({
       role: 'user',
-      content: outgoingInput,
+      content: outgoingInput.content,
     });
 
     this._chatService.sendMessage(outgoingInput).subscribe((response) => {
           this.messages.push({
             role: 'assistant',
-            content: response.response,
+            content: response.content,
           });
       });
   }

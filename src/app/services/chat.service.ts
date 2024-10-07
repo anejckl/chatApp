@@ -33,10 +33,10 @@ export class ChatService {
     );
   }
 
-  sendMessage(input: string): Observable<any> {
-    return this._httpService.post<any>(
+  sendMessage(input: Message, system?: string): Observable<Message> {
+    return this._httpService.post<Message>(
       `${this.apiUrl}/chat`,
-      { input },
+      input,
       { withCredentials: true }
     );
   }

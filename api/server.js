@@ -35,25 +35,40 @@ app.use(
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false },
-    maxAge: 1 * 60 * 60 * 1000,
+    cookie: { secure: false, maxAge: 1 * 60 * 60 * 1000 },
   })
 );
 
 app.post("/api/chat", async (req, res) => {
   try {
-    const { input } = req.body;
+    const { role, content, system } = req.body;
+
+    if (!content) {
+      return res.status(400).json({ error: "No content provided." });
+    }
+
     if (!req.session.chatHistory) {
       req.session.chatHistory = [];
     }
 
+    if (system) {
+      req.session.chatHistory = [{ role: "system", content: system }];
+    }
+
+    if (role === "user") {
+      req.session.chatHistory.push({ role: "user", content });
+    }
+
     const historyMessages = req.session.chatHistory.map((msg) => {
-      if (msg.role === "user") {
-        return new HumanMessage(msg.content);
-      } else if (msg.role === "assistant") {
-        return new AIMessage(msg.content);
-      } else {
-        return new HumanMessage(msg.content);
+      switch (msg.role) {
+        case "system":
+          return new SystemMessage(msg.content);
+        case "user":
+          return new HumanMessage(msg.content);
+        case "assistant":
+          return new AIMessage(msg.content);
+        default:
+          return new HumanMessage(msg.content);
       }
     });
 
@@ -64,26 +79,23 @@ app.post("/api/chat", async (req, res) => {
       memory: memory,
     });
 
-    let responseText = null;
-    if (input) {
-      const response = await conversation.call({ input });
-      responseText = response.response || response.text;
-      const updatedMessages = await memory.chatHistory.getMessages();
-      const updatedMessagesArray = updatedMessages.map((msg) => ({
-        role: msg._getType() === "human" ? "user" : "assistant",
-        content: msg.content,
-      }));
+    const response = await conversation.call({ input: content });
+    const assistantResponse = response.response || response.text;
 
-      req.session.chatHistory = updatedMessagesArray;
-    }
-    
-    res.json({response: responseText});
+    req.session.chatHistory.push({ role: "assistant", content: assistantResponse });
+
+    res.json({
+      role: "assistant",
+      content: assistantResponse,
+    });
   } catch (error) {
+    console.error("Error in /api/chat:", error);
     res.status(500).json({
       error: "An error occurred while processing your request.",
     });
   }
 });
+
 
 app.get("/api/chat/history", (req, res) => {
   if (!req.session.chatHistory) {
