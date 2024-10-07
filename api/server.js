@@ -5,7 +5,7 @@ const session = require("express-session");
 const { ChatOpenAI } = require("@langchain/openai");
 const { ConversationChain } = require("langchain/chains");
 const { BufferMemory, ChatMessageHistory } = require("langchain/memory");
-const { HumanMessage, AIMessage } = require("@langchain/core/messages");
+const { HumanMessage, AIMessage, SystemMessage } = require("@langchain/core/messages");
 
 const app = express();
 const PORT = 3000;
@@ -42,10 +42,6 @@ app.use(
 app.post("/api/chat", async (req, res) => {
   try {
     const { role, content, system } = req.body;
-
-    if (!content) {
-      return res.status(400).json({ error: "No content provided." });
-    }
 
     if (!req.session.chatHistory) {
       req.session.chatHistory = [];

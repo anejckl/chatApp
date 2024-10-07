@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
     const outgoingInput: Message = {
       role: 'user',
       content: this.userInput,
+      system: this.systemMessage,
     }
     this.userInput = '';
 

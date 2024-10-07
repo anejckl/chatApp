@@ -33,7 +33,7 @@ export class ChatService {
     );
   }
 
-  sendMessage(input: Message, system?: string): Observable<Message> {
+  sendMessage(input: Message): Observable<Message> {
     return this._httpService.post<Message>(
       `${this.apiUrl}/chat`,
       input,
