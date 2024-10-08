@@ -3,6 +3,7 @@
     "INPUT": "Ask your question",
     "MODEL": {
       "ADD-SYS-MESSAGE": "Add a system message/prompt",
+      "INCULED-SYS-MESSAGE": "Prompt",
       "NAME": "Model name",
       "SYS-MESSAGE": "System prompt",
       "TEMPERATURE": "Temperature",

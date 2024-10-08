@@ -3,6 +3,7 @@
     "INPUT": "Vprašaj me karkoli",
     "MODEL": {
       "ADD-SYS-MESSAGE": "Dodaj sistemsko sporočilo",
+      "INCULED-SYS-MESSAGE": "Ukaz",
       "NAME": "Ime modela",
       "SYS-MESSAGE": "Sistemsko sporočilo",
       "TEMPERATURE": "Temperature",

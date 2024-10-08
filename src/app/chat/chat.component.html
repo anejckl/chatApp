@@ -38,7 +38,7 @@
             <app-settings-card></app-settings-card>
         </div>
         <div class="system-card">
-            <app-system-message-card [(systemMessage)]="systemMessage"></app-system-message-card>
+            <app-system-message-card (prompt)="onPromptsChange($event)"></app-system-message-card>
         </div>
     </div>
 </div>
