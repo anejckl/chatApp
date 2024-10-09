@@ -48,7 +48,14 @@ app.post("/api/chat", async (req, res) => {
     }
 
     if (system) {
-      req.session.chatHistory = [{ role: "system", content: system }];
+      const existingSystemMessageIndex = req.session.chatHistory.findIndex(
+        (msg) => msg.role === "system"
+      );
+      if (existingSystemMessageIndex !== -1) {
+        req.session.chatHistory[existingSystemMessageIndex].content = system;
+      } else {
+        req.session.chatHistory.unshift({ role: "system", content: system });
+      }
     }
 
     if (role === "user") {
