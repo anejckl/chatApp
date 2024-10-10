@@ -14,18 +14,12 @@ export class SystemMessageCardComponent {
 
   private _snackBarService = inject(SnackbarService);
 
-  public isHidden = true;
-
   public addPrompt() {
-    if (this.systemMessageInput.trim() === '') {
-      this._snackBarService.openSnackBar('Please enter a system prompt.');
-      return;
-    }
-
     if (this.prompts.length >= 2) {
       this._snackBarService.openSnackBar('You can only add up to two prompts.');
       return;
     }
+
     this.prompts.push(this.systemMessageInput.trim());
     this.prompt.emit(this.prompts);
     this._snackBarService.openSnackBar('Successfully added system prompt.');
