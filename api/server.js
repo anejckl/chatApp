@@ -64,14 +64,7 @@ app.post('/api/chat', async (req, res) => {
     const { role, content, system } = req.body;
 
     if (system) {
-      const systemMsgIndex = req.session.chatHistory.findIndex(
-        (msg) => msg.role === 'system'
-      );
-      if (systemMsgIndex !== -1) {
-        req.session.chatHistory[systemMsgIndex].content = system;
-      } else {
-        req.session.chatHistory.unshift({ role: 'system', content: system });
-      }
+      req.session.chatHistory.push({ role: 'system', content: system });
     }
 
     if (role === 'user') {
