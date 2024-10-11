@@ -1,84 +1,91 @@
-/* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-$dark-primary: mat.define-palette(mat.$blue-grey-palette);
+$dark-primary: mat.define-palette(mat.$grey-palette);
 $dark-accent: mat.define-palette(mat.$light-blue-palette, A200, A100, A400);
 $dark-warn: mat.define-palette(mat.$red-palette);
 
-$dark-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: $dark-primary,
-      accent: $dark-accent,
-      warn: $dark-warn,
-      background: mat.get-color-from-palette($dark-primary, 900),
-      surface: mat.get-color-from-palette($dark-primary, 800),
-    ),
-    typography: mat.define-typography-config(),
-  )
-);
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $dark-primary,
+    accent: $dark-accent,
+    warn: $dark-warn,
+    background: mat.get-color-from-palette($dark-primary, 900),
+    surface: mat.get-color-from-palette($dark-primary, 800),
+  ),
+  typography: mat.define-typography-config(),
+));
+
+:root {
+  --sender-card-bg: #cccccc;
+  --receiver-card-bg: #e0e0e0;
+}
 
 body.dark-theme {
-  background-color: mat.get-color-from-palette(
-    $dark-primary,
-    900
-  );
-  color: mat.get-color-from-palette(
-    mat.$grey-palette,
-    50
-  );
+  $background-color: mat.get-color-from-palette($dark-primary, 900);
+  $surface-color: mat.get-color-from-palette($dark-primary, 800);
+  $text-color: mat.get-color-from-palette(mat.$grey-palette, 50);
+  $icon-color: $text-color;
+  $divider-color: mat.get-color-from-palette(mat.$grey-palette, 700);
+  $link-color: mat.get-color-from-palette(mat.$light-blue-palette, A200);
+  $link-hover-color: mat.get-color-from-palette(mat.$light-blue-palette, A400);
+
+  --sender-card-bg: #0b78dd;
+  --receiver-card-bg: #0b78dd;
+
+  background-color: $background-color;
+  color: $text-color;
 
   @include mat.all-component-themes($dark-theme);
 
   .mat-toolbar {
-    background-color: mat.get-color-from-palette($dark-primary, 800);
-    color: mat.get-color-from-palette(mat.$grey-palette, 50);
+    background-color: $surface-color;
+    color: $text-color;
   }
 
-  .mat-sidenav {
-    background-color: mat.get-color-from-palette($dark-primary, 900);
-    color: mat.get-color-from-palette(mat.$grey-palette, 50);
-  }
-
+  .mat-sidenav,
   .mat-sidenav-container {
-    background-color: mat.get-color-from-palette($dark-primary, 900);
+    background-color: $background-color;
+    color: $text-color;
   }
 
   .mat-nav-list a {
-    color: mat.get-color-from-palette(mat.$grey-palette, 50);
+    color: $text-color;
   }
 
   .mat-icon {
-    color: mat.get-color-from-palette(mat.$grey-palette, 50);
+    color: $icon-color;
   }
 
   button {
-    color: mat.get-color-from-palette(mat.$grey-palette, 50);
+    color: $text-color;
   }
 
   mat-card {
-    background-color: mat.get-color-from-palette($dark-primary, 800);
-    color: mat.get-color-from-palette(mat.$grey-palette, 50);
+    background-color: $surface-color;
+    color: $text-color;
   }
 
   mat-divider {
-    background-color: mat.get-color-from-palette(mat.$grey-palette, 700);
+    background-color: $divider-color;
   }
 
   a {
-    color: mat.get-color-from-palette(mat.$light-blue-palette, A200);
+    color: $link-color;
     text-decoration: none;
   }
 
   a:hover {
-    color: mat.get-color-from-palette(mat.$light-blue-palette, A400);
+    color: $link-hover-color;
   }
 }

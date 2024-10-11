@@ -82,8 +82,8 @@ app.post('/api/chat', async (req, res) => {
     const memory = new BufferMemory({ chatHistory: new ChatMessageHistory(historyMessages) });
     const conversation = new ConversationChain({ llm: model, memory });
 
-    const response = await conversation.call({ input: content });
-    const assistantContent = response.response || response.text;
+    const assistant = await conversation.call({ input: content });
+    const assistantContent = assistant.response;
 
     req.session.chatHistory.push({ role: 'assistant', content: assistantContent });
 

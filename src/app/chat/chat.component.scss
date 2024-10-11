@@ -45,12 +45,12 @@ mat-card {
 }
 
 .sender mat-card {
-  background-color: #f1f1f1;
+  background-color: var(--sender-card-bg);;
   border-bottom-right-radius: 0;
 }
 
 .receiver mat-card {
-  background-color: #f1f1f1;
+  background-color: var(--receiver-card-bg);;
   border-bottom-left-radius: 0;
 }
 
