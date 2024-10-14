@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Message } from '../models/messages.models';
 import { ChatService } from '../services/chat.service';
+import { toMessage } from './utility/message-convert';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -28,11 +29,7 @@ export class ChatComponent implements OnInit {
     if(this.userInput.trim() == '') { return; }
     const systemMessage = this.systemPrompts.join();
 
-    const outgoingInput: Message = {
-      role: 'user',
-      content: this.userInput,
-      system: systemMessage,
-    }
+    const outgoingInput = toMessage('user', this.userInput, systemMessage);
   
     this.messages.push({
       role: 'user',
