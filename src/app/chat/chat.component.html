@@ -3,8 +3,9 @@
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
-                    <span>{{'CHAT.MODEL.TITLE' | transloco}} <mat-icon
-                            class="icon-spacing">construction</mat-icon></span>
+                    <span>
+                        {{'CHAT.MODEL.TITLE' | transloco}}<mat-icon class="icon-spacing">construction</mat-icon>
+                    </span>
                 </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider>
@@ -38,7 +39,7 @@
             <app-settings-card></app-settings-card>
         </div>
         <div class="system-card">
-            <app-system-message-card [(systemMessage)]="systemMessage"></app-system-message-card>
+            <app-system-message-card (prompt)="onPromptsChange($event)"></app-system-message-card>
         </div>
     </div>
 </div>

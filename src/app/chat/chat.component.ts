@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Message } from '../models/messages.models';
 import { ChatService } from '../services/chat.service';
+import { toMessage } from './utility/message-convert';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -9,32 +10,36 @@ import { ChatService } from '../services/chat.service';
 export class ChatComponent implements OnInit {
   messages: Message[] = [];
   userInput: string = '';
-  systemMessage: string = '';
+  public systemPrompts: string[] = [];
 
 
   private _chatService = inject(ChatService);
 
   ngOnInit() {
-    this._chatService.getChatHistory().subscribe((messages) => {
-      this.messages = messages;
-    });
+      this._chatService.getChatHistory().subscribe((messages) => {
+        this.messages = messages.filter((message) => message.role !== 'system');
+      });
+  }
+
+  public onPromptsChange(prompts: string[]): void {
+    this.systemPrompts = prompts;
   }
   
   public sendMessage(): void {
     if(this.userInput.trim() == '') { return; }
+    const systemMessage = this.systemPrompts.join();
 
-    const outgoingInput = this.userInput;
-    this.userInput = '';
-
+    const outgoingInput = toMessage('user', this.userInput, systemMessage);
+  
     this.messages.push({
       role: 'user',
-      content: outgoingInput,
+      content: this.userInput,
     });
-
+    this.userInput = '';
     this._chatService.sendMessage(outgoingInput).subscribe((response) => {
           this.messages.push({
             role: 'assistant',
-            content: response.response,
+            content: response.content,
           });
       });
   }

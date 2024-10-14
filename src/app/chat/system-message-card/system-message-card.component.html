@@ -1,25 +1,51 @@
-<mat-card>
+<mat-card class="mat-card-spacing">
     <mat-card-header>
         <mat-card-title>
-            <span>{{'CHAT.MODEL.SYS-MESSAGE' | transloco}} <mat-icon class="icon-spacing">quickreply</mat-icon></span>
+            <span>
+                {{ 'CHAT.MODEL.SYS-MESSAGE' | transloco }}
+                <mat-icon class="icon-spacing">quickreply</mat-icon>
+            </span>
         </mat-card-title>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
         <div class="user-input">
             <mat-form-field appearance="outline">
-                <textarea
-                    matInput
-                    [placeholder]="'CHAT.MODEL.ADD-SYS-MESSAGE' | transloco"
-                    [(ngModel)]="systemMessage"
-                    cdkTextareaAutosize
-                    cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="20">
-                </textarea>
+                <textarea matInput #promptInput [(ngModel)]="systemMessageInput"
+                    placeholder="{{ 'CHAT.MODEL.ADD-SYS-MESSAGE' | transloco }}" cdkTextareaAutosize
+                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="20"></textarea>
             </mat-form-field>
-            <button mat-button (click)="emitSystemMessage(systemMessage)">
+            <button mat-button [disabled]="!systemMessageInput" (click)="addPrompt()">
                 <mat-icon>reply</mat-icon>
             </button>
         </div>
     </mat-card-content>
 </mat-card>
+
+<div *ngFor="let prompt of prompts; let i = index">
+    <mat-card class="mat-card-spacing">
+        <mat-card-header>
+            <mat-card-title>
+                <span>
+                    {{ 'CHAT.MODEL.INCLUDED-SYS-MESSAGE' | transloco }} {{ i + 1 }}
+                    <mat-icon class="icon-spacing">lightbulb</mat-icon>
+                </span>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <div class="system-prompt">
+                <mat-form-field appearance="outline">
+                    <textarea matInput [value]="prompt" #promptUpdate cdkTextareaAutosize cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="20"></textarea>
+                </mat-form-field>
+                <button mat-button [disabled]="!promptUpdate.value" (click)="updatePrompt(promptUpdate.value, prompt)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-button color="warn" (click)="removePrompt(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
