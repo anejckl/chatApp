@@ -5,8 +5,12 @@ const session = require("express-session");
 const { ChatOpenAI } = require("@langchain/openai");
 const { ConversationChain } = require("langchain/chains");
 const { BufferMemory, ChatMessageHistory } = require("langchain/memory");
-const { HumanMessage, AIMessage, SystemMessage } = require("@langchain/core/messages");
-
+const {
+  HumanMessage,
+  AIMessage,
+  SystemMessage,
+} = require("@langchain/core/messages");
+const { sys } = require("typescript");
 
 const app = express();
 const PORT = 3000;
@@ -50,56 +54,100 @@ app.use((req, res, next) => {
 const mapChatHistory = (chatHistory) =>
   chatHistory.map((msg) => {
     switch (msg.role) {
-      case 'system':
+      case "system":
         return new SystemMessage(msg.content);
-      case 'assistant':
+      case "assistant":
         return new AIMessage(msg.content);
       default:
         return new HumanMessage(msg.content);
     }
   });
 
-app.post('/api/chat', async (req, res) => {
+app.post("/api/chat", async (req, res) => {
   try {
-    const { role, content, system } = req.body;
+    const { role, content } = req.body;
 
-    if (system) {
-      req.session.chatHistory.push({ role: 'system', content: system });
-    }
-
-    if (role === 'user') {
-      req.session.chatHistory.push({ role: 'user', content });
+    if (role === "user") {
+      req.session.chatHistory.push({ role: "user", content });
     }
 
     const historyMessages = mapChatHistory(req.session.chatHistory);
-    const memory = new BufferMemory({ chatHistory: new ChatMessageHistory(historyMessages) });
+    const memory = new BufferMemory({
+      chatHistory: new ChatMessageHistory(historyMessages),
+    });
     const conversation = new ConversationChain({ llm: model, memory });
 
     const assistant = await conversation.call({ input: content });
     const assistantContent = assistant.response;
 
-    req.session.chatHistory.push({ role: 'assistant', content: assistantContent });
+    req.session.chatHistory.push({
+      role: "assistant",
+      content: assistantContent,
+    });
 
     res.json({
-      role: 'assistant',
+      role: "assistant",
       content: assistantContent,
       sessionExpired: req.session.sessionExpired,
     });
   } catch (error) {
-    console.error('Error in /api/chat:', error);
-    res.status(500).json({ error: 'An error occurred while processing your request.' });
+    console.error("Error in /api/chat:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing your request." });
   }
 });
 
-app.get('/api/chat/history', (req, res) => {
+app.get("/api/chat/history", (req, res) => {
   res.json(req.session.chatHistory || []);
 });
 
-app.get('/api/model', (req, res) => {
+app.post("/api/chat/history/system", (req, res) => {
+  const { systemMessage, action, oldSysMessage } = req.body;
+  const indexOfSysMsg = req.session.chatHistory.findIndex(
+    (msg) =>
+      msg.role === "system" &&
+      msg.content.trim().toLowerCase() ===
+      (oldSysMessage ? oldSysMessage.trim().toLowerCase() : systemMessage.trim().toLowerCase())
+  );
+
+  switch (action) {
+    case "add":
+      if (indexOfSysMsg == -1) {
+        req.session.chatHistory.push({
+          role: "system",
+          content: systemMessage,
+        });
+        return res.json({ success: true });
+      }
+      return res.json({ success: false });
+
+    case "update":
+      if (indexOfSysMsg === -1) {
+        return res.json({ success: false });
+      }
+
+      req.session.chatHistory[indexOfSysMsg].content = systemMessage;
+      return res.json({ success: true });
+
+    case "remove":
+      if (indexOfSysMsg == -1) {
+        return res.status(404).json({ success: false });
+      }
+
+      req.session.chatHistory.splice(indexOfSysMsg, 1);
+      return res.json({ success: true });
+
+    default:
+      return res.json({ success: false });
+  }
+});
+
+app.get("/api/model", (req, res) => {
   res.json({ modelName: model.modelName, temperature: model.temperature });
 });
 
-app.post('/api/model/settings', (req, res) => {
+app.post("/api/model/settings", (req, res) => {
   const { modelName: newModelName, temperature: newTemperature } = req.body;
 
   if (newModelName) {

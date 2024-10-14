@@ -11,17 +11,21 @@ export class SystemMessageCardComponent implements OnInit {
   @Output() prompt = new EventEmitter<string[]>();
 
   public systemMessageInput: string = '';
-  public prompts: string[] = [];
 
   private _snackBarService = inject(SnackbarService);
   private _chatService = inject(ChatService);
 
+  public prompts: string[] = [];
+
   ngOnInit(): void {
+    this.loadPrompts();
+  }
+
+  private loadPrompts() {
     this._chatService.getChatHistory().subscribe((messages) => {
       this.prompts = messages
         .filter((message) => message.role === 'system')
         .map((message) => message.content);
-
       this.prompt.emit(this.prompts);
     });
   }
@@ -32,26 +36,33 @@ export class SystemMessageCardComponent implements OnInit {
       return;
     }
 
-    this.prompts.push(this.systemMessageInput.trim());
-    this.prompt.emit(this.prompts);
-    this._snackBarService.success('Successfully added system prompt.');
-    this.systemMessageInput = '';
+    this._chatService.updateSystemPrompt(this.systemMessageInput.trim(), 'add')
+      .subscribe(response => {
+        if (response.success) {
+          this.systemMessageInput = '';
+          this._snackBarService.info('Prompt added successfully.');
+          this.loadPrompts();
+        }
+      });
   }
 
-  public updatePrompt(index: number, newPrompt: string) {
-    if (newPrompt.trim() === '') {
-      this._snackBarService.error('Prompt cannot be empty.');
-      return;
-    }
-
-    this.prompts[index] = newPrompt.trim();
-    this.prompt.emit(this.prompts);
-    this._snackBarService.success('Successfully updated system prompt.');
+  public updatePrompt(newPrompt: string, oldPrompt: string) {
+    this._chatService.updateSystemPrompt(newPrompt, 'update', oldPrompt)
+      .subscribe(response => {
+        if (response.success) {
+          this._snackBarService.success('Successfully updated system prompt.');
+          this.loadPrompts();
+        }
+      });
   }
 
   public removePrompt(index: number) {
-    this.prompts.splice(index, 1);
-    this.prompt.emit(this.prompts);
-    this._snackBarService.info('Prompt removed.');
+    this._chatService.updateSystemPrompt(this.prompts[index], 'remove')
+      .subscribe(response => {
+        if (response.success) {
+          this._snackBarService.info('Prompt removed successfully.');
+          this.loadPrompts();
+        }
+      });
   }
 }

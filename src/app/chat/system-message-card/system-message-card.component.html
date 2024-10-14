@@ -11,11 +11,11 @@
     <mat-card-content>
         <div class="user-input">
             <mat-form-field appearance="outline">
-                <textarea matInput #promptInput [placeholder]="'CHAT.MODEL.ADD-SYS-MESSAGE' | transloco"
-                    [(ngModel)]="systemMessageInput" cdkTextareaAutosize cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="20"></textarea>
+                <textarea matInput #promptInput [(ngModel)]="systemMessageInput"
+                    placeholder="{{ 'CHAT.MODEL.ADD-SYS-MESSAGE' | transloco }}" cdkTextareaAutosize
+                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="20"></textarea>
             </mat-form-field>
-            <button mat-button [disabled]="!promptInput.value" (click)="addPrompt()">
+            <button mat-button [disabled]="!systemMessageInput" (click)="addPrompt()">
                 <mat-icon>reply</mat-icon>
             </button>
         </div>
@@ -36,10 +36,10 @@
         <mat-card-content>
             <div class="system-prompt">
                 <mat-form-field appearance="outline">
-                    <textarea matInput [value]="prompts[i]" #promptUpdate cdkTextareaAutosize cdkAutosizeMinRows="1"
+                    <textarea matInput [value]="prompt" #promptUpdate cdkTextareaAutosize cdkAutosizeMinRows="1"
                         cdkAutosizeMaxRows="20"></textarea>
                 </mat-form-field>
-                <button mat-button (click)="updatePrompt(i, promptUpdate.value)">
+                <button mat-button [disabled]="!promptUpdate.value" (click)="updatePrompt(promptUpdate.value, prompt)">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-button color="warn" (click)="removePrompt(i)">

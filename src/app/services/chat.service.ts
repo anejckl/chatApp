@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from '../models/messages.models';
 import { Model } from '../models/model.model';
+import { Response } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -31,5 +32,10 @@ export class ChatService {
   sendMessage(input: Message): Observable<Message> {
     return this._httpService.post<Message>(
       `${this.apiUrl}/chat`, input, { withCredentials: true });
+  }
+
+  updateSystemPrompt(systemMessage: string, action: 'add' | 'remove' | 'update', oldSysMessage?: string): Observable<Response> {
+    return this._httpService.post<Response>(
+      `${this.apiUrl}/chat/history/system`, { systemMessage, action, oldSysMessage }, { withCredentials: true });
   }
 }
