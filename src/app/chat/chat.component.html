@@ -1,5 +1,5 @@
 <div class="main">
-    <div class="chat-card">
+    <div class="chat-card" [ngClass]="{ 'collapsed': !isCollapsed, 'expanded': isCollapsed }">
         <mat-card>
             <mat-card-header>
                 <mat-card-title>

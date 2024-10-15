@@ -1,16 +1,12 @@
 require("dotenv").config();
 const express = require("express");
+const helmet = require("helmet");
 const cors = require("cors");
 const session = require("express-session");
 const { ChatOpenAI } = require("@langchain/openai");
 const { ConversationChain } = require("langchain/chains");
 const { BufferMemory, ChatMessageHistory } = require("langchain/memory");
-const {
-  HumanMessage,
-  AIMessage,
-  SystemMessage,
-} = require("@langchain/core/messages");
-const { sys } = require("typescript");
+const { HumanMessage, AIMessage, SystemMessage, } = require("@langchain/core/messages");
 
 const app = express();
 const PORT = 3000;
@@ -28,6 +24,7 @@ const model = new ChatOpenAI({
   temperature: 0.7,
 });
 
+app.use(helmet());
 app.use(cors({ origin: ORIGIN, credentials: true }));
 app.use(express.json());
 app.use(

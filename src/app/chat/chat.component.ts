@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Message } from '../models/messages.models';
 import { ChatService } from '../services/chat.service';
-import { toMessage } from './utility/message-convert';
+import { toMessage } from '../utility/message-convert';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -11,6 +11,8 @@ export class ChatComponent implements OnInit {
   messages: Message[] = [];
   userInput: string = '';
   public systemPrompts: string[] = [];
+
+  @Input() isCollapsed!: boolean;
 
 
   private _chatService = inject(ChatService);

@@ -8,8 +8,16 @@
 }
 
 .chat-card {
-  width: 60%;
+  transition: width 0.3s ease;
   box-sizing: border-box;
+}
+
+.chat-card.collapsed {
+  width: 60%;
+}
+
+.chat-card.expanded {
+  width: 65%;
 }
 
 .icon-spacing {

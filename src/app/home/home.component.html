@@ -37,7 +37,7 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <app-dashboard *ngIf="currentComponent === 'dashboard'"></app-dashboard>
-        <app-chat *ngIf="currentComponent === 'chat'"></app-chat>
+        <app-chat *ngIf="currentComponent === 'chat'" [isCollapsed]="isCollapsed"></app-chat>
         <app-help *ngIf="currentComponent === 'help'"></app-help>
         <app-settings *ngIf="currentComponent === 'settings'"></app-settings>
 
