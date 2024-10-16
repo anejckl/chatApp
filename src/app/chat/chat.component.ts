@@ -14,7 +14,6 @@ export class ChatComponent implements OnInit {
 
   @Input() isCollapsed!: boolean;
 
-
   private _chatService = inject(ChatService);
 
   ngOnInit() {
@@ -29,9 +28,8 @@ export class ChatComponent implements OnInit {
   
   public sendMessage(): void {
     if(this.userInput.trim() == '') { return; }
-    const systemMessage = this.systemPrompts.join();
 
-    const outgoingInput = toMessage('user', this.userInput, systemMessage);
+    const outgoingInput = toMessage('user', this.userInput);
   
     this.messages.push({
       role: 'user',
