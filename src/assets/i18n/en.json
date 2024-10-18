@@ -5,7 +5,7 @@
       "ADD-SYS-MESSAGE": "Add a system message/prompt",
       "INCLUDED-SYS-MESSAGE": "Prompt",
       "NAME": "Model name",
-      "SYS-MESSAGE": "System prompt (Max 2)",
+      "SYS-MESSAGE": "System prompt",
       "TEMPERATURE": "Temperature",
       "TITLE": "Chatbot app - Project",
       "TUNE": "Model settings"

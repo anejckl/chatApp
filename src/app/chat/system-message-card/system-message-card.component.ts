@@ -31,8 +31,8 @@ export class SystemMessageCardComponent implements OnInit {
   }
 
   public addPrompt() {
-    if (this.prompts.length >= 2) {
-      this._snackBarService.error('You can only add up to two prompts.');
+    if (this.prompts.length >= 1) {
+      this._snackBarService.error('You can only add one prompt.');
       return;
     }
 

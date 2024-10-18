@@ -5,7 +5,7 @@
       "ADD-SYS-MESSAGE": "Dodaj sistemsko sporočilo",
       "INCLUDED-SYS-MESSAGE": "Ukaz",
       "NAME": "Ime modela",
-      "SYS-MESSAGE": "Sistemsko sporočilo (Max 2)",
+      "SYS-MESSAGE": "Sistemsko sporočilo",
       "TEMPERATURE": "Temperature",
       "TITLE": "Chatbot aplikacija - Projekt",
       "TUNE": "Nastavitve modela"

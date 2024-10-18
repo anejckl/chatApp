@@ -6,17 +6,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SnackbarService {
     private _snackBar = inject(MatSnackBar);
-    private actionOK = 'OK'
 
-    public error(message: string) {
-      return this._snackBar.open(message, this.actionOK, {panelClass: ['snackbar-error']});
+    public error(message: string, action?: string) {
+      return this._snackBar.open(message, action, {panelClass: ['snackbar-error']});
     }
   
-    public success(message: string) {
-      return this._snackBar.open(message, this.actionOK, {panelClass: ['snackbar-success']});
+    public success(message: string, action?: string) {
+      return this._snackBar.open(message, action, {panelClass: ['snackbar-success']});
     }
   
-    public info(message: string) {
-      return this._snackBar.open(message, this.actionOK, {panelClass: ['snackbar-info']});
+    public info(message: string, action?: string) {
+      return this._snackBar.open(message, action, {panelClass: ['snackbar-info']});
     }
 }

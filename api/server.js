@@ -32,7 +32,7 @@ app.use(
     secret: SECRET_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, maxAge: 3600000 }, // 1 hour in milliseconds
+    cookie: { secure: false, maxAge: 120000 }, // 1 hour in milliseconds
   })
 );
 
@@ -40,11 +40,10 @@ app.use((req, res, next) => {
   if (!req.session.isInitialized) {
     req.session.isInitialized = true;
     req.session.chatHistory = [];
-    req.session.sessionExpired = true;
   } else {
-    req.session.sessionExpired = false;
     req.session.chatHistory = req.session.chatHistory || [];
   }
+  req.session.expiresAt = Date.now() + req.session.cookie.maxAge;
   next();
 });
 
@@ -85,7 +84,7 @@ app.post("/api/chat", async (req, res) => {
     res.json({
       role: "assistant",
       content: assistantContent,
-      sessionExpired: req.session.sessionExpired,
+      sessionExpire: req.session.expiresAt - Date.now(),
     });
   } catch (error) {
     console.error("Error in /api/chat:", error);
