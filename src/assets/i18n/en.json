@@ -15,8 +15,9 @@
     "CHAT": "Chatbot",
     "DASHBOARD": "Dashboard",
     "HELP": "Help",
+    "LOGIN": "Login",
     "SETTINGS": "Settings",
-    "TITLE": "AI chat"
+    "TITLE": "AI. chat"
   },
   "SETTINGS": {
     "CHOOSE-LANG": "Choose language",

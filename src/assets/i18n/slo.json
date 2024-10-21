@@ -15,8 +15,9 @@
     "CHAT": "Chatbot",
     "DASHBOARD": "Nadzorna plošča",
     "HELP": "Pomoč",
+    "LOGIN": "Prijava",
     "SETTINGS": "Nastavitve",
-    "TITLE": "AI chat"
+    "TITLE": "AI. chat"
   },
   "SETTINGS": {
     "CHOOSE-LANG": "Izberi jezik",

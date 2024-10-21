@@ -13,8 +13,8 @@ mat-sidenav-container {
 .menu-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 10px;
+  justify-content: flex-start;
+  padding: 16px;
 
   .menu-title {
     font-size: 1.5rem;
@@ -27,12 +27,6 @@ mat-sidenav-container {
 
 mat-sidenav {
   padding-top: 0;
-  
-
-  .header {
-    vertical-align: middle;
-    align-items: center;
-  }
 
   .entry {
     display: flex;
@@ -40,9 +34,13 @@ mat-sidenav {
     gap: 1rem;
     padding: 0.75rem;
   }
+
+  mat-nav-list {
+    padding: 0;
+  }
 }
 
 mat-sidenav-content {
-    width: 100%;
-    padding: 0;
+  width: 100%;
+  padding: 0;
 }

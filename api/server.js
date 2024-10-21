@@ -32,7 +32,7 @@ app.use(
     secret: SECRET_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, maxAge: 120000 }, // 1 hour in milliseconds
+    cookie: { secure: false, maxAge: 3600000 }, // 1 hour in milliseconds
   })
 );
 
