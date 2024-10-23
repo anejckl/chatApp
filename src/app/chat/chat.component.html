@@ -4,27 +4,39 @@
             <mat-card-header>
                 <mat-card-title>
                     <span>
-                        {{'CHAT.MODEL.TITLE' | transloco}}<mat-icon class="icon-spacing">construction</mat-icon>
+                        {{ 'CHAT.MODEL.TITLE' | transloco }}<mat-icon class="icon-spacing">construction</mat-icon>
                     </span>
                 </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider>
             <mat-card-content>
                 <div class="chat-container">
-                    <div class="message" *ngFor="let message of messages"
-                        [ngClass]="{ 'sender': message.role === 'user', 'receiver': message.role === 'assistant' }">
+                    <div class="message" *ngFor="let message of messages" [ngClass]="{
+                'sender': message.role === 'user',
+                'receiver': message.role === 'assistant'
+              }">
                         <mat-card>
                             <mat-card-content>
                                 {{ message.content }}
                             </mat-card-content>
                         </mat-card>
                     </div>
+
+                    <div class="message receiver typing" *ngIf="isTyping">
+                        <mat-card>
+                            <mat-card-content>
+                                <div class="typing-indicator">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
                     <mat-divider *ngIf="messages.length > 0"></mat-divider>
                     <div class="user-input">
                         <mat-form-field appearance="outline">
                             <textarea matInput [placeholder]="'CHAT.INPUT' | transloco" [(ngModel)]="userInput"
-                                cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="20">
-                            </textarea>
+                                cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="20"></textarea>
                         </mat-form-field>
                         <button mat-button [disabled]="!userInput" (click)="sendMessage()">
                             <mat-icon>reply</mat-icon>

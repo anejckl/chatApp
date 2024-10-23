@@ -53,12 +53,12 @@ mat-card {
 }
 
 .sender mat-card {
-  background-color: var(--sender-card-bg);;
+  background-color: var(--sender-card-bg);
   border-bottom-right-radius: 0;
 }
 
 .receiver mat-card {
-  background-color: var(--receiver-card-bg);;
+  background-color: var(--receiver-card-bg);
   border-bottom-left-radius: 0;
 }
 
@@ -75,4 +75,40 @@ mat-form-field {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 24px;
+
+  span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+  }
+
+  span:nth-child(1) {
+    animation-delay: -0.32s;
+  }
+
+  span:nth-child(2) {
+    animation-delay: -0.16s;
+  }
+}
+
+@keyframes typing {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
 }

@@ -46,7 +46,7 @@
       <div class="login-container">
         <mat-divider></mat-divider>
         <mat-nav-list>
-          <a mat-list-item (click)="showComponent('login')">
+          <a mat-list-item (click)="openDialog()">
             <span class="entry">
               <mat-icon>login</mat-icon>
               <span *ngIf="!isCollapsed">{{ 'HOME.LOGIN' | transloco }}</span>
@@ -60,7 +60,6 @@
       <app-chat *ngIf="currentComponent === 'chat'" [isCollapsed]="isCollapsed"></app-chat>
       <app-help *ngIf="currentComponent === 'help'"></app-help>
       <app-settings *ngIf="currentComponent === 'settings'"></app-settings>
-      <app-login *ngIf="currentComponent === 'login'"></app-login>
   
       <router-outlet></router-outlet>
     </mat-sidenav-content>

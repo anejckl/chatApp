@@ -1,6 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, inject, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { LoginComponent } from '../login/login.component';
 import { ThemeService } from '../services/theme.service';
 
 @Component({
@@ -18,6 +20,8 @@ export class HomeComponent {
   isCollapsed = false;
 
   currentComponent: string = 'home';
+
+  readonly dialog = inject(MatDialog);
 
 
   ngOnInit() {
@@ -42,5 +46,13 @@ export class HomeComponent {
 
   showComponent(currentComponent: string) {
     this.currentComponent = currentComponent;
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(LoginComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
