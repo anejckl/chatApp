@@ -3,6 +3,8 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { LoginComponent } from '../login/login.component';
+import { User } from '../models/auth.models';
+import { AuthenticationService } from '../services/authentication.service';
 import { ThemeService } from '../services/theme.service';
 
 @Component({
@@ -12,6 +14,7 @@ import { ThemeService } from '../services/theme.service';
 })
 export class HomeComponent {
   private _themeService = inject(ThemeService);
+  private _authService = inject(AuthenticationService);
   private observer = inject(BreakpointObserver);
 
   @ViewChild(MatSidenav)
@@ -20,9 +23,14 @@ export class HomeComponent {
   isCollapsed = false;
 
   currentComponent: string = 'home';
-
+  
+  public user: User | null = null;
   readonly dialog = inject(MatDialog);
+  public currentUser = this._authService.currentUser$.subscribe(user => {
+    this.user = user;
+  });
 
+  
 
   ngOnInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
@@ -50,9 +58,8 @@ export class HomeComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(LoginComponent);
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log(result);
     });
   }
 }

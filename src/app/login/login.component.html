@@ -1,6 +1,44 @@
-<mat-dialog-content>
+<div class="main">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{'LOGIN.USERNAME-MAIL' | transloco}}</mat-label>
+            <input matInput placeholder="ai@chat.com" formControlName="username" required />
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                {{'LOGIN.USER-EMAIL.REQUIRED' | transloco}} <strong>{{'LOGIN.REQUIRED' | transloco}}</strong>
+            </mat-error>
+        </mat-form-field>
 
-</mat-dialog-content>
-<mat-dialog-actions>
-    
-</mat-dialog-actions>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{'LOGIN.PASSWORD' | transloco}}</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required />
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                {{'LOGIN.PASS.REQUIRED' | transloco}} <strong>{{'LOGIN.REQUIRED' | transloco}}</strong>
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+                {{'LOGIN.PASS-MIN-LENGTH' | transloco}}
+            </mat-error>
+        </mat-form-field>
+
+        <div class="options-container">
+            <mat-checkbox formControlName="rememberMe" class="remember-me">
+                {{'LOGIN.REMEMBER-ME' | transloco}}
+            </mat-checkbox>
+        </div>
+
+        <div class="button-container">
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading">
+                <mat-icon *ngIf="!isLoading">login</mat-icon>
+                <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="20"
+                    color="accent"></mat-progress-spinner>
+                <span *ngIf="!isLoading">{{'LOGIN.BUTTON-LOG' | transloco}}</span>
+            </button>
+
+            <button mat-raised-button color="accent" type="submit" (click)="openDialog()" [disabled]="isLoading">
+                <mat-icon *ngIf="!isLoading">person</mat-icon>
+                <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="20"
+                    color="primary"></mat-progress-spinner>
+                <span *ngIf="!isLoading">{{'LOGIN.BUTTON-REG' | transloco}}</span>
+            </button>
+        </div>
+    </form>
+</div>

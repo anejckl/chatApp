@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "start-backend": "node --env-file=api/.env api/server.js -",
+    "start-backend": "concurrently \"node --env-file=api/.env api/database.js\" \"node --trace-deprecation --env-file=api/.env api/server.js\"",
     "start:all": "concurrently \"npm run start\" \"npm run start-backend\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -29,6 +29,7 @@
     "openai": "^4.67.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "whatwg-url": "^14.0.0",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {

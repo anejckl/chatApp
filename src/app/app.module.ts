@@ -13,12 +13,24 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './login/registration/registration.component';
 import { MaterialModule } from './material/material.module';
 import { SettingsComponent } from './settings/settings.component';
 import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ChatComponent, DashboardComponent, HelpComponent, SettingsComponent, SettingsCardComponent, SystemMessageCardComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    ChatComponent,
+    DashboardComponent,
+    HelpComponent,
+    SettingsComponent,
+    SettingsCardComponent,
+    SystemMessageCardComponent,
+    LoginComponent,
+    RegistrationComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

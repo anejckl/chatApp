@@ -46,10 +46,26 @@
       <div class="login-container">
         <mat-divider></mat-divider>
         <mat-nav-list>
-          <a mat-list-item (click)="openDialog()">
+          <a mat-list-item (click)="openDialog()" *ngIf="!user">
             <span class="entry">
               <mat-icon>login</mat-icon>
               <span *ngIf="!isCollapsed">{{ 'HOME.LOGIN' | transloco }}</span>
+            </span>
+          </a>
+        </mat-nav-list>
+        <mat-nav-list>
+          <a mat-list-item *ngIf="user">
+            <span class="entry">
+              <mat-icon>logout</mat-icon>
+              <span *ngIf="!isCollapsed">{{ 'HOME.LOGOUT' | transloco }}</span>
+            </span>
+          </a>
+        </mat-nav-list>
+        <mat-nav-list>
+          <a mat-list-item *ngIf="user">
+            <span class="entry">
+              <mat-icon>person</mat-icon>
+              <span *ngIf="!isCollapsed">{{user.username}}</span>
             </span>
           </a>
         </mat-nav-list>

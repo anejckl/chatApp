@@ -12,9 +12,10 @@ import { toMessage } from '../utility/message-convert';
 })
 export class ChatComponent implements OnInit {
   messages: Message[] = [];
+  systemPrompts: string[] = [];
+  
   userInput: string = '';
-  public systemPrompts: string[] = [];
-  isTyping: boolean = false; // Add this line
+  isTyping: boolean = false;
 
   @Input() isCollapsed!: boolean;
 
@@ -40,30 +41,19 @@ export class ChatComponent implements OnInit {
   }
 
   public sendMessage(): void {
-    if (this.userInput.trim() === '') {
-      return;
-    }
-
     const outgoingInput = toMessage('user', this.userInput);
 
-    // Add the user's message to the messages array
     this.messages.push({
       role: 'user',
       content: this.userInput,
     });
 
-    // Clear the user input field
     this.userInput = '';
-
-    // Show the typing indicator
     this.isTyping = true;
 
-    // Send the message to the chat service
     this._chatService.sendMessage(outgoingInput).subscribe((response) => {
-      // Hide the typing indicator
       this.isTyping = false;
 
-      // Add the assistant's response to the messages array
       this.messages.push({
         role: 'assistant',
         content: response.content,
@@ -81,9 +71,12 @@ export class ChatComponent implements OnInit {
     }
 
     this.sessionExpirationTimer = timer(sessionExpire).subscribe(() => {
-      this._snackBarService.error('Your session has expired', 'Refresh').onAction().subscribe(() => {
-        location.reload();
-      });
+      this._snackBarService
+        .error('Your session has expired', 'Refresh')
+        .onAction()
+        .subscribe(() => {
+          location.reload();
+        });
     });
   }
 }

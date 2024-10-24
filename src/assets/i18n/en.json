@@ -16,8 +16,24 @@
     "DASHBOARD": "Dashboard",
     "HELP": "Help",
     "LOGIN": "Login",
+    "LOGOUT": "Logout",
     "SETTINGS": "Settings",
     "TITLE": "AI. chat"
+  },
+  "LOGIN": {
+    "BUTTON-LOG": "Login",
+    "BUTTON-REG": "Registration",
+    "PASS-MIN-LENGTH": "Password must be atleast 8 characters long",
+    "PASS": {
+      "REQUIRED": "Password is"
+    },
+    "PASSWORD": "Password",
+    "REMEMBER-ME": "Remember me",
+    "REQUIRED": "Required",
+    "USER-EMAIL": {
+      "REQUIRED": "Username or mail is"
+    },
+    "USERNAME-MAIL": "Username or mail"
   },
   "SETTINGS": {
     "CHOOSE-LANG": "Choose language",
