@@ -3,6 +3,7 @@ export interface User {
   username: string;
   email: string;
   created: string;
+  role: number;
 }
 
 export interface LoginRequest {

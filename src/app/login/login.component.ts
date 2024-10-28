@@ -45,6 +45,4 @@ export class LoginComponent implements OnInit {
       this.loginForm.markAllAsTouched();
     }
   }
-
-  openDialog() {}
 }

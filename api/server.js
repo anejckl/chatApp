@@ -4,11 +4,13 @@ const helmet = require("helmet");
 const cors = require("cors");
 const session = require("express-session");
 const { ChatOpenAI } = require("@langchain/openai");
-const { ConversationChain } = require("langchain/chains");
-const { BufferMemory, ChatMessageHistory } = require("langchain/memory");
-const { HumanMessage, AIMessage, SystemMessage, } = require("@langchain/core/messages");
 const bcrypt = require("bcrypt");
-const pool = require('./database.js');
+
+const chatRoutes = require("./endpoints/chat");
+const chatHistoryRoutes = require("./endpoints/chatHistory");
+const modelRoutes = require("./endpoints/model");
+const authRoutes = require("./endpoints/auth/auth");
+const pool = require("./database.js");
 
 const app = express();
 const PORT = 3000;
@@ -49,155 +51,15 @@ app.use((req, res, next) => {
   next();
 });
 
-const mapChatHistory = (chatHistory) =>
-  chatHistory.map((msg) => {
-    switch (msg.role) {
-      case "system":
-        return new SystemMessage(msg.content);
-      case "assistant":
-        return new AIMessage(msg.content);
-      default:
-        return new HumanMessage(msg.content);
-    }
-  });
-
-app.post("/api/chat", async (req, res) => {
-  try {
-    const { role, content } = req.body;
-
-    if (role === "user") {
-      req.session.chatHistory.push({ role: "user", content });
-    }
-
-    const historyMessages = mapChatHistory(req.session.chatHistory);
-    const memory = new BufferMemory({
-      chatHistory: new ChatMessageHistory(historyMessages),
-    });
-    const conversation = new ConversationChain({ llm: model, memory });
-
-    const assistant = await conversation.call({ input: content });
-    const assistantContent = assistant.response;
-
-    req.session.chatHistory.push({
-      role: "assistant",
-      content: assistantContent,
-    });
-
-    res.json({
-      role: "assistant",
-      content: assistantContent,
-      sessionExpire: req.session.expiresAt - Date.now(),
-    });
-  } catch (error) {
-    console.error("Error in /api/chat:", error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while processing your request." });
-  }
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
-app.get("/api/chat/history", (req, res) => {
-  res.json(req.session.chatHistory || []);
-});
-
-app.post("/api/chat/history/system", (req, res) => {
-  const { systemMessage, action, oldSysMessage } = req.body;
-  const indexOfSysMsg = req.session.chatHistory.findIndex(
-    (msg) =>
-      msg.role === "system" &&
-      msg.content.trim().toLowerCase() ===
-      (oldSysMessage ? oldSysMessage.trim().toLowerCase() : systemMessage.trim().toLowerCase())
-  );
-
-  switch (action) {
-    case "add":
-      if (indexOfSysMsg == -1) {
-        req.session.chatHistory.push({
-          role: "system",
-          content: systemMessage,
-        });
-        return res.json({ success: true });
-      }
-      return res.json({ success: false });
-
-    case "update":
-      if (indexOfSysMsg === -1) {
-        return res.json({ success: false });
-      }
-
-      req.session.chatHistory[indexOfSysMsg].content = systemMessage;
-      return res.json({ success: true });
-
-    case "remove":
-      if (indexOfSysMsg == -1) {
-        return res.status(404).json({ success: false });
-      }
-
-      req.session.chatHistory.splice(indexOfSysMsg, 1);
-      return res.json({ success: true });
-
-    default:
-      return res.json({ success: false });
-  }
-});
-
-app.get("/api/model", (req, res) => {
-  res.json({ modelName: model.modelName, temperature: model.temperature });
-});
-
-app.post("/api/model/settings", (req, res) => {
-  const { modelName: newModelName, temperature: newTemperature } = req.body;
-
-  if (newModelName) {
-    model.modelName = newModelName;
-  }
-  if (newTemperature !== undefined) {
-    model.temperature = newTemperature;
-  }
-
-  res.json({ modelName: model.modelName, temperature: model.temperature });
-});
-
-
-
-//Authentication code
-app.post("/api/login", async (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    const [rows] = await pool.execute(
-      "SELECT * FROM users WHERE username = ? OR mail = ?",
-      [username, username]
-    );
-
-    if (rows.length === 0) {
-      return res.status(401).json({ error: "Invalid credentials." });
-    }
-
-    const user = rows[0];
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ error: "Invalid credentials." });
-    }
-
-    req.session.userId = user.id;
-    req.session.username = user.username;
-    req.session.isAuthenticated = true;
-
-    res.json({
-      message: "Login successful.",
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-      },
-      sessionExpire: req.session.expiresAt - Date.now(),
-    });
-  } catch (error) {
-    res.status(500).json({ error: "An error occurred during login." });
-  }
-});
+app.use("/api/chat", chatRoutes(model));
+app.use("/api/chat/history", chatHistoryRoutes);
+app.use("/api/model", modelRoutes(model));
+app.use("/api/auth", authRoutes(pool, bcrypt));
 
 // TODO: Remove for production
 app.listen(PORT, () => {

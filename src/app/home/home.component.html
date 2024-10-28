@@ -10,7 +10,7 @@
       <div class="chat-container">
         <mat-divider></mat-divider>
         <mat-nav-list>
-          <a mat-list-item (click)="showComponent('dashboard')">
+          <a mat-list-item (click)="showComponent('dashboard')" *ngIf="isAdmin">
             <span class="entry">
               <mat-icon>house</mat-icon>
               <span *ngIf="!isCollapsed">{{ 'HOME.DASHBOARD' | transloco }}</span>
@@ -46,7 +46,7 @@
       <div class="login-container">
         <mat-divider></mat-divider>
         <mat-nav-list>
-          <a mat-list-item (click)="openDialog()" *ngIf="!user">
+          <a mat-list-item (click)="login()" *ngIf="!user">
             <span class="entry">
               <mat-icon>login</mat-icon>
               <span *ngIf="!isCollapsed">{{ 'HOME.LOGIN' | transloco }}</span>
@@ -54,7 +54,7 @@
           </a>
         </mat-nav-list>
         <mat-nav-list>
-          <a mat-list-item *ngIf="user">
+          <a mat-list-item *ngIf="user" (click)="logout()">
             <span class="entry">
               <mat-icon>logout</mat-icon>
               <span *ngIf="!isCollapsed">{{ 'HOME.LOGOUT' | transloco }}</span>
@@ -62,7 +62,7 @@
           </a>
         </mat-nav-list>
         <mat-nav-list>
-          <a mat-list-item *ngIf="user">
+          <a mat-list-item *ngIf="user" (click)="showComponent('person')">
             <span class="entry">
               <mat-icon>person</mat-icon>
               <span *ngIf="!isCollapsed">{{user.username}}</span>
@@ -76,7 +76,8 @@
       <app-chat *ngIf="currentComponent === 'chat'" [isCollapsed]="isCollapsed"></app-chat>
       <app-help *ngIf="currentComponent === 'help'"></app-help>
       <app-settings *ngIf="currentComponent === 'settings'"></app-settings>
-  
+      <app-person *ngIf="currentComponent === 'person'"></app-person>
+
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -8,7 +8,7 @@ import { LoginRequest, LoginResponse, User } from '../models/auth.models';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'http://localhost:3000/api/auth';
   private _httpService = inject(HttpClient);
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
@@ -18,16 +18,27 @@ export class AuthenticationService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
-    const url = `${this.apiUrl}/login`;
-
     return this._httpService
-      .post<LoginResponse>(url, credentials, { withCredentials: true })
+      .post<LoginResponse>(`${this.apiUrl}/login`, credentials, {
+        withCredentials: true,
+      })
       .pipe(
         tap((response) => {
           if (response && response.user) {
             this.isAuthenticatedSubject.next(true);
             this.currentUserSubject.next(response.user);
           }
+        })
+      );
+  }
+
+  logout(): Observable<void> {
+    return this._httpService
+      .post<void>(`${this.apiUrl}/logout`, { withCredentials: true })
+      .pipe(
+        tap(() => {
+          this.isAuthenticatedSubject.next(false);
+          this.currentUserSubject.next(null);
         })
       );
   }
