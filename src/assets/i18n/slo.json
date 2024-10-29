@@ -11,6 +11,14 @@
       "TUNE": "Nastavitve modela"
     }
   },
+  "DASH": {
+    "TAB-KEYS": "API ključi",
+    "TAB-USERS": "Upravljanje uporabnikov"
+  },
+  "DASHBOARD": {
+    "SUBTITLE": "Administratorski pogled",
+    "TITLE": "Nadzorna plošča"
+  },
   "HOME": {
     "CHAT": "Chatbot",
     "DASHBOARD": "Nadzorna plošča",
@@ -41,5 +49,16 @@
     "GENERAL": "Splošno",
     "LANGUAGE": "Jezik",
     "LANGUAGE-TOGGLE": "Spremeni jezik"
+  },
+  "USER-MANAGEMENT": {
+    "TABLE": {
+      "ACTIONS": "Izvedi",
+      "ACTIONS-DELETE": "Izbriši uporabnika",
+      "ACTIONS-EDIT": "Uredi uporabnika",
+      "ID": "ID",
+      "MAIL": "E-pošta",
+      "ROLE": "Vloga",
+      "USERNAME": "Uporabniško ime"
+    }
   }
 }

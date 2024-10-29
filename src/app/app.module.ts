@@ -3,13 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { SettingsCardComponent } from './chat/settings-card/settings-card.component';
 import { SystemMessageCardComponent } from './chat/system-message-card/system-message-card.component';
+import { ApiKeysComponent } from './dashboard/api-keys/api-keys.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserManagementComponent } from './dashboard/user-management/user-management.component';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -32,6 +37,8 @@ import { TranslocoRootModule } from './transloco-root.module';
     LoginComponent,
     RegistrationComponent,
     PersonComponent,
+    UserManagementComponent,
+    ApiKeysComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +49,9 @@ import { TranslocoRootModule } from './transloco-root.module';
     TranslocoRootModule,
     FormsModule,
     ReactiveFormsModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

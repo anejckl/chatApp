@@ -22,7 +22,7 @@ export class HomeComponent {
 
   currentComponent: string = 'home';
 
-  public isAdmin: boolean = false;
+  public isAdmin: boolean = true; // TODO: change to false.
 
   public user: User | null = null;
   readonly dialog = inject(MatDialog);
@@ -34,8 +34,7 @@ export class HomeComponent {
           user.username.charAt(0).toUpperCase() +
           user.username.slice(1).toLowerCase(),
       };
-      this.isAdmin = user.role === 2;
-      console.log(this.isAdmin);
+      this.isAdmin = user.role_level === 2;
     } else {
       this.user = null;
     }

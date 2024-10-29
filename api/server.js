@@ -10,7 +10,9 @@ const chatRoutes = require("./endpoints/chat");
 const chatHistoryRoutes = require("./endpoints/chatHistory");
 const modelRoutes = require("./endpoints/model");
 const authRoutes = require("./endpoints/auth/auth");
+const adminRoutes = require("./endpoints/admin/admin");
 const pool = require("./database.js");
+const admin = require("./endpoints/admin/admin");
 
 const app = express();
 const PORT = 3000;
@@ -60,6 +62,7 @@ app.use("/api/chat", chatRoutes(model));
 app.use("/api/chat/history", chatHistoryRoutes);
 app.use("/api/model", modelRoutes(model));
 app.use("/api/auth", authRoutes(pool, bcrypt));
+app.use("/api/admin", adminRoutes(pool));
 
 // TODO: Remove for production
 app.listen(PORT, () => {

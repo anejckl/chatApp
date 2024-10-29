@@ -11,6 +11,14 @@
       "TUNE": "Model settings"
     }
   },
+  "DASH": {
+    "TAB-KEYS": "API keys",
+    "TAB-USERS": "User management"
+  },
+  "DASHBOARD": {
+    "SUBTITLE": "Admin view",
+    "TITLE": "Control panel"
+  },
   "HOME": {
     "CHAT": "Chatbot",
     "DASHBOARD": "Dashboard",
@@ -41,5 +49,16 @@
     "GENERAL": "General",
     "LANGUAGE": "Language",
     "LANGUAGE-TOGGLE": "Change language"
+  },
+  "USER-MANAGEMENT": {
+    "TABLE": {
+      "ACTIONS": "Actions",
+      "ACTIONS-DELETE": "Delete user",
+      "ACTIONS-EDIT": "Edit user",
+      "ID": "ID",
+      "MAIL": "E-mail",
+      "ROLE": "Role",
+      "USERNAME": "Username"
+    }
   }
 }

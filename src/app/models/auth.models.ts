@@ -1,9 +1,9 @@
 export interface User {
   id: number;
   username: string;
-  email: string;
+  mail: string;
   created: string;
-  role: number;
+  role_level: number;
 }
 
 export interface LoginRequest {
