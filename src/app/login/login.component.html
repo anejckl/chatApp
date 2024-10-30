@@ -33,7 +33,7 @@
                 <span *ngIf="!isLoading">{{'LOGIN.BUTTON-LOG' | transloco}}</span>
             </button>
 
-            <button mat-raised-button color="accent" type="submit" [disabled]="isLoading">
+            <button mat-raised-button color="accent" (click)="openRegistration()" type="submit" [disabled]="isLoading">
                 <mat-icon *ngIf="!isLoading">person</mat-icon>
                 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="20"
                     color="primary"></mat-progress-spinner>

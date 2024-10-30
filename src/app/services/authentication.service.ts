@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { LoginRequest, LoginResponse, User } from '../models/auth.models';
+import {
+  LoginRequest,
+  LoginResponse,
+  User
+} from '../models/auth.models';
 
 @Injectable({
   providedIn: 'root',

@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginRequest, LoginResponse } from '../models/auth.models';
 import { AuthenticationService } from '../services/authentication.service';
+import { RegistrationComponent } from './registration/registration.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,6 +17,8 @@ export class LoginComponent implements OnInit {
   _authService = inject(AuthenticationService);
 
   private dialogRef = inject(MatDialogRef<LoginComponent>);
+
+  private dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -44,5 +47,17 @@ export class LoginComponent implements OnInit {
     } else {
       this.loginForm.markAllAsTouched();
     }
+  }
+
+  openRegistration(): void {
+    const dialogRef = this.dialog.open(RegistrationComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result);
+      }
+    });
   }
 }

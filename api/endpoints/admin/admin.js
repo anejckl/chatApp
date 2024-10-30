@@ -1,4 +1,6 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
+
 const router = express.Router();
 
 module.exports = (pool) => {
@@ -15,11 +17,14 @@ module.exports = (pool) => {
   });
 
   router.post("/users", async (req, res) => {
-    const { username, email, password, role_level } = req.body;
+    const { username, email, password } = req.body;
     try {
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
       const [result] = await pool.execute(
-        "INSERT INTO users (username, mail, password, role_level) VALUES (?, ?, ?, ?)",
-        [username, email, password, role_level]
+        "INSERT INTO users (username, mail, password) VALUES (?, ?, ?)",
+        [username, email, hashedPassword]
       );
 
       res.status(201).json({

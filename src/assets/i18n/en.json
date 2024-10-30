@@ -43,6 +43,18 @@
     },
     "USERNAME-MAIL": "Username or mail"
   },
+  "REGISTER": {
+    "ALREADY-HAVE-ACCOUNT": "Already have an account?",
+    "BACK-LOGIN": "Login",
+    "BUTTON": "Create account",
+    "CONFIRM-PASSWORD": "Confirm password",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Password",
+    "USERNAME": "Username"
+  },
+  "REGISTRATION": {
+    "PLACEHOLDER-USERNAME": "Donald Trump"
+  },
   "SETTINGS": {
     "CHOOSE-LANG": "Choose language",
     "DARKMODE-TOGGLE": "Dark mode",

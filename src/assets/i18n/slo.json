@@ -43,6 +43,18 @@
     },
     "USERNAME-MAIL": "Uporabniško ime ali pošta"
   },
+  "REGISTER": {
+    "ALREADY-HAVE-ACCOUNT": "Že imaš račun?",
+    "BACK-LOGIN": "Vpiši se",
+    "BUTTON": "Ustvari račun",
+    "CONFIRM-PASSWORD": "Ponovno vpiši geslo",
+    "EMAIL": "E-pošta",
+    "PASSWORD": "Geslo",
+    "USERNAME": "Uporabniški račun"
+  },
+  "REGISTRATION": {
+    "PLACEHOLDER-USERNAME": "Janez Novak"
+  },
   "SETTINGS": {
     "CHOOSE-LANG": "Izberi jezik",
     "DARKMODE-TOGGLE": "Temni način",

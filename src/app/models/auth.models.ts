@@ -21,3 +21,14 @@ export interface CheckAuthResponse {
   isAuthenticated: boolean;
   user?: User;
 }
+
+export interface RegistrationRequest {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface RegistrationResponse {
+  message: string;
+  user: User;
+}

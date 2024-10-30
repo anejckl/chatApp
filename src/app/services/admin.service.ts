@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../models/auth.models';
+import { RegistrationRequest, RegistrationResponse, User } from '../models/auth.models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +16,15 @@ export class AdminService {
 
   deleteUser(id: number) {
     return this._httpService.delete<string>(`${this.apiUrl}/users/${id}`);
+  }
+
+  register(data: RegistrationRequest): Observable<RegistrationResponse> {
+    return this._httpService.post<RegistrationResponse>(
+      `${this.apiUrl}/users`,
+      data,
+      {
+        withCredentials: true,
+      }
+    );
   }
 }
