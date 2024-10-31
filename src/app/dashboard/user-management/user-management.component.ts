@@ -38,7 +38,7 @@ export class UserManagementComponent implements OnInit {
   deleteUser(user: User): void {
     this._adminService.deleteUser(user.id).subscribe((response) => {
       this._snackBarService.success(response, 'OK');
-      this.users = this.users.filter((u) => u.id !== user.id);
+      this.users = this.users.filter((user) => user.id !== user.id);
       this.dataSource.data = this.users;
     });
   }

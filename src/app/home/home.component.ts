@@ -1,7 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Subscription } from 'rxjs';
 import { LoginComponent } from '../login/login.component';
 import { User } from '../models/auth.models';
 import { AuthenticationService } from '../services/authentication.service';
@@ -11,22 +12,76 @@ import { AuthenticationService } from '../services/authentication.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
-  private _authService = inject(AuthenticationService);
-  private observer = inject(BreakpointObserver);
+export class HomeComponent implements OnInit, OnDestroy {
+  private readonly _authService = inject(AuthenticationService);
+  private readonly observer = inject(BreakpointObserver);
+  private currentUserSubscription!: Subscription;
 
-  @ViewChild(MatSidenav)
-  sidenav!: MatSidenav;
-  isMobile = true;
-  isCollapsed = false;
+  @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
-  currentComponent: string = 'home';
-
-  public isAdmin: boolean = true; // TODO: Change to this.isAdmin = false
-
+  public isMobile = true;
+  public isCollapsed = false;
+  public currentComponent: string = 'home';
+  public isAdmin: boolean = false;
   public user: User | null = null;
-  readonly dialog = inject(MatDialog);
-  public currentUser = this._authService.currentUser$.subscribe((user) => {
+
+  private readonly dialog = inject(MatDialog);
+
+  ngOnInit(): void {
+    this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
+      this.isMobile = screenSize.matches;
+    });
+
+    this.currentUserSubscription = this._authService.currentUser$.subscribe(
+      (user) => {
+        this.handleUserAuthentication(user);
+      }
+    );
+
+    this._authService.checkAuthentication().subscribe((response) => {
+      if (response.isAuthenticated) {
+        this.user != response.user;
+        this.isAdmin = this.user?.role_level === 2;
+      } else {
+        this.user = null;
+        this.isAdmin = false;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.currentUserSubscription) {
+      this.currentUserSubscription.unsubscribe();
+    }
+  }
+
+  toggleMenu(): void {
+    this.sidenav.toggle();
+    this.isCollapsed = this.isMobile ? false : !this.isCollapsed;
+  }
+
+  showComponent(currentComponent: string): void {
+    this.currentComponent = currentComponent;
+  }
+
+  login(): void {
+    const dialogRef = this.dialog.open(LoginComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Login result:', result);
+      }
+    });
+  }
+
+  logout(): void {
+    this._authService.logout().subscribe(() => {
+      this.user = null;
+      this.isAdmin = false;
+      this.currentComponent = 'home';
+    });
+  }
+
+  private handleUserAuthentication(user: User | null): void {
     if (user) {
       this.user = {
         ...user,
@@ -34,52 +89,10 @@ export class HomeComponent {
           user.username.charAt(0).toUpperCase() +
           user.username.slice(1).toLowerCase(),
       };
-      this.isAdmin = true // TODO: Change to this.isAdmin = user.role_level === 2
+      this.isAdmin = user.role_level === 2;
     } else {
-      this.user = null;
-    }
-  });
-
-  ngOnInit() {
-    this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
-      if (screenSize.matches) {
-        this.isMobile = true;
-      } else {
-        this.isMobile = false;
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.currentUser?.unsubscribe();
-  }
-
-  toggleMenu() {
-    if (this.isMobile) {
-      this.sidenav.toggle();
-      this.isCollapsed = false;
-    } else {
-      this.sidenav.open();
-      this.isCollapsed = !this.isCollapsed;
-    }
-  }
-
-  showComponent(currentComponent: string) {
-    this.currentComponent = currentComponent;
-  }
-
-  login() {
-    const dialogRef = this.dialog.open(LoginComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-    });
-  }
-
-  logout() {
-    this._authService.logout().subscribe(() => {
       this.user = null;
       this.isAdmin = false;
-      this.currentComponent = 'home';
-    });
+    }
   }
 }

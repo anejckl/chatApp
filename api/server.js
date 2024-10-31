@@ -66,5 +66,5 @@ app.use("/api/admin", adminRoutes(pool));
 
 // TODO: Remove for production
 app.listen(PORT, () => {
-  console.log(`Backend server is running on port ${PORT}`);
+  console.log(`✅ Backend server is running on port ${PORT}`);
 });

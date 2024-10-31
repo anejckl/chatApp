@@ -6,6 +6,7 @@
       "INCLUDED-SYS-MESSAGE": "Prompt",
       "NAME": "Model name",
       "SYS-MESSAGE": "System prompt",
+      "SYS-MESSAGE-MAX": "Max 1 prompt (more prompts ≠ effective)",
       "TEMPERATURE": "Temperature",
       "TITLE": "Chatbot app - Project",
       "TUNE": "Model settings"

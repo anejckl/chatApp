@@ -6,6 +6,7 @@
       "INCLUDED-SYS-MESSAGE": "Ukaz",
       "NAME": "Ime modela",
       "SYS-MESSAGE": "Sistemsko sporočilo",
+      "SYS-MESSAGE-MAX": "1 poziv največ ( več sistemskih pozivov ≠ efektivnost",
       "TEMPERATURE": "Temperature",
       "TITLE": "Chatbot aplikacija - Projekt",
       "TUNE": "Nastavitve modela"

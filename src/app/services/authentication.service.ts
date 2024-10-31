@@ -3,9 +3,10 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {
+  CheckAuthResponse,
   LoginRequest,
   LoginResponse,
-  User
+  User,
 } from '../models/auth.models';
 
 @Injectable({
@@ -21,7 +22,7 @@ export class AuthenticationService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  login(credentials: LoginRequest): Observable<LoginResponse> {
+  public login(credentials: LoginRequest): Observable<LoginResponse> {
     return this._httpService
       .post<LoginResponse>(`${this.apiUrl}/login`, credentials, {
         withCredentials: true,
@@ -36,13 +37,30 @@ export class AuthenticationService {
       );
   }
 
-  logout(): Observable<void> {
+  public logout(): Observable<void> {
     return this._httpService
-      .post<void>(`${this.apiUrl}/logout`, { withCredentials: true })
+      .post<void>(`${this.apiUrl}/logout`, {}, { withCredentials: true })
       .pipe(
         tap(() => {
           this.isAuthenticatedSubject.next(false);
           this.currentUserSubject.next(null);
+        })
+      );
+  }
+
+  public checkAuthentication(): Observable<CheckAuthResponse> {
+    return this._httpService
+      .get<CheckAuthResponse>(`${this.apiUrl}/check`, {
+        withCredentials: true,
+      })
+      .pipe(
+        tap((response) => {
+          this.isAuthenticatedSubject.next(response.isAuthenticated);
+          if (response.user) {
+            this.currentUserSubject.next(response.user);
+          } else {
+            this.currentUserSubject.next(null);
+          }
         })
       );
   }

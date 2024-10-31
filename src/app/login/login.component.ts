@@ -27,26 +27,19 @@ export class LoginComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
       ]),
-      rememberMe: new FormControl(false),
     });
   }
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      this.isLoading = true;
-      const { username, password, rememberMe } = this.loginForm.value;
+    this.isLoading = true;
 
-      const loginData: LoginRequest = { username, password };
+    const { username, password } = this.loginForm.value;
+    const loginData: LoginRequest = { username, password };
 
-      this._authService
-        .login(loginData)
-        .subscribe((response: LoginResponse) => {
-          this.isLoading = false;
-          this.dialogRef.close(response);
-        });
-    } else {
-      this.loginForm.markAllAsTouched();
-    }
+    this._authService.login(loginData).subscribe((response: LoginResponse) => {
+      this.isLoading = false;
+      this.dialogRef.close(response);
+    });
   }
 
   openRegistration(): void {

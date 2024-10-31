@@ -15,6 +15,7 @@ export interface LoginResponse {
   message: string;
   user: User;
   sessionExpire: number;
+  token: string;
 }
 
 export interface CheckAuthResponse {

@@ -33,7 +33,7 @@ module.exports = (pool, bcrypt) => {
           id: user.id,
           username: user.username,
           email: user.email,
-          role: user.role_level,
+          role_level: user.role_level,
         },
         sessionExpire: req.session.expiresAt - Date.now(),
       });
@@ -53,6 +53,22 @@ module.exports = (pool, bcrypt) => {
       res.clearCookie("connect.sid");
       res.status(200).json({ message: "Logout successful." });
     });
+  });
+
+  router.get("/check", (req, res) => {
+    if (req.session.isAuthenticated) {
+      res.json({
+        isAuthenticated: true,
+        user: {
+          id: req.session.userId,
+          username: req.session.username,
+          email: req.session.email,
+          role_level: req.session.role,
+        },
+      });
+    } else {
+      res.json({ isAuthenticated: false, user: null });
+    }
   });
 
   return router;

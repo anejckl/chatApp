@@ -19,12 +19,6 @@
             </mat-error>
         </mat-form-field>
 
-        <div class="options-container">
-            <mat-checkbox formControlName="rememberMe" class="remember-me">
-                {{'LOGIN.REMEMBER-ME' | transloco}}
-            </mat-checkbox>
-        </div>
-
         <div class="button-container">
             <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading">
                 <mat-icon *ngIf="!isLoading">login</mat-icon>
