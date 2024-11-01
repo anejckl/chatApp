@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>{{'EDIT-USER.TITLE' | transloco}}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="editUserForm">
+    <mat-form-field appearance="fill">
+      <mat-label>{{'EDIT-USER.USERNAME' | transloco}}</mat-label>
+      <input matInput formControlName="username" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{'EDIT-USER.MAIL' | transloco}}</mat-label>
+      <input matInput formControlName="mail" type="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{'EDIT-USER.ROLE' | transloco}}</mat-label>
+      <input matInput formControlName="role_level" type="number" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">{{'EDIT-USER.CANCEL' | transloco}}</button>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="!editUserForm.valid">{{'EDIT-USER.SAVE' | transloco}}</button>
+</mat-dialog-actions>

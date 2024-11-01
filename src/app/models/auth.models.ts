@@ -33,3 +33,7 @@ export interface RegistrationResponse {
   message: string;
   user: User;
 }
+
+export interface UniversalResponse {
+  message: string;
+}

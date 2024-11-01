@@ -41,6 +41,10 @@
                     <mat-icon>delete</mat-icon>
                     <span>{{'USER-MANAGEMENT.TABLE.ACTIONS-DELETE' | transloco}}</span>
                 </button>
+                <button mat-menu-item (click)="resetPassword(user)">
+                    <mat-icon>key</mat-icon>
+                    <span>{{'USER-MANAGEMENT.TABLE.ACTIONS-RESET' | transloco}}</span>
+                </button>
             </ng-template>
         </mat-menu>
 

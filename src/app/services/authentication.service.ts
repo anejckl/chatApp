@@ -39,7 +39,7 @@ export class AuthenticationService {
 
   public logout(): Observable<void> {
     return this._httpService
-      .post<void>(`${this.apiUrl}/logout`, {}, { withCredentials: true })
+      .post<void>(`${this.apiUrl}/logout`, { withCredentials: true })
       .pipe(
         tap(() => {
           this.isAuthenticatedSubject.next(false);

@@ -20,6 +20,14 @@
     "SUBTITLE": "Administratorski pogled",
     "TITLE": "Nadzorna plošča"
   },
+  "EDIT-USER": {
+    "CANCEL": "Zapri",
+    "MAIL": "E-pošta",
+    "ROLE": "Privilegij",
+    "SAVE": "Shrani",
+    "TITLE": "Uredi uporabnika",
+    "USERNAME": "Uporabniško ime"
+  },
   "HOME": {
     "CHAT": "Chatbot",
     "DASHBOARD": "Nadzorna plošča",
@@ -68,6 +76,7 @@
       "ACTIONS": "Izvedi",
       "ACTIONS-DELETE": "Izbriši uporabnika",
       "ACTIONS-EDIT": "Uredi uporabnika",
+      "ACTIONS-RESET": "Resetiraj geslo",
       "ID": "ID",
       "MAIL": "E-pošta",
       "ROLE": "Vloga",

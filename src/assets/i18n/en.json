@@ -20,6 +20,14 @@
     "SUBTITLE": "Admin view",
     "TITLE": "Control panel"
   },
+  "EDIT-USER": {
+    "CANCEL": "Cancel",
+    "MAIL": "E-mail",
+    "ROLE": "Role level",
+    "SAVE": "Save",
+    "TITLE": "Edit user",
+    "USERNAME": "Username"
+  },
   "HOME": {
     "CHAT": "Chatbot",
     "DASHBOARD": "Dashboard",
@@ -68,6 +76,7 @@
       "ACTIONS": "Actions",
       "ACTIONS-DELETE": "Delete user",
       "ACTIONS-EDIT": "Edit user",
+      "ACTIONS-RESET": "Reset password",
       "ID": "ID",
       "MAIL": "E-mail",
       "ROLE": "Role",

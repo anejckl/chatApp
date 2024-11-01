@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { User } from '../../models/auth.models';
 import { AdminService } from '../../services/admin.service';
 import { SnackbarService } from '../../services/snackbar.service';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @Component({
   selector: 'app-user-management',
@@ -25,14 +26,29 @@ export class UserManagementComponent implements OnInit {
   }
 
   fetchUsers(): void {
-    this._adminService.getUsers().subscribe((response) => {
+    this._adminService.getUsers().subscribe((response: User[]) => {
       this.users = response;
       this.dataSource.data = this.users;
     });
   }
 
   editUser(user: User): void {
+    const dialogRef = this.dialog.open(EditUserComponent, {
+      width: '400px',
+      data: user,
+    });
 
+    dialogRef.afterClosed().subscribe((updatedUser: User) => {
+      this._adminService
+        .updateUser(user.id, updatedUser)
+        .subscribe((response) => {
+          this._snackBarService.success(response.message, 'OK');
+
+          this.dataSource.data = this.users.map((u) =>
+            u.id === user.id ? { ...u, ...updatedUser } : u
+          );
+        });
+    });
   }
 
   deleteUser(user: User): void {
@@ -40,6 +56,12 @@ export class UserManagementComponent implements OnInit {
       this._snackBarService.success(response, 'OK');
       this.users = this.users.filter((user) => user.id !== user.id);
       this.dataSource.data = this.users;
+    });
+  }
+
+  resetPassword(user: User): void {
+    this._adminService.resetPassword(user.id).subscribe(response => {
+      this._snackBarService.success(response.message, 'OK');
     });
   }
 }
