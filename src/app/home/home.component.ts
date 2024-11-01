@@ -56,9 +56,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   toggleMenu(): void {
-    this.sidenav.toggle();
-    this.isCollapsed = this.isMobile ? false : !this.isCollapsed;
+    if (this.isMobile) {
+      this.sidenav.toggle();
+    } else {
+      this.isCollapsed = !this.isCollapsed;
+    }
   }
+  
 
   showComponent(currentComponent: string): void {
     this.currentComponent = currentComponent;
