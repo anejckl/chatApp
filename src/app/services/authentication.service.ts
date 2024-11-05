@@ -6,7 +6,9 @@ import {
   CheckAuthResponse,
   LoginRequest,
   LoginResponse,
-  User,
+  TermsResponse,
+  UniversalResponse,
+  User
 } from '../models/auth.models';
 
 @Injectable({
@@ -39,7 +41,7 @@ export class AuthenticationService {
 
   public logout(): Observable<void> {
     return this._httpService
-      .post<void>(`${this.apiUrl}/logout`, { withCredentials: true })
+      .post<void>(`${this.apiUrl}/logout`, {}, { withCredentials: true })
       .pipe(
         tap(() => {
           this.isAuthenticatedSubject.next(false);
@@ -50,7 +52,7 @@ export class AuthenticationService {
 
   public checkAuthentication(): Observable<CheckAuthResponse> {
     return this._httpService
-      .get<CheckAuthResponse>(`${this.apiUrl}/check`, {
+      .get<CheckAuthResponse>(`${this.apiUrl}/check-auth`, {
         withCredentials: true,
       })
       .pipe(
@@ -63,5 +65,17 @@ export class AuthenticationService {
           }
         })
       );
+  }
+
+  public checkTerms(): Observable<TermsResponse> {
+    return this._httpService.get<TermsResponse>(
+      `${this.apiUrl}/check-terms`,
+      { withCredentials: true });
+  }
+
+  public acceptTerms(): Observable<UniversalResponse> {
+    return this._httpService.post<UniversalResponse>(
+      `${this.apiUrl}/accept-terms`,
+      {}, { withCredentials: true });
   }
 }

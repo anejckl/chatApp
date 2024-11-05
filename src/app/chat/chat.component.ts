@@ -1,7 +1,9 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { translate } from '@jsverse/transloco';
 import { Subscription, timer } from 'rxjs';
 import { Message } from '../models/messages.models';
+import { AuthenticationService } from '../services/authentication.service';
 import { ChatService } from '../services/chat.service';
 import { SnackbarService } from '../services/snackbar.service';
 import { toMessage } from '../utility/message-convert';
@@ -15,7 +17,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 export class ChatComponent implements OnInit {
   messages: Message[] = [];
   systemPrompts: string[] = [];
-  
+
   userInput: string = '';
   isTyping: boolean = false;
 
@@ -23,6 +25,7 @@ export class ChatComponent implements OnInit {
 
   private _chatService = inject(ChatService);
   private _snackBarService = inject(SnackbarService);
+  private _authService = inject(AuthenticationService);
 
   private sessionExpirationTimer: Subscription | null = null;
 
@@ -32,8 +35,7 @@ export class ChatComponent implements OnInit {
     this._chatService.getChatHistory().subscribe((messages) => {
       this.messages = messages.filter((message) => message.role !== 'system');
     });
-
-    this.openTerms();
+    this.checkTerms();
   }
 
   ngOnDestroy() {
@@ -78,7 +80,7 @@ export class ChatComponent implements OnInit {
 
     this.sessionExpirationTimer = timer(sessionExpire).subscribe(() => {
       this._snackBarService
-        .error('Your session has expired', 'Refresh')
+        .error(translate('CHAT.SESSION-EXPIRED'), translate('CHAT.REFRESH'))
         .onAction()
         .subscribe(() => {
           location.reload();
@@ -86,10 +88,24 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  private checkTerms(): void {
+    this._authService.checkTerms().subscribe((response) => {
+      if (!response.acceptedTerms) {
+        this.openTerms();
+      }
+    });
+  }
+
   private openTerms(): void {
     const dialogRef = this.dialog.open(WelcomeComponent, {
       width: '400px',
       disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((accepted) => {
+      if (accepted) {
+        this._authService.acceptTerms().subscribe();
+      }
     });
   }
 }

@@ -10,7 +10,9 @@
       "TEMPERATURE": "Temperature",
       "TITLE": "Chatbot aplikacija - Projekt",
       "TUNE": "Nastavitve modela"
-    }
+    },
+    "REFRESH": "Osveži",
+    "SESSION-EXPIRED": "Vaša seja je potekla"
   },
   "DASH": {
     "TAB-KEYS": "API ključi",
@@ -87,7 +89,7 @@
     "ACCEPT": "Sprejmi",
     "CANCEL": "Zapri",
     "CONDITIONS": "Pogoje in določila",
-    "DIALOG": "Za nadaljevanje si preberite in sprejmite pogoje in določila.",
+    "DIALOG": "Preden začnete noreti z GPT. Za nadaljevanje si preberite in sprejmite pogoje in določila.",
     "TERMS": "Sprejmam",
     "TITLE": "Pozdravljen!"
   }

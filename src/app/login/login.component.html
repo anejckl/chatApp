@@ -27,10 +27,8 @@
                 <span *ngIf="!isLoading">{{'LOGIN.BUTTON-LOG' | transloco}}</span>
             </button>
 
-            <button mat-raised-button color="accent" (click)="openRegistration()" type="submit" [disabled]="isLoading">
+            <button mat-raised-button color="accent" (click)="openRegistration()" [disabled]="isLoading" type="button">
                 <mat-icon *ngIf="!isLoading">person</mat-icon>
-                <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="20"
-                    color="primary"></mat-progress-spinner>
                 <span *ngIf="!isLoading">{{'LOGIN.BUTTON-REG' | transloco}}</span>
             </button>
         </div>

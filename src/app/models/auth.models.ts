@@ -37,3 +37,7 @@ export interface RegistrationResponse {
 export interface UniversalResponse {
   message: string;
 }
+
+export interface TermsResponse {
+  acceptedTerms: boolean
+}

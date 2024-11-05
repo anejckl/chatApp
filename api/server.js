@@ -12,7 +12,6 @@ const modelRoutes = require("./endpoints/model");
 const authRoutes = require("./endpoints/auth/auth");
 const adminRoutes = require("./endpoints/admin/admin");
 const pool = require("./database.js");
-const admin = require("./endpoints/admin/admin");
 
 const app = express();
 const PORT = 3000;
@@ -37,7 +36,7 @@ app.use(
   session({
     secret: SECRET_KEY,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: false, maxAge: 3600000 }, // 1 hour in milliseconds
   })
 );

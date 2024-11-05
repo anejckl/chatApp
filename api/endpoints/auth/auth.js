@@ -50,12 +50,12 @@ module.exports = (pool, bcrypt) => {
           .status(500)
           .json({ error: "Could not log out. Please try again." });
       }
-      res.clearCookie("connect.sid");
+      res.clearCookie("connect.sid", { path: '/' });
       res.status(200).json({ message: "Logout successful." });
     });
   });
 
-  router.get("/check", (req, res) => {
+  router.get("/check-auth", (req, res) => {
     if (req.session.isAuthenticated) {
       res.json({
         isAuthenticated: true,
@@ -69,6 +69,15 @@ module.exports = (pool, bcrypt) => {
     } else {
       res.json({ isAuthenticated: false, user: null });
     }
+  });
+
+  router.get("/check-terms", (req, res) => {
+    res.json({ acceptedTerms: !!req.session.acceptedTerms });
+  });
+
+  router.post("/accept-terms", (req, res) => {
+    req.session.acceptedTerms = true;
+    res.status(200).json({ message: 'Terms accepted' });
   });
 
   return router;
