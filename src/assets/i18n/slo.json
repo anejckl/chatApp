@@ -82,5 +82,13 @@
       "ROLE": "Vloga",
       "USERNAME": "Uporabniško ime"
     }
+  },
+  "WELCOME": {
+    "ACCEPT": "Sprejmi",
+    "CANCEL": "Zapri",
+    "CONDITIONS": "Pogoje in določila",
+    "DIALOG": "Za nadaljevanje si preberite in sprejmite pogoje in določila.",
+    "TERMS": "Sprejmam",
+    "TITLE": "Pozdravljen!"
   }
 }

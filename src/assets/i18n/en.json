@@ -82,5 +82,13 @@
       "ROLE": "Role",
       "USERNAME": "Username"
     }
+  },
+  "WELCOME": {
+    "ACCEPT": "Accept",
+    "CANCEL": "Cancel",
+    "CONDITIONS": "Terms and conditions",
+    "DIALOG": "Please read and accept the terms and conditions to proceed.",
+    "TERMS": "I accept the",
+    "TITLE": "Oh hi there!"
   }
 }

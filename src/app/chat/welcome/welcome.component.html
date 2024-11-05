@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{'WELCOME.TITLE' | transloco}}</h2>
+
+<mat-dialog-content>
+  <p>{{'WELCOME.DIALOG' | transloco}}</p>
+
+  <mat-checkbox [(ngModel)]="termsAccepted">
+    {{'WELCOME.TERMS' | transloco}} <a routerLink="/terms" target="_blank">{{'WELCOME.CONDITIONS' | transloco}}</a>.
+  </mat-checkbox>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">{{'WELCOME.CANCEL' | transloco}}</button>
+  <button mat-button color="primary" (click)="onAccept()" [disabled]="!termsAccepted">
+    {{'WELCOME.ACCEPT' | transloco}}
+  </button>
+</mat-dialog-actions>

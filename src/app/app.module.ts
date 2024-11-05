@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { SettingsCardComponent } from './chat/settings-card/settings-card.component';
 import { SystemMessageCardComponent } from './chat/system-message-card/system-message-card.component';
+import { TermsComponent } from './chat/welcome/terms/terms.component';
+import { WelcomeComponent } from './chat/welcome/welcome.component';
 import { ApiKeysComponent } from './dashboard/api-keys/api-keys.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditUserComponent } from './dashboard/user-management/edit-user/edit-user.component';
@@ -41,6 +43,8 @@ import { TranslocoRootModule } from './transloco-root.module';
     UserManagementComponent,
     ApiKeysComponent,
     EditUserComponent,
+    WelcomeComponent,
+    TermsComponent,
   ],
   imports: [
     BrowserModule,

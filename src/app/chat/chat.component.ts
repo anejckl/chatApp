@@ -1,9 +1,11 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription, timer } from 'rxjs';
 import { Message } from '../models/messages.models';
 import { ChatService } from '../services/chat.service';
 import { SnackbarService } from '../services/snackbar.service';
 import { toMessage } from '../utility/message-convert';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @Component({
   selector: 'app-chat',
@@ -24,10 +26,14 @@ export class ChatComponent implements OnInit {
 
   private sessionExpirationTimer: Subscription | null = null;
 
+  private dialog = inject(MatDialog);
+
   ngOnInit() {
     this._chatService.getChatHistory().subscribe((messages) => {
       this.messages = messages.filter((message) => message.role !== 'system');
     });
+
+    this.openTerms();
   }
 
   ngOnDestroy() {
@@ -77,6 +83,13 @@ export class ChatComponent implements OnInit {
         .subscribe(() => {
           location.reload();
         });
+    });
+  }
+
+  private openTerms(): void {
+    const dialogRef = this.dialog.open(WelcomeComponent, {
+      width: '400px',
+      disableClose: true,
     });
   }
 }
