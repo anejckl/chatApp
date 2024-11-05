@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = (pool, bcrypt) => {
+
+  //POST (login)
   router.post("/login", async (req, res) => {
     try {
       const { username, password } = req.body;
@@ -43,6 +45,7 @@ module.exports = (pool, bcrypt) => {
     }
   });
 
+  //POST (logout)
   router.post("/logout", (req, res) => {
     req.session.destroy((err) => {
       if (err) {
@@ -55,6 +58,7 @@ module.exports = (pool, bcrypt) => {
     });
   });
 
+  //GET (checking user state)
   router.get("/check-auth", (req, res) => {
     if (req.session.isAuthenticated) {
       res.json({
@@ -71,10 +75,12 @@ module.exports = (pool, bcrypt) => {
     }
   });
 
+  //GET (checking terms acceptance)
   router.get("/check-terms", (req, res) => {
     res.json({ acceptedTerms: !!req.session.acceptedTerms });
   });
 
+  //POST (accepting terms)
   router.post("/accept-terms", (req, res) => {
     req.session.acceptedTerms = true;
     res.status(200).json({ message: 'Terms accepted' });

@@ -1,4 +1,8 @@
 <div class="user-table-container">
+    <button mat-raised-button color="primary" (click)="createNewUser()">
+        {{ 'USER-MANAGEMENT.CREATE-USER' | transloco }}
+    </button>
+
     <table mat-table [dataSource]="dataSource">
         
         <ng-container matColumnDef="id">

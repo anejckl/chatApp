@@ -3,7 +3,10 @@ const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
+const { generateRandomPassword } = require('../utils/passwordUtils')
+
 module.exports = (pool) => {
+  //GET all user
   router.get("/users", async (req, res) => {
     try {
       const [rows] = await pool.execute("SELECT * FROM users");
@@ -16,6 +19,7 @@ module.exports = (pool) => {
     }
   });
 
+  //POST (create) users
   router.post("/users", async (req, res) => {
     const { username, email, password } = req.body;
     try {
@@ -27,9 +31,16 @@ module.exports = (pool) => {
         [username, email, hashedPassword]
       );
 
+      
+      const [rows] = await pool.execute(
+        "SELECT id, username, mail, role_level FROM users WHERE id = ?",
+        [result.insertId]
+      );
+      const user = rows[0];
+
       res.status(201).json({
         message: "User created successfully",
-        userId: result.insertId,
+        user: user,
       });
     } catch (error) {
       res
@@ -38,6 +49,7 @@ module.exports = (pool) => {
     }
   });
 
+  //PUT (update) users
   router.put("/users/:id", async (req, res) => {
     const { id } = req.params;
     const { username, email, role_level } = req.body;
@@ -75,6 +87,7 @@ module.exports = (pool) => {
     }
   });
   
+  //POST (password reset)
   router.post('/reset-password/:userId', async (req, res) => {
     const userId = req.params.userId;
     const newPassword = generateRandomPassword(12);
@@ -94,6 +107,7 @@ module.exports = (pool) => {
     }
 });
 
+  //DELETE user
   router.delete("/users/:id", async (req, res) => {
     const { id } = req.params;
     try {
@@ -115,15 +129,3 @@ module.exports = (pool) => {
 
   return router;
 };
-
-
-
-
-function generateRandomPassword(length = 10) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let password = '';
-  for (let i = 0; i < length; i++) {
-      password += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return password;
-}

@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from '../../models/auth.models';
+import { RegistrationComponent } from '../../login/registration/registration.component';
+import { RegistrationResponse, User } from '../../models/auth.models';
 import { AdminService } from '../../services/admin.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { EditUserComponent } from './edit-user/edit-user.component';
@@ -32,6 +33,17 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
+  createNewUser(): void {
+    const dialogRef = this.dialog.open(RegistrationComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((response: RegistrationResponse) => {
+      this.users.push(response.user);
+      this.dataSource.data = [...this.users];
+    });
+  }
+
   editUser(user: User): void {
     const dialogRef = this.dialog.open(EditUserComponent, {
       width: '400px',
@@ -39,11 +51,9 @@ export class UserManagementComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((updatedUser: User) => {
-      this._adminService
-        .updateUser(user.id, updatedUser)
-        .subscribe((response) => {
+      this._adminService.updateUser(user.id, updatedUser).subscribe((response) => {
           this._snackBarService.success(response.message, 'OK');
-
+          
           this.dataSource.data = this.users.map((u) =>
             u.id === user.id ? { ...u, ...updatedUser } : u
           );
@@ -54,13 +64,13 @@ export class UserManagementComponent implements OnInit {
   deleteUser(user: User): void {
     this._adminService.deleteUser(user.id).subscribe((response) => {
       this._snackBarService.success(response, 'OK');
-      this.users = this.users.filter((user) => user.id !== user.id);
+      this.users = this.users.filter((u) => u.id !== user.id);
       this.dataSource.data = this.users;
     });
   }
 
   resetPassword(user: User): void {
-    this._adminService.resetPassword(user.id).subscribe(response => {
+    this._adminService.resetPassword(user.id).subscribe((response) => {
       this._snackBarService.success(response.message, 'OK');
     });
   }

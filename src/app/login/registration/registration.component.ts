@@ -42,7 +42,7 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  onSubmit(): void {
+  createUser(): void {
     this.isLoading = true;
     const { username, email, password } = this.registrationForm.value;
 
@@ -52,9 +52,7 @@ export class RegistrationComponent implements OnInit {
       password,
     };
 
-    this._adminService
-      .register(registrationData)
-      .subscribe((response: RegistrationResponse) => {
+    this._adminService.register(registrationData).subscribe((response: RegistrationResponse) => {
         this.isLoading = false;
         this.dialogRef.close(response);
       });

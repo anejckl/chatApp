@@ -74,6 +74,7 @@
     "LANGUAGE-TOGGLE": "Change language"
   },
   "USER-MANAGEMENT": {
+    "CREATE-USER": "Create new user",
     "TABLE": {
       "ACTIONS": "Actions",
       "ACTIONS-DELETE": "Delete user",
