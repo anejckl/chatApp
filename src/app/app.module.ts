@@ -23,6 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PersonComponent } from './login/person/person.component';
 import { RegistrationComponent } from './login/registration/registration.component';
+import { MaskKeyPipe } from './mask-key.pipe';
 import { MaterialModule } from './material/material.module';
 import { SettingsComponent } from './settings/settings.component';
 import { TranslocoRootModule } from './transloco-root.module';
@@ -45,6 +46,7 @@ import { TranslocoRootModule } from './transloco-root.module';
     EditUserComponent,
     WelcomeComponent,
     TermsComponent,
+    MaskKeyPipe,
   ],
   imports: [
     BrowserModule,

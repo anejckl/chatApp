@@ -1,6 +1,13 @@
 {
+  "API-KEYS": {
+    "ACTIONS": "Akcije",
+    "CREATED": "Ustvarjen na",
+    "STATUS": "Status",
+    "VALUE": "API ključ"
+  },
   "CHAT": {
     "INPUT": "Vprašaj me karkoli",
+    "MESSAGE-LIMIT-REACHED": "Dovoljenje doseženo, vpiši se, da dobiš testni API ključ",
     "MODEL": {
       "ADD-SYS-MESSAGE": "Dodaj sistemsko sporočilo",
       "INCLUDED-SYS-MESSAGE": "Ukaz",

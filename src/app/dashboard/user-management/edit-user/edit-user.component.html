@@ -13,8 +13,11 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>{{'EDIT-USER.ROLE' | transloco}}</mat-label>
-      <input matInput formControlName="role_level" type="number" />
+      <mat-label>{{ 'EDIT-USER.ROLE' | transloco }}</mat-label>
+      <mat-select formControlName="role_level">
+        <mat-option value="user">{{ 'EDIT-USER.ROLE-USER' | transloco }}</mat-option>
+        <mat-option value="admin">{{ 'EDIT-USER.ROLE-ADMIN' | transloco }}</mat-option>
+      </mat-select>
     </mat-form-field>
   </form>
 </mat-dialog-content>

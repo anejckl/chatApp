@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._authService.checkAuthentication().subscribe((response) => {
       if (response.isAuthenticated) {
         this.user != response.user;
-        this.isAdmin = this.user?.role_level === 2;
+        this.isAdmin = this.user?.role_level == 'admin';
       } else {
         this.user = null;
         this.isAdmin = false;
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           user.username.charAt(0).toUpperCase() +
           user.username.slice(1).toLowerCase(),
       };
-      this.isAdmin = user.role_level === 2;
+      this.isAdmin = user.role_level == 'admin';
     } else {
       this.user = null;
       this.isAdmin = false;

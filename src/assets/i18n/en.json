@@ -1,6 +1,13 @@
 {
+  "API-KEYS": {
+    "ACTIONS": "Actions",
+    "CREATED": "Created at",
+    "STATUS": "Status",
+    "VALUE": "API key"
+  },
   "CHAT": {
     "INPUT": "Ask your question",
+    "MESSAGE-LIMIT-REACHED": "Limit reached, login to use our API test key.",
     "MODEL": {
       "ADD-SYS-MESSAGE": "Add a system message/prompt",
       "INCLUDED-SYS-MESSAGE": "Prompt",

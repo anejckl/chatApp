@@ -23,6 +23,9 @@ export class ChatComponent implements OnInit {
 
   @Input() isCollapsed!: boolean;
 
+  private LIMIT_CHAT_RESPONSES = 5;
+  private isAuthenticated = false;
+
   private _chatService = inject(ChatService);
   private _snackBarService = inject(SnackbarService);
   private _authService = inject(AuthenticationService);
@@ -36,6 +39,10 @@ export class ChatComponent implements OnInit {
       this.messages = messages.filter((message) => message.role !== 'system');
     });
     this.checkTerms();
+
+    this._authService.checkAuthentication().subscribe((response) => {
+      this.isAuthenticated = response.isAuthenticated;
+    });
   }
 
   ngOnDestroy() {
@@ -49,6 +56,11 @@ export class ChatComponent implements OnInit {
   }
 
   public sendMessage(): void {
+    if (this.isMessageLimitReached(this.isAuthenticated)) {
+      this._snackBarService.error(translate('CHAT.MESSAGE-LIMIT-REACHED'), 'OK');
+      return;
+    }
+
     const outgoingInput = toMessage('user', this.userInput);
 
     this.messages.push({
@@ -86,6 +98,15 @@ export class ChatComponent implements OnInit {
           location.reload();
         });
     });
+  }
+
+  private isMessageLimitReached(isAuthenticated: boolean): boolean {
+    if (isAuthenticated) { return false; }
+    const userMessagesCount = this.messages.filter(
+      (message) => message.role === 'user'
+    ).length;
+
+    return userMessagesCount >= this.LIMIT_CHAT_RESPONSES;
   }
 
   private checkTerms(): void {

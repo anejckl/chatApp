@@ -3,7 +3,7 @@ export interface User {
   username: string;
   mail: string;
   created: string;
-  role_level: number;
+  role_level: string;
 }
 
 export interface LoginRequest {

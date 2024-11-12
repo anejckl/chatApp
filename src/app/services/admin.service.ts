@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Key } from '../models/admin.model';
 import { RegistrationRequest, RegistrationResponse, UniversalResponse, User } from '../models/auth.models';
 
 @Injectable({
@@ -33,5 +34,9 @@ export class AdminService {
   register(data: RegistrationRequest): Observable<RegistrationResponse> {
     return this._httpService.post<RegistrationResponse>(
       `${this.apiUrl}/users`, data, { withCredentials: true });
+  }
+
+  getKeys(): Observable<Key[]> {
+    return this._httpService.get<Key[]>(`${this.apiUrl}/keys`);
   }
 }
