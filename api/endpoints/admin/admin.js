@@ -12,9 +12,7 @@ module.exports = (pool) => {
       const [rows] = await pool.execute("SELECT * FROM users");
       res.json(rows);
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while retrieving users." });
+      res.status(500).json({ error: "An error occurred while retrieving users." });
     }
   });
 
@@ -24,9 +22,22 @@ module.exports = (pool) => {
       const [rows] = await pool.execute("SELECT * FROM api_keys");
       res.json(rows);
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while retrieving keys." });
+      res.status(500).json({ error: "An error occurred while retrieving keys." });
+    }
+  });
+
+  // GET logs for a specific user
+  router.get('/:id/logs', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const [rows] = await pool.execute(
+        'SELECT * FROM user_logs WHERE user_id = ? ORDER BY timestamp DESC',
+        [id]
+      );
+      res.json(rows);
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred while retrieving user logs.' });
     }
   });
 
@@ -53,9 +64,7 @@ module.exports = (pool) => {
         user: user,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while creating the user." });
+      res.status(500).json({ error: "An error occurred while creating the user." });
     }
   });
 
@@ -83,9 +92,7 @@ module.exports = (pool) => {
       }
 
       if (updates.length === 0) {
-        return res
-          .status(400)
-          .json({ error: "No valid fields provided for update." });
+        return res.status(400).json({ error: "No valid fields provided for update." });
       }
 
       const query = `UPDATE users SET ${updates.join(", ")} WHERE id = ?`;
@@ -95,9 +102,24 @@ module.exports = (pool) => {
 
       res.json({ message: "User updated successfully" });
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while updating the user." });
+      res.status(500).json({ error: "An error occurred while updating the user." });
+    }
+  });
+
+  //PUT (update) key
+  router.put("/key/:id", async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    try {
+      const [result] = await pool.execute(
+        "UPDATE api_keys SET status = ? WHERE id = ?",
+        [status, id]
+      );
+  
+      res.json({ message: "Key status updated successfully." });
+    } catch (error) {
+      res.status(500).json({ error: "An error occurred while updating the key status." });
     }
   });
 
@@ -115,14 +137,10 @@ module.exports = (pool) => {
 
       if (result.affectedRows > 0) {
         return res.json({ message: "Password has been reset.", newPassword });
-      } else {
-        return res.status(404).json({ error: "User not found." });
       }
     } catch (error) {
       console.error(error);
-      return res
-        .status(500)
-        .json({ error: "An error occurred while resetting the password." });
+      return res.status(500).json({ error: "An error occurred while resetting the password." });
     }
   });
 
@@ -140,9 +158,7 @@ module.exports = (pool) => {
 
       res.json("User deleted successfully");
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while deleting the user." });
+      res.status(500).json({ error: "An error occurred while deleting the user." });
     }
   });
 

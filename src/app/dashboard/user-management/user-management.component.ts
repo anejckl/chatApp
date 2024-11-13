@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { RegistrationComponent } from '../../login/registration/registration.component';
-import { RegistrationResponse, User } from '../../models/auth.models';
+import { Log } from '../../models/admin.model';
+import { User } from '../../models/auth.models';
 import { AdminService } from '../../services/admin.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { EditUserComponent } from './edit-user/edit-user.component';
@@ -18,7 +18,14 @@ export class UserManagementComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'username', 'email', 'role', 'actions'];
   dataSource = new MatTableDataSource<User>();
+
+  logsDataSource = new MatTableDataSource<Log>();
+  logsDisplayedColumns: string[] = ['id', 'action', 'timestamp', 'ip_address', 'status', 'details'];
+
+
   users: User[] = [];
+  selectedUser: User | null = null;
+
 
   dialog = inject(MatDialog);
 
@@ -30,17 +37,6 @@ export class UserManagementComponent implements OnInit {
     this._adminService.getUsers().subscribe((response: User[]) => {
       this.users = response;
       this.dataSource.data = this.users;
-    });
-  }
-
-  createNewUser(): void {
-    const dialogRef = this.dialog.open(RegistrationComponent, {
-      width: '400px',
-    });
-
-    dialogRef.afterClosed().subscribe((response: RegistrationResponse) => {
-      this.users.push(response.user);
-      this.dataSource.data = [...this.users];
     });
   }
 
@@ -61,6 +57,17 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
+  selectUser(user: User): void {
+    if (this.selectedUser === user) {
+      this.selectedUser = null;
+      this.logsDataSource.data = [];
+    } else {
+      this.selectedUser = user;
+      this.fetchUserLogs(user.id);
+    }
+  }
+  
+
   deleteUser(user: User): void {
     this._adminService.deleteUser(user.id).subscribe((response) => {
       this._snackBarService.success(response, 'OK');
@@ -72,6 +79,12 @@ export class UserManagementComponent implements OnInit {
   resetPassword(user: User): void {
     this._adminService.resetPassword(user.id).subscribe((response) => {
       this._snackBarService.success(response.message, 'OK');
+    });
+  }
+
+  fetchUserLogs(userId: number): void {
+    this._adminService.getUserLogs(userId).subscribe((logs) => {
+        this.logsDataSource.data = logs;
     });
   }
 }

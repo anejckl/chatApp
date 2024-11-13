@@ -52,7 +52,7 @@ export class RegistrationComponent implements OnInit {
       password,
     };
 
-    this._adminService.register(registrationData).subscribe((response: RegistrationResponse) => {
+    this._adminService.registerUser(registrationData).subscribe((response: RegistrationResponse) => {
         this.isLoading = false;
         this.dialogRef.close(response);
       });

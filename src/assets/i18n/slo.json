@@ -2,6 +2,8 @@
   "API-KEYS": {
     "ACTIONS": "Akcije",
     "CREATED": "Ustvarjen na",
+    "DELETE": "Izbriši ključ",
+    "SET-STATUS": "Nastavi status",
     "STATUS": "Status",
     "VALUE": "API ključ"
   },
@@ -61,6 +63,15 @@
     },
     "USERNAME-MAIL": "Uporabniško ime ali pošta"
   },
+  "LOGS": {
+    "ACTION": "Dejanje",
+    "DETAILS": "Opombe",
+    "ID": "ID",
+    "IP-ADDRESS": "IP naslov",
+    "STATUS": "Status",
+    "TIMESTAMP": "Čas",
+    "USER-ID": "Uporabnik"
+  },
   "REGISTER": {
     "ALREADY-HAVE-ACCOUNT": "Že imaš račun?",
     "BACK-LOGIN": "Vpiši se",
@@ -82,6 +93,9 @@
   },
   "USER-MANAGEMENT": {
     "CREATE-USER": "Ustvari novega uporabnika",
+    "LOGS": {
+      "TITLE": "Logi za"
+    },
     "TABLE": {
       "ACTIONS": "Izvedi",
       "ACTIONS-DELETE": "Izbriši uporabnika",
