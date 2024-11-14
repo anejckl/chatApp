@@ -1,11 +1,12 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '@auth0/auth0-angular';
 import { translate } from '@jsverse/transloco';
 import { Subscription, timer } from 'rxjs';
 import { Message } from '../models/messages.models';
-import { AuthenticationService } from '../services/authentication.service';
 import { ChatService } from '../services/chat.service';
 import { SnackbarService } from '../services/snackbar.service';
+import { TermsService } from '../services/terms.service';
 import { toMessage } from '../utility/message-convert';
 import { WelcomeComponent } from './welcome/welcome.component';
 
@@ -28,7 +29,8 @@ export class ChatComponent implements OnInit {
 
   private _chatService = inject(ChatService);
   private _snackBarService = inject(SnackbarService);
-  private _authService = inject(AuthenticationService);
+  private _termsService = inject(TermsService);
+  private _authService = inject(AuthService);
 
   private sessionExpirationTimer: Subscription | null = null;
 
@@ -40,8 +42,8 @@ export class ChatComponent implements OnInit {
     });
     this.checkTerms();
 
-    this._authService.checkAuthentication().subscribe((response) => {
-      this.isAuthenticated = response.isAuthenticated;
+    this._authService.isAuthenticated$.subscribe((response) => {
+      this.isAuthenticated = response;
     });
   }
 
@@ -57,7 +59,10 @@ export class ChatComponent implements OnInit {
 
   public sendMessage(): void {
     if (this.isMessageLimitReached(this.isAuthenticated)) {
-      this._snackBarService.error(translate('CHAT.MESSAGE-LIMIT-REACHED'), 'OK');
+      this._snackBarService.error(
+        translate('CHAT.MESSAGE-LIMIT-REACHED'),
+        'OK'
+      );
       return;
     }
 
@@ -103,14 +108,13 @@ export class ChatComponent implements OnInit {
   private isMessageLimitReached(isAuthenticated: boolean): boolean {
     if (isAuthenticated) { return false; }
     const userMessagesCount = this.messages.filter(
-      (message) => message.role === 'user'
-    ).length;
+      (message) => message.role === 'user') .length;
 
     return userMessagesCount >= this.LIMIT_CHAT_RESPONSES;
   }
 
   private checkTerms(): void {
-    this._authService.checkTerms().subscribe((response) => {
+    this._termsService.checkTerms().subscribe((response) => {
       if (!response.acceptedTerms) {
         this.openTerms();
       }
@@ -125,7 +129,7 @@ export class ChatComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((accepted) => {
       if (accepted) {
-        this._authService.acceptTerms().subscribe();
+        this._termsService.acceptTerms().subscribe();
       }
     });
   }
