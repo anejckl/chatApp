@@ -36,30 +36,52 @@
 
 .message {
   display: flex;
-  margin-bottom: 8px;
+  align-items: flex-start;
+  margin-bottom: 10px;
 }
 
-.sender {
-  justify-content: flex-end;
+.message.sender {
+  flex-direction: row-reverse;
 }
 
-.receiver {
-  justify-content: flex-start;
+.message.receiver {
+  flex-direction: row;
 }
 
-mat-card {
+.profile-picture {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.message.sender .profile-picture {
+  margin-left: 8px;
+}
+
+.message.receiver .profile-picture {
+  margin-right: 8px;
+}
+
+.message mat-card {
   border-radius: 16px;
-  max-width: 100%;
+  max-width: 70%;
 }
 
-.sender mat-card {
+.message.sender mat-card {
   background-color: var(--sender-card-bg);
   border-bottom-right-radius: 0;
 }
 
-.receiver mat-card {
+.message.receiver mat-card {
   background-color: var(--receiver-card-bg);
   border-bottom-left-radius: 0;
+}
+
+.message-text {
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
 }
 
 .user-input {
@@ -70,36 +92,29 @@ mat-form-field {
   width: 90%;
 }
 
-.settings-card {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .typing-indicator {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   height: 24px;
+}
 
-  span {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    animation: typing 1.4s infinite ease-in-out;
-  }
+.typing-indicator span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  animation: typing 1.4s infinite ease-in-out;
+}
 
-  span:nth-child(1) {
-    animation-delay: -0.32s;
-  }
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
 
-  span:nth-child(2) {
-    animation-delay: -0.16s;
-  }
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
 }
 
 @keyframes typing {
@@ -111,4 +126,11 @@ mat-form-field {
   40% {
     transform: scale(1);
   }
+}
+
+.settings-card {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

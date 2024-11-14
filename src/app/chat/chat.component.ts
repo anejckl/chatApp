@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { translate } from '@jsverse/transloco';
 import { Subscription, timer } from 'rxjs';
 import { Message } from '../models/messages.models';
@@ -35,12 +35,17 @@ export class ChatComponent implements OnInit {
   private sessionExpirationTimer: Subscription | null = null;
 
   private dialog = inject(MatDialog);
+  userProfile: User | null | undefined = null;
 
   ngOnInit() {
     this._chatService.getChatHistory().subscribe((messages) => {
       this.messages = messages.filter((message) => message.role !== 'system');
     });
     this.checkTerms();
+
+    this._authService.user$.subscribe((user) => {
+      this.userProfile = user;
+    });
 
     this._authService.isAuthenticated$.subscribe((response) => {
       this.isAuthenticated = response;
