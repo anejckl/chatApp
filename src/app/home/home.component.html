@@ -10,7 +10,7 @@
     <div class="chat-container">
       <mat-divider></mat-divider>
       <mat-nav-list>
-        <a mat-list-item (click)="showComponent('dashboard')">
+        <a mat-list-item (click)="showComponent('dashboard')" *ngIf="isAdmin">
           <span class="entry">
             <mat-icon>house</mat-icon>
             <span *ngIf="!isCollapsed">{{ 'HOME.DASHBOARD' | transloco }}</span>

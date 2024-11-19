@@ -89,16 +89,12 @@ export class ChatComponent implements OnInit {
         content: response.content,
       });
 
-      if (response.sessionExpire) {
-        this.startSessionTimer(response.sessionExpire);
-      }
+      if (response.sessionExpire) { this.startSessionTimer(response.sessionExpire); }
     });
   }
 
   private startSessionTimer(sessionExpire: number): void {
-    if (this.sessionExpirationTimer) {
-      this.sessionExpirationTimer.unsubscribe();
-    }
+    if (this.sessionExpirationTimer) { this.sessionExpirationTimer.unsubscribe(); }
 
     this.sessionExpirationTimer = timer(sessionExpire).subscribe(() => {
       this._snackBarService
@@ -120,9 +116,7 @@ export class ChatComponent implements OnInit {
 
   private checkTerms(): void {
     this._termsService.checkTerms().subscribe((response) => {
-      if (!response.acceptedTerms) {
-        this.openTerms();
-      }
+      if (!response.acceptedTerms) { this.openTerms(); }
     });
   }
 
@@ -133,9 +127,7 @@ export class ChatComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((accepted) => {
-      if (accepted) {
-        this._termsService.acceptTerms().subscribe();
-      }
+      if (accepted) { this._termsService.acceptTerms().subscribe(); }
     });
   }
 }
