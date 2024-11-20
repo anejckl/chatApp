@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService, User } from '@auth0/auth0-angular';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Role } from '../models/admin.model';
 import { Auth0Service } from '../services/auth0.service';
 
 @Component({
@@ -22,27 +22,22 @@ export class HomeComponent implements OnInit {
   public currentComponent: string = 'home';
 
   public isAuthenticated$ = this._authService.isAuthenticated$;
-  public userProfile: User | null | undefined = null;
+  public userProfile: User | undefined | null;
   public isAdmin: boolean = false;
-  private isAdminSubject = new BehaviorSubject<boolean>(false);
 
   ngOnInit(): void {
-    this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
+    this.observer.observe(['(max-width: 800px)']).subscribe(screenSize => {
       this.isMobile = screenSize.matches;
     });
-  
-    this._authService.user$.subscribe((user: User | null | undefined) => {
+
+    this._authService.user$.subscribe((user: User | undefined | null) => {
       this.userProfile = user;
       if (this.userProfile?.sub) {
-        this.checkUserRole(this.userProfile.sub).subscribe((isAdmin) => {
-          this.isAdmin = isAdmin;
-        });
+        this.checkUserRole(this.userProfile.sub);
       }
       console.log(this.userProfile);
     });
   }
-  
-  
 
   toggleMenu(): void {
     if (this.isMobile) {
@@ -64,13 +59,10 @@ export class HomeComponent implements OnInit {
     this._authService.logout().subscribe();
   }
 
-  checkUserRole(userId: string): BehaviorSubject<boolean> {
+  checkUserRole(userId: string): void {
     const encodedId = encodeURIComponent(userId);
-    this._auth0Service.getUserRoles(encodedId).subscribe(response => {
-      const isAdmin = response.some((role: any) => role.name === "admin");
-      this.isAdminSubject.next(isAdmin);
+    this._auth0Service.getUserRoles(encodedId).subscribe((response: Role[]) => {
+      this.isAdmin = response.some((role: Role) => role.name === 'admin');
     });
-  
-    return this.isAdminSubject;
   }
 }

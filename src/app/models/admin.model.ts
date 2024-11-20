@@ -14,3 +14,9 @@ export interface Log {
   status: string;
   details: string;
 }
+
+export interface Role {
+  id: string;
+  name: string;
+  description: string;
+}

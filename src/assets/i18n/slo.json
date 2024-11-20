@@ -72,6 +72,13 @@
     "TIMESTAMP": "Čas",
     "USER-ID": "Uporabnik"
   },
+  "PERSON-ADDRESS": "Naslov:",
+  "PERSON-BIRTHDATE": "Rojstni datum:",
+  "PERSON-GENDER": "Spol:",
+  "PERSON-NAME": "Ime:",
+  "PERSON-NICKNAME": "Vzdevek:",
+  "PERSON-PHONE": "Telefon:",
+  "PERSON-UPDATE": "Posodobljeno ob:",
   "REGISTER": {
     "ALREADY-HAVE-ACCOUNT": "Že imaš račun?",
     "BACK-LOGIN": "Vpiši se",

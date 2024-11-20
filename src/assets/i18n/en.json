@@ -72,6 +72,13 @@
     "TIMESTAMP": "Time",
     "USER-ID": "User"
   },
+  "PERSON-ADDRESS": "Address:",
+  "PERSON-BIRTHDATE": "Birthdate:",
+  "PERSON-GENDER": "Gender:",
+  "PERSON-NAME": "Name:",
+  "PERSON-NICKNAME": "Nickname:",
+  "PERSON-PHONE": "Phone:",
+  "PERSON-UPDATE": "Updated at:",
   "REGISTER": {
     "ALREADY-HAVE-ACCOUNT": "Already have an account?",
     "BACK-LOGIN": "Login",
