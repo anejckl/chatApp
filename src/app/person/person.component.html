@@ -2,7 +2,7 @@
     <mat-card class="user-card">
         <mat-card-header>
             <div mat-card-avatar class="user-avatar">
-                <img [src]="userProfile.picture" [alt]="userProfile.name || 'User Avatar'" loading="lazy" />
+                <img [src]="userProfile.picture" loading="lazy" />
             </div>
             <mat-card-title>
                 {{ userProfile.name || userProfile.nickname }}
@@ -16,7 +16,7 @@
             <div class="user-details">
                 <p *ngFor="let field of userProfileFields" [hidden]="!field.value">
                     <strong>{{ field.labelKey | transloco }}</strong>
-                    {{ field.isDate ? (field.value | date) : field.value }}
+                    {{ field.value }}
                 </p>
             </div>
         </mat-card-content>

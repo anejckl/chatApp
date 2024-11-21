@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Role } from '../models/admin.model';
 import { environment } from '../utility/environment';
 
 @Injectable({
@@ -15,9 +16,8 @@ export class Auth0Service {
 
   private _httpService = inject(HttpClient);
 
-  getUserRoles(userId: string): Observable<any> {
-    return this._httpService.get(`${this.apiUrl}/users/${userId}/roles`, {
-      headers: this.headers,
-    });
+  getUserRoles(userId: string): Observable<Role[]> {
+    const url = `${this.apiUrl}/users/${userId}/roles`;
+    return this._httpService.get<Role[]>(url, { headers: this.headers });
   }
 }

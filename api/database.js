@@ -1,5 +1,4 @@
-const mysql = require('mysql2/promise');
-const bcrypt = require('bcrypt');
+/*const mysql = require('mysql2/promise');
 require('dotenv').config();
 
 const pool = mysql.createPool({
@@ -24,6 +23,6 @@ const testConnection = async () => {
     process.exit(1);
   }
 };
-testConnection();
 
-module.exports = pool;
+testConnection();
+module.exports = pool;*/

@@ -77,7 +77,9 @@
   "PERSON-GENDER": "Gender:",
   "PERSON-NAME": "Name:",
   "PERSON-NICKNAME": "Nickname:",
+  "PERSON-NO-ROLES": "No roles",
   "PERSON-PHONE": "Phone:",
+  "PERSON-ROLES": "Roles",
   "PERSON-UPDATE": "Updated at:",
   "REGISTER": {
     "ALREADY-HAVE-ACCOUNT": "Already have an account?",

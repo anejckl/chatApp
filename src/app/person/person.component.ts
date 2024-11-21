@@ -1,35 +1,53 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService, User } from '@auth0/auth0-angular';
+import { translate } from '@jsverse/transloco';
+import { Role } from '../models/admin.model';
 import { UserProfileField } from '../models/user-profile.models';
+import { Auth0Service } from '../services/auth0.service';
 
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
-  styleUrls: ['./person.component.scss'],
+  styleUrl: './person.component.scss',
 })
 export class PersonComponent implements OnInit {
   public userProfile!: User;
   public userProfileFields: UserProfileField[] = [];
-  
-  private _authService = inject(AuthService);
+  public userRoles: Role[] = [];
 
-  public userInfoFields: { label: string; value: string; condition: boolean }[] = [];
+  private _authService = inject(AuthService);
+  private _auth0Service = inject(Auth0Service);
 
   ngOnInit(): void {
     this._authService.user$.subscribe((user) => {
-      if (user) {
-        this.userProfile = user;
+      if (!user) return;
 
-        this.userProfileFields = [
-          { labelKey: 'PERSON-NAME', value: user.name },
-          { labelKey: 'PERSON-NICKNAME', value: user.nickname },
-          { labelKey: 'PERSON-GENDER', value: user.gender },
-          { labelKey: 'PERSON-BIRTHDATE', value: user.birthdate },
-          { labelKey: 'PERSON-PHONE', value: user.phone_number },
-          { labelKey: 'PERSON-ADDRESS', value: user.address },
-          { labelKey: 'PERSON-UPDATE', value: user.updated_at, isDate: true },
-        ];
-      }
+      this.userProfile = user;
+      const userId = user.sub;
+      if (!userId) { return; }
+
+      this.fetchRoles(userId, user);
     });
+  }
+
+  private fetchRoles(userId: string, user: User): void {
+    this._auth0Service.getUserRoles(userId).subscribe((result) => {
+      this.userRoles = result;
+      const roles = result.map((role) => role.name).join(', ') || translate('PERSON-NO-ROLES');
+      this.populateFields(user, roles);
+    });
+  }
+
+  private populateFields(user: User, roles: string): void {
+    this.userProfileFields = [
+      { labelKey: 'PERSON-NAME', value: user.name },
+      { labelKey: 'PERSON-NICKNAME', value: user.nickname },
+      { labelKey: 'PERSON-ROLES', value: roles },
+      { labelKey: 'PERSON-GENDER', value: user.gender },
+      { labelKey: 'PERSON-BIRTHDATE', value: user.birthdate },
+      { labelKey: 'PERSON-PHONE', value: user.phone_number },
+      { labelKey: 'PERSON-ADDRESS', value: user.address },
+      { labelKey: 'PERSON-UPDATE', value: user.updated_at },
+    ];
   }
 }

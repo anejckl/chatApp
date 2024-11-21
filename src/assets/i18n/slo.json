@@ -77,7 +77,9 @@
   "PERSON-GENDER": "Spol:",
   "PERSON-NAME": "Ime:",
   "PERSON-NICKNAME": "Vzdevek:",
+  "PERSON-NO-ROLES": "Nima vlog",
   "PERSON-PHONE": "Telefon:",
+  "PERSON-ROLES": "Vloge",
   "PERSON-UPDATE": "Posodobljeno ob:",
   "REGISTER": {
     "ALREADY-HAVE-ACCOUNT": "Že imaš račun?",

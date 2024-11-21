@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-module.exports = (pool, bcrypt) => {
+module.exports = () => {
   router.get("/check-terms", (req, res) => {
     res.json({ acceptedTerms: !!req.session.acceptedTerms });
   });
