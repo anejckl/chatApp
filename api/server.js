@@ -3,59 +3,41 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const session = require("express-session");
-const { ChatOpenAI } = require("@langchain/openai");
-const bcrypt = require("bcrypt");
-
-const chatRoutes = require("./endpoints/chat");
-const chatHistoryRoutes = require("./endpoints/chatHistory");
-const modelRoutes = require("./endpoints/model");
-const authRoutes = require("./endpoints/terms/terms.js");
-const { router: adminRoutes, getApiKey } = require("./endpoints/admin/keys.js");
+const { join } = require("path");
+const { asyncHandler } = require("./endpoints/utils/asyncHandler.js");
+const { setupSession } = require("./endpoints/utils/sessionConfig.js");
+const { setupCors } = require("./endpoints/utils/corsConfig.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const { MODEL_NAME: modelName, ORIGIN, SECRET_KEY } = process.env;
-
-app.use(async (req, res, next) => {
-  req.openaiModel = new ChatOpenAI({
-    openAIApiKey: await getApiKey(req.session),
-    modelName,
-    temperature: 0.7,
-  });
-  next();
-});
 
 app.use(helmet());
-app.use(cors({ origin: ORIGIN, credentials: true }));
+app.use(setupCors());
 app.use(express.json());
-app.use(
-  session({
-    secret: SECRET_KEY,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: false,
-      maxAge: 3600000, // 1 hour
-    },
-  })
-);
+app.use(session(setupSession()));
 
-app.use((req, res, next) => {
-  req.session.chatHistory = req.session.chatHistory || [];
-  req.session.isInitialized = req.session.isInitialized || true;
-  req.session.expiresAt = Date.now() + req.session.cookie.maxAge;
-  next();
+const setApiKey = require("./endpoints/utils/apiKey.js");
+app.use(asyncHandler(setApiKey));
+
+const routes = [
+  { path: "/api/chat", route: "./endpoints/chat" },
+  { path: "/api/chat/history", route: "./endpoints/chatHistory" },
+  { path: "/api/model", route: "./endpoints/model" },
+  { path: "/api/terms", route: "./endpoints/terms/terms.js" },
+  { path: "/api/admin", route: "./endpoints/admin/keys.js" },
+];
+
+routes.forEach(({ path, route }) => {
+  app.use(path, require(route));
 });
 
-app.use("/api/chat", chatRoutes);
-app.use("/api/chat/history", chatHistoryRoutes);
-app.use("/api/model", modelRoutes);
-app.use("/api/terms", authRoutes());
-app.use("/api/admin", adminRoutes);
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
 
 app.use((err, req, res, next) => {
   console.error(`❌ Error: ${err.stack}`);
-  res.status(500).json({ error: "Internal Server Error" });
+  res.status(err.status || 500).json({ error: err.message || "Internal Server Error" });
 });
 
 app.listen(PORT, () => {
