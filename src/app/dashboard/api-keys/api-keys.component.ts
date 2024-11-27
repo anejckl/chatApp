@@ -27,8 +27,6 @@ export class ApiKeysComponent implements OnInit {
       key.status = !key.status;
       this.dataSource.data = [...this.dataSource.data];
     });
-
-
   }
 
   private fetchKeys(): void {

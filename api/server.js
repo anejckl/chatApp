@@ -10,25 +10,23 @@ const chatRoutes = require("./endpoints/chat");
 const chatHistoryRoutes = require("./endpoints/chatHistory");
 const modelRoutes = require("./endpoints/model");
 const authRoutes = require("./endpoints/terms/terms.js");
+const { router: adminRoutes, getApiKey } = require("./endpoints/admin/keys.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const { MODEL_NAME: modelName, ORIGIN, SECRET_KEY } = process.env;
 
-const {
-  OPENAI_API_KEY: openaiApiKey,
-  MODEL_NAME: modelName,
-  ORIGIN,
-  SECRET_KEY,
-} = process.env;
-
-const model = new ChatOpenAI({
-  openAIApiKey: openaiApiKey,
-  modelName: modelName,
-  temperature: 0.7,
+app.use(async (req, res, next) => {
+  req.openaiModel = new ChatOpenAI({
+    openAIApiKey: await getApiKey(req.session),
+    modelName,
+    temperature: 0.7,
+  });
+  next();
 });
 
 app.use(helmet());
-app.use(cors({ origin:  ORIGIN, credentials: true }));
+app.use(cors({ origin: ORIGIN, credentials: true }));
 app.use(express.json());
 app.use(
   session({
@@ -49,10 +47,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/chat", chatRoutes(model));
+app.use("/api/chat", chatRoutes);
 app.use("/api/chat/history", chatHistoryRoutes);
-app.use("/api/model", modelRoutes(model));
+app.use("/api/model", modelRoutes);
 app.use("/api/terms", authRoutes());
+app.use("/api/admin", adminRoutes);
 
 app.use((err, req, res, next) => {
   console.error(`❌ Error: ${err.stack}`);
