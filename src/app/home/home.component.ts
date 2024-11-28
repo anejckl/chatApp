@@ -4,6 +4,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService, User } from '@auth0/auth0-angular';
 import { Role } from '../models/admin.model';
 import { Auth0Service } from '../services/auth0.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
   private readonly observer = inject(BreakpointObserver);
   private readonly _authService = inject(AuthService);
   private readonly _auth0Service = inject(Auth0Service);
+  private readonly _userService = inject(UserService);
 
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
@@ -36,6 +38,7 @@ export class HomeComponent implements OnInit {
         this.checkUserRole(this.userProfile.sub);
       }
       console.log(this.userProfile);
+      this._userService.sendUserDetails();
     });
   }
 
@@ -57,6 +60,7 @@ export class HomeComponent implements OnInit {
 
   logout(): void {
     this._authService.logout().subscribe();
+    this._userService.logout()
   }
 
   checkUserRole(userId: string): void {

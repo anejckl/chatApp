@@ -1,9 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
-const cors = require("cors");
 const session = require("express-session");
-const { join } = require("path");
 const { asyncHandler } = require("./endpoints/utils/asyncHandler.js");
 const { setupSession } = require("./endpoints/utils/sessionConfig.js");
 const { setupCors } = require("./endpoints/utils/corsConfig.js");
@@ -11,20 +9,21 @@ const { setupCors } = require("./endpoints/utils/corsConfig.js");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(session(setupSession()));
+app.use(express.json());
 app.use(helmet());
 app.use(setupCors());
-app.use(express.json());
-app.use(session(setupSession()));
 
 const setApiKey = require("./endpoints/utils/apiKey.js");
 app.use(asyncHandler(setApiKey));
 
 const routes = [
-  { path: "/api/chat", route: "./endpoints/chat" },
-  { path: "/api/chat/history", route: "./endpoints/chatHistory" },
+  { path: "/api/chat", route: "./endpoints/chat.js" },
+  { path: "/api/chat/history", route: "./endpoints/chatHistory.js" },
   { path: "/api/model", route: "./endpoints/model" },
   { path: "/api/terms", route: "./endpoints/terms/terms.js" },
   { path: "/api/admin", route: "./endpoints/admin/keys.js" },
+  { path: "/api/user", route: "./endpoints/user/user.js"},
 ];
 
 routes.forEach(({ path, route }) => {

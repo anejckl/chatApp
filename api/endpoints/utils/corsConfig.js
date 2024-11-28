@@ -1,7 +1,7 @@
 const cors = require("cors");
 
 const setupCors = () => cors({
-  origin: process.env.ORIGIN || "*", // Allow all origins if not specified
+  origin: process.env.ORIGIN,
   credentials: true,
 });
 
