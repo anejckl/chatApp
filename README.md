@@ -2,9 +2,6 @@
 
 This project is a chat application built with Angular and Node.js. It includes user authentication via Auth0, a chat interface, and various administrative functionalities.
 
-## Project Structure
-
-
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
