@@ -13,8 +13,7 @@ mat-sidenav-container {
 .menu-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 10px;
+  padding: 0.75rem;
 
   .menu-title {
     font-size: 1.5rem;
@@ -27,12 +26,6 @@ mat-sidenav-container {
 
 mat-sidenav {
   padding-top: 0;
-  
-
-  .header {
-    vertical-align: middle;
-    align-items: center;
-  }
 
   .entry {
     display: flex;
@@ -40,9 +33,20 @@ mat-sidenav {
     gap: 1rem;
     padding: 0.75rem;
   }
+
+  .profile-picture {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 2px;
+  }
+
+  mat-nav-list {
+    padding: 0;
+  }
 }
 
 mat-sidenav-content {
-    width: 100%;
-    padding: 0;
+  width: 100%;
+  padding: 0;
 }

@@ -1,47 +1,79 @@
 <mat-sidenav-container autosize>
-    <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'">
-        <div class="menu-container">
-            <button mat-icon-button (click)="toggleMenu()">
-                <mat-icon>menu</mat-icon>
-            </button>
-            <span class="menu-title" *ngIf="!isCollapsed">{{'HOME.TITLE' | transloco}}</span>
-        </div>
-        <mat-divider></mat-divider>
-        <mat-nav-list>
-            <a mat-list-item (click)="showComponent('dashboard')">
-                <span class="entry">
-                    <mat-icon>house</mat-icon>
-                    <span *ngIf="!isCollapsed">{{'HOME.DASHBOARD' | transloco}}</span>
-                </span>
-            </a>
-            <a mat-list-item (click)="showComponent('chat')">
-                <span class="entry">
-                    <mat-icon>smart_toy</mat-icon>
-                    <span *ngIf="!isCollapsed">{{'HOME.CHAT' | transloco}}</span>
-                </span>
-            </a>
-            <a mat-list-item (click)="showComponent('help')">
-                <span class="entry">
-                    <mat-icon>help</mat-icon>
-                    <span *ngIf="!isCollapsed">{{'HOME.HELP' | transloco}}</span>
-                </span>
-            </a>
-            <mat-divider></mat-divider>
-            <a mat-list-item (click)="showComponent('settings')">
-                <span class="entry">
-                    <mat-icon>settings</mat-icon>
-                    <span *ngIf="!isCollapsed">{{'HOME.SETTINGS' | transloco}}</span>
-                </span>
-            </a>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <app-dashboard *ngIf="currentComponent === 'dashboard'"></app-dashboard>
-        <app-chat *ngIf="currentComponent === 'chat'"></app-chat>
-        <app-help *ngIf="currentComponent === 'help'"></app-help>
-        <app-settings *ngIf="currentComponent === 'settings'"></app-settings>
+  <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'">
+    <div class="menu-container">
+      <button mat-icon-button (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="menu-title" *ngIf="!isCollapsed">{{ 'HOME.TITLE' | transloco }}</span>
+    </div>
 
-        
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
+    <div class="chat-container">
+      <mat-divider></mat-divider>
+      <mat-nav-list>
+        <a mat-list-item (click)="showComponent('dashboard')" *ngIf="isAdmin">
+          <span class="entry">
+            <mat-icon>house</mat-icon>
+            <span *ngIf="!isCollapsed">{{ 'HOME.DASHBOARD' | transloco }}</span>
+          </span>
+        </a>
+        <a mat-list-item (click)="showComponent('chat')">
+          <span class="entry">
+            <mat-icon>smart_toy</mat-icon>
+            <span *ngIf="!isCollapsed">{{ 'HOME.CHAT' | transloco }}</span>
+          </span>
+        </a>
+        <a mat-list-item (click)="showComponent('help')">
+          <span class="entry">
+            <mat-icon>help</mat-icon>
+            <span *ngIf="!isCollapsed">{{ 'HOME.HELP' | transloco }}</span>
+          </span>
+        </a>
+      </mat-nav-list>
+    </div>
+
+    <div class="settings-container">
+      <mat-divider></mat-divider>
+      <mat-nav-list>
+        <a mat-list-item (click)="showComponent('settings')">
+          <span class="entry">
+            <mat-icon>settings</mat-icon>
+            <span *ngIf="!isCollapsed">{{ 'HOME.SETTINGS' | transloco }}</span>
+          </span>
+        </a>
+      </mat-nav-list>
+    </div>
+
+    <div class="login-container">
+      <mat-divider></mat-divider>
+      <mat-nav-list>
+        <a mat-list-item (click)="login()" *ngIf="!(isAuthenticated$ | async)">
+          <span class="entry">
+            <mat-icon>login</mat-icon>
+            <span *ngIf="!isCollapsed">{{ 'HOME.LOGIN' | transloco }}</span>
+          </span>
+        </a>
+        <a mat-list-item *ngIf="isAuthenticated$ | async" (click)="logout()">
+          <span class="entry">
+            <mat-icon>logout</mat-icon>
+            <span *ngIf="!isCollapsed">{{ 'HOME.LOGOUT' | transloco }}</span>
+          </span>
+        </a>
+        <a mat-list-item *ngIf="isAuthenticated$ | async" (click)="showComponent('person')">
+          <span class="entry">
+            <img *ngIf="userProfile?.picture" [src]="userProfile?.picture" class="profile-picture"/>
+            <span *ngIf="!isCollapsed">{{ userProfile?.name }}</span>
+          </span>
+        </a>
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-dashboard *ngIf="currentComponent === 'dashboard'"></app-dashboard>
+    <app-chat *ngIf="currentComponent === 'chat'" [isCollapsed]="isCollapsed"></app-chat>
+    <app-help *ngIf="currentComponent === 'help'"></app-help>
+    <app-settings *ngIf="currentComponent === 'settings'"></app-settings>
+    <app-person *ngIf="currentComponent === 'person'"></app-person>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>

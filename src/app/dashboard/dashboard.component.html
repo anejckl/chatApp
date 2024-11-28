@@ -1,0 +1,18 @@
+<div class="main">
+    <mat-card appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>{{ 'DASHBOARD.TITLE' | transloco }}</mat-card-title>
+            <mat-card-subtitle>{{ 'DASHBOARD.SUBTITLE' | transloco }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <mat-tab-group dynamicHeight [(selectedIndex)]="selectedIndex">
+                <mat-tab [label]="'DASH.TAB-KEYS' | transloco">
+                    <div *ngIf="selectedIndex === 0" class="content-center">
+                        <app-api-keys></app-api-keys>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
+</div>

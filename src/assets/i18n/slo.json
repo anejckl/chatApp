@@ -1,22 +1,97 @@
 {
+  "API-KEYS": {
+    "ACTIONS": "Akcije",
+    "CREATED": "Ustvarjen na",
+    "DELETE": "Izbriši ključ",
+    "SET-STATUS": "Nastavi status",
+    "STATUS": "Status",
+    "VALUE": "API ključ"
+  },
   "CHAT": {
     "INPUT": "Vprašaj me karkoli",
+    "MESSAGE-LIMIT-REACHED": "Dovoljenje doseženo, vpiši se, da dobiš testni API ključ",
     "MODEL": {
       "ADD-SYS-MESSAGE": "Dodaj sistemsko sporočilo",
       "INCLUDED-SYS-MESSAGE": "Ukaz",
       "NAME": "Ime modela",
-      "SYS-MESSAGE": "Sistemsko sporočilo (Max 2)",
+      "SYS-MESSAGE": "Sistemsko sporočilo",
+      "SYS-MESSAGE-MAX": "1 poziv največ ( več sistemskih pozivov ≠ efektivnost",
       "TEMPERATURE": "Temperature",
       "TITLE": "Chatbot aplikacija - Projekt",
       "TUNE": "Nastavitve modela"
-    }
+    },
+    "REFRESH": "Osveži",
+    "SESSION-EXPIRED": "Vaša seja je potekla"
+  },
+  "DASH": {
+    "TAB-KEYS": "API ključi",
+    "TAB-USERS": "Upravljanje uporabnikov"
+  },
+  "DASHBOARD": {
+    "SUBTITLE": "Administratorski pogled",
+    "TITLE": "Nadzorna plošča"
+  },
+  "EDIT-USER": {
+    "CANCEL": "Zapri",
+    "MAIL": "E-pošta",
+    "ROLE": "Privilegij",
+    "SAVE": "Shrani",
+    "TITLE": "Uredi uporabnika",
+    "USERNAME": "Uporabniško ime"
   },
   "HOME": {
     "CHAT": "Chatbot",
     "DASHBOARD": "Nadzorna plošča",
     "HELP": "Pomoč",
+    "LOGIN": "Prijava",
+    "LOGOUT": "Izpis",
     "SETTINGS": "Nastavitve",
-    "TITLE": "AI chat"
+    "TITLE": "AI. chat"
+  },
+  "LOGIN": {
+    "BUTTON-LOG": "Vpis",
+    "BUTTON-REG": "Registracija",
+    "PASS-MIN-LENGTH": "Geslo mora biti vsaj 8 znakov",
+    "PASS": {
+      "REQUIRED": "Geslo je"
+    },
+    "PASSWORD": "Geslo",
+    "REMEMBER-ME": "Zapomni si me",
+    "REQUIRED": "Potrebno",
+    "USER-EMAIL": {
+      "REQUIRED": "Uporabniško ime ali pošta je"
+    },
+    "USERNAME-MAIL": "Uporabniško ime ali pošta"
+  },
+  "LOGS": {
+    "ACTION": "Dejanje",
+    "DETAILS": "Opombe",
+    "ID": "ID",
+    "IP-ADDRESS": "IP naslov",
+    "STATUS": "Status",
+    "TIMESTAMP": "Čas",
+    "USER-ID": "Uporabnik"
+  },
+  "PERSON-ADDRESS": "Naslov:",
+  "PERSON-BIRTHDATE": "Rojstni datum:",
+  "PERSON-GENDER": "Spol:",
+  "PERSON-NAME": "Ime:",
+  "PERSON-NICKNAME": "Vzdevek:",
+  "PERSON-NO-ROLES": "Nima vlog",
+  "PERSON-PHONE": "Telefon:",
+  "PERSON-ROLES": "Vloge",
+  "PERSON-UPDATE": "Posodobljeno ob:",
+  "REGISTER": {
+    "ALREADY-HAVE-ACCOUNT": "Že imaš račun?",
+    "BACK-LOGIN": "Vpiši se",
+    "BUTTON": "Ustvari račun",
+    "CONFIRM-PASSWORD": "Ponovno vpiši geslo",
+    "EMAIL": "E-pošta",
+    "PASSWORD": "Geslo",
+    "USERNAME": "Uporabniški račun"
+  },
+  "REGISTRATION": {
+    "PLACEHOLDER-USERNAME": "Janez Novak"
   },
   "SETTINGS": {
     "CHOOSE-LANG": "Izberi jezik",
@@ -24,5 +99,29 @@
     "GENERAL": "Splošno",
     "LANGUAGE": "Jezik",
     "LANGUAGE-TOGGLE": "Spremeni jezik"
+  },
+  "USER-MANAGEMENT": {
+    "CREATE-USER": "Ustvari novega uporabnika",
+    "LOGS": {
+      "TITLE": "Logi za"
+    },
+    "TABLE": {
+      "ACTIONS": "Izvedi",
+      "ACTIONS-DELETE": "Izbriši uporabnika",
+      "ACTIONS-EDIT": "Uredi uporabnika",
+      "ACTIONS-RESET": "Resetiraj geslo",
+      "ID": "ID",
+      "MAIL": "E-pošta",
+      "ROLE": "Vloga",
+      "USERNAME": "Uporabniško ime"
+    }
+  },
+  "WELCOME": {
+    "ACCEPT": "Sprejmi",
+    "CANCEL": "Zapri",
+    "CONDITIONS": "Pogoje in določila",
+    "DIALOG": "Preden začnete noreti z GPT. Za nadaljevanje si preberite in sprejmite pogoje in določila.",
+    "TERMS": "Sprejmam",
+    "TITLE": "Pozdravljen!"
   }
 }

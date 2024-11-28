@@ -1,46 +1,72 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { ThemeService } from '../services/theme.service';
+import { AuthService, User } from '@auth0/auth0-angular';
+import { Role } from '../models/admin.model';
+import { Auth0Service } from '../services/auth0.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
-export class HomeComponent {
-  private _themeService = inject(ThemeService);
-  private observer = inject(BreakpointObserver);
+export class HomeComponent implements OnInit {
+  private readonly observer = inject(BreakpointObserver);
+  private readonly _authService = inject(AuthService);
+  private readonly _auth0Service = inject(Auth0Service);
+  private readonly _userService = inject(UserService);
 
-  @ViewChild(MatSidenav)
-  sidenav!: MatSidenav;
-  isMobile = true;
-  isCollapsed = false;
+  @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
-  currentComponent: string = 'home';
+  public isMobile = true;
+  public isCollapsed = false;
+  public currentComponent: string = 'home';
 
+  public isAuthenticated$ = this._authService.isAuthenticated$;
+  public userProfile: User | undefined | null;
+  public isAdmin: boolean = false;
 
-  ngOnInit() {
-    this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
-      if(screenSize.matches){
-        this.isMobile = true;
-      } else {
-        this.isMobile = false;
+  ngOnInit(): void {
+    this.observer.observe(['(max-width: 800px)']).subscribe(screenSize => {
+      this.isMobile = screenSize.matches;
+    });
+
+    this._authService.user$.subscribe((user: User | undefined | null) => {
+      this.userProfile = user;
+      if (this.userProfile?.sub) {
+        this.checkUserRole(this.userProfile.sub);
       }
+      console.log(this.userProfile);
+      this._userService.sendUserDetails();
     });
   }
 
-  toggleMenu() {
-    if(this.isMobile){
+  toggleMenu(): void {
+    if (this.isMobile) {
       this.sidenav.toggle();
-      this.isCollapsed = false;
     } else {
-      this.sidenav.open();
       this.isCollapsed = !this.isCollapsed;
     }
   }
 
-  showComponent(currentComponent: string) {
+  showComponent(currentComponent: string): void {
     this.currentComponent = currentComponent;
+  }
+
+  login(): void {
+    this._authService.loginWithRedirect();
+  }
+
+  logout(): void {
+    this._authService.logout().subscribe();
+    this._userService.logout()
+  }
+
+  checkUserRole(userId: string): void {
+    const encodedId = encodeURIComponent(userId);
+    this._auth0Service.getUserRoles(encodedId).subscribe((response: Role[]) => {
+      this.isAdmin = response.some((role: Role) => role.name === 'admin');
+    });
   }
 }

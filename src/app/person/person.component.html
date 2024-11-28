@@ -1,0 +1,24 @@
+<div class="person" *ngIf="userProfile">
+    <mat-card class="user-card">
+        <mat-card-header>
+            <div mat-card-avatar class="user-avatar">
+                <img [src]="userProfile.picture" loading="lazy" />
+            </div>
+            <mat-card-title>
+                {{ userProfile.name }}
+            </mat-card-title>
+            <mat-card-subtitle>{{ userProfile.email }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+            <div class="user-details">
+                <p *ngFor="let field of userProfileFields" [hidden]="!field.value">
+                    <strong>{{ field.labelKey | transloco }}</strong>
+                    {{ field.value }}
+                </p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

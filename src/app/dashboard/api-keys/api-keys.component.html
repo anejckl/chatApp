@@ -1,0 +1,52 @@
+<div class="key-management-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let key"> {{ key.id }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef> {{'API-KEYS.VALUE' | transloco}} </th>
+            <td mat-cell *matCellDef="let key"> {{ key.api_key | maskKey }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef> {{'API-KEYS.CREATED' | transloco}} </th>
+            <td mat-cell *matCellDef="let key"> {{ key.created_at | date:'short' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> {{'API-KEYS.STATUS' | transloco}} </th>
+            <td mat-cell *matCellDef="let key">
+                <mat-icon *ngIf="key.status">check_circle</mat-icon>
+                <mat-icon *ngIf="!key.status">cancel</mat-icon>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> {{'API-KEYS.ACTIONS' | transloco}} </th>
+            <td mat-cell *matCellDef="let key">
+                <button mat-icon-button [matMenuTriggerFor]="keyMenu" [matMenuTriggerData]="{ key: key }">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <mat-menu #keyMenu="matMenu">
+            <ng-template matMenuContent let-key="key">
+                <button mat-menu-item (click)="setStatus(key)">
+                    <mat-icon>edit</mat-icon>
+                    <span>{{'API-KEYS.SET-STATUS' | transloco}}</span>
+                </button>
+                <button mat-menu-item color="warn">
+                    <mat-icon>delete</mat-icon>
+                    <span>{{'API-KEYS.DELETE' | transloco}}</span>
+                </button>
+            </ng-template>
+        </mat-menu>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let key; columns: displayedColumns;"></tr>
+    </table>
+</div>

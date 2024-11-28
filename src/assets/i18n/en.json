@@ -1,22 +1,97 @@
 {
+  "API-KEYS": {
+    "ACTIONS": "Actions",
+    "CREATED": "Created at",
+    "DELETE": "Delete key",
+    "SET-STATUS": "Set status",
+    "STATUS": "Status",
+    "VALUE": "API key"
+  },
   "CHAT": {
     "INPUT": "Ask your question",
+    "MESSAGE-LIMIT-REACHED": "Limit reached, login to use our API test key.",
     "MODEL": {
       "ADD-SYS-MESSAGE": "Add a system message/prompt",
       "INCLUDED-SYS-MESSAGE": "Prompt",
       "NAME": "Model name",
-      "SYS-MESSAGE": "System prompt (Max 2)",
+      "SYS-MESSAGE": "System prompt",
+      "SYS-MESSAGE-MAX": "Max 1 prompt (more prompts ≠ effective)",
       "TEMPERATURE": "Temperature",
       "TITLE": "Chatbot app - Project",
       "TUNE": "Model settings"
-    }
+    },
+    "REFRESH": "Refresh",
+    "SESSION-EXPIRED": "Your session has expired"
+  },
+  "DASH": {
+    "TAB-KEYS": "API keys",
+    "TAB-USERS": "User management"
+  },
+  "DASHBOARD": {
+    "SUBTITLE": "Admin view",
+    "TITLE": "Control panel"
+  },
+  "EDIT-USER": {
+    "CANCEL": "Cancel",
+    "MAIL": "E-mail",
+    "ROLE": "Role level",
+    "SAVE": "Save",
+    "TITLE": "Edit user",
+    "USERNAME": "Username"
   },
   "HOME": {
     "CHAT": "Chatbot",
     "DASHBOARD": "Dashboard",
     "HELP": "Help",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
     "SETTINGS": "Settings",
-    "TITLE": "AI chat"
+    "TITLE": "AI. chat"
+  },
+  "LOGIN": {
+    "BUTTON-LOG": "Login",
+    "BUTTON-REG": "Registration",
+    "PASS-MIN-LENGTH": "Password must be atleast 8 characters long",
+    "PASS": {
+      "REQUIRED": "Password is"
+    },
+    "PASSWORD": "Password",
+    "REMEMBER-ME": "Remember me",
+    "REQUIRED": "Required",
+    "USER-EMAIL": {
+      "REQUIRED": "Username or mail is"
+    },
+    "USERNAME-MAIL": "Username or mail"
+  },
+  "LOGS": {
+    "ACTION": "Action",
+    "DETAILS": "Details",
+    "ID": "ID",
+    "IP-ADDRESS": "IP address",
+    "STATUS": "Status",
+    "TIMESTAMP": "Time",
+    "USER-ID": "User"
+  },
+  "PERSON-ADDRESS": "Address:",
+  "PERSON-BIRTHDATE": "Birthdate:",
+  "PERSON-GENDER": "Gender:",
+  "PERSON-NAME": "Name:",
+  "PERSON-NICKNAME": "Nickname:",
+  "PERSON-NO-ROLES": "No roles",
+  "PERSON-PHONE": "Phone:",
+  "PERSON-ROLES": "Roles",
+  "PERSON-UPDATE": "Updated at:",
+  "REGISTER": {
+    "ALREADY-HAVE-ACCOUNT": "Already have an account?",
+    "BACK-LOGIN": "Login",
+    "BUTTON": "Create account",
+    "CONFIRM-PASSWORD": "Confirm password",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Password",
+    "USERNAME": "Username"
+  },
+  "REGISTRATION": {
+    "PLACEHOLDER-USERNAME": "Donald Trump"
   },
   "SETTINGS": {
     "CHOOSE-LANG": "Choose language",
@@ -24,5 +99,29 @@
     "GENERAL": "General",
     "LANGUAGE": "Language",
     "LANGUAGE-TOGGLE": "Change language"
+  },
+  "USER-MANAGEMENT": {
+    "CREATE-USER": "Create new user",
+    "LOGS": {
+      "TITLE": "Logs for"
+    },
+    "TABLE": {
+      "ACTIONS": "Actions",
+      "ACTIONS-DELETE": "Delete user",
+      "ACTIONS-EDIT": "Edit user",
+      "ACTIONS-RESET": "Reset password",
+      "ID": "ID",
+      "MAIL": "E-mail",
+      "ROLE": "Role",
+      "USERNAME": "Username"
+    }
+  },
+  "WELCOME": {
+    "ACCEPT": "Accept",
+    "CANCEL": "Cancel",
+    "CONDITIONS": "Terms and conditions",
+    "DIALOG": "Before you go all crazy with GPT. Please read and accept the terms and conditions to proceed.",
+    "TERMS": "I accept the",
+    "TITLE": "Oh hi there!"
   }
 }
