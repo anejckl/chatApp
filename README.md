@@ -42,7 +42,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 Create a `.env` file in the `api/` directory with the following content:
 
 OpenAI
-OPENAI_API_KEY=your-openai-api-key MODEL_NAME=gpt-4 TEMPERATURE=0.7
+OPENAI_API_KEY=your-openai-api-key 
+MODEL_NAME=gpt-4 
+TEMPERATURE=0.7
 
 Security
 SECRET_KEY=your-secret-key
@@ -51,7 +53,10 @@ Cors
 ORIGIN=http://localhost:4200
 
 Database
-DB_HOST=localhost DB_USER=root DB_PASSWORD=your-db-password DB_NAME=chat_app
+DB_HOST=localhost 
+DB_USER=root 
+DB_PASSWORD=your-db-password 
+DB_NAME=chat_app
 
 ## API Endpoints
 
