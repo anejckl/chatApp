@@ -40,7 +40,7 @@ export class SystemMessageCardComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
           this.systemMessageInput = '';
-          this._snackBarService.info('Prompt added successfully.');
+          this._snackBarService.success('Prompt added successfully.');
           this.loadPrompts();
         }
       });

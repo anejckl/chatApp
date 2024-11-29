@@ -7,7 +7,7 @@ const { setupSession } = require("./endpoints/utils/sessionConfig.js");
 const { setupCors } = require("./endpoints/utils/corsConfig.js");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.use(session(setupSession()));
 app.use(express.json());
