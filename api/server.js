@@ -20,7 +20,7 @@ app.use(asyncHandler(setApiKey));
 const routes = [
   { path: "/api/chat", route: "./endpoints/chat.js" },
   { path: "/api/chat/history", route: "./endpoints/chatHistory.js" },
-  { path: "/api/model", route: "./endpoints/model" },
+  { path: "/api/model", route: "./endpoints/model.js" },
   { path: "/api/terms", route: "./endpoints/terms/terms.js" },
   { path: "/api/admin", route: "./endpoints/admin/keys.js" },
   { path: "/api/user", route: "./endpoints/user/user.js"},

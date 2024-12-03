@@ -123,5 +123,40 @@
     "DIALOG": "Before you go all crazy with GPT. Please read and accept the terms and conditions to proceed.",
     "TERMS": "I accept the",
     "TITLE": "Oh hi there!"
+  },
+  "TERMS": {
+    "TITLE": "Terms and Conditions",
+    "INTRO": {
+      "TITLE": "Introduction",
+      "TEXT": "Welcome to our application. By accessing or using this app, you agree to comply with and be bound by these Terms and Conditions."
+    },
+    "CHATBOT": {
+      "TITLE": "Chatbot Access and Usage",
+      "INTRO": "Our chatbot is accessible to all users. However, please note the following usage conditions:",
+      "TEST_KEY": "All users are permitted to use a test API key, which grants access to a limited number of messages.",
+      "FULL_ACCESS": "To enjoy full access and unlock additional features, you must sign up within the app. Registered users gain enhanced message limits and other exclusive benefits.",
+      "OPENSOURCE": "Additionally, please note that this application is open-source. We encourage users to explore the source code and contribute to its development."
+    },
+    "RESPONSIBILITIES": {
+      "TITLE": "User Responsibilities",
+      "INTRO": "As a user of this application, you agree to the following responsibilities:",
+      "ACCURATE_INFO": "Provide accurate and complete information when registering.",
+      "CREDENTIALS": "Keep your login credentials confidential.",
+      "RESPECT": "Respect the rights of other users and refrain from any abusive behavior."
+    },
+    "PRIVACY": {
+      "TITLE": "Privacy Policy",
+      "TEXT": "Your privacy is important to us. Please read our Privacy Policy to understand how we handle your personal information."
+    },
+    "LIABILITY": {
+      "TITLE": "Limitation of Liability",
+      "TEXT": "We are not responsible for any damages or losses resulting from your use of this application."
+    },
+    "CHANGES": {
+      "TITLE": "Changes to Terms",
+      "TEXT": "We reserve the right to modify these terms at any time. You will be notified of any significant changes."
+    },
+    "CONTACT": "If you have any questions about these Terms, please",
+    "CONTACT_US": "contact us"
   }
 }

@@ -123,5 +123,40 @@
     "DIALOG": "Preden začnete noreti z GPT. Za nadaljevanje si preberite in sprejmite pogoje in določila.",
     "TERMS": "Sprejmam",
     "TITLE": "Pozdravljen!"
+  },
+  "TERMS": {
+    "TITLE": "Pogoji uporabe",
+    "INTRO": {
+      "TITLE": "Uvod",
+      "TEXT": "Dobrodošli v naši aplikaciji. Z dostopom ali uporabo te aplikacije se strinjate s temi pogoji uporabe."
+    },
+    "CHATBOT": {
+      "TITLE": "Dostop in uporaba Chatbota",
+      "INTRO": "Chatbot je dostopen vsem uporabnikom. Vendar upoštevajte naslednje pogoje uporabe:",
+      "TEST_KEY": "Vsi uporabniki lahko uporabljajo testni API ključ, ki omogoča dostop do omejenega števila sporočil.",
+      "FULL_ACCESS": "Za popoln dostop in odklepanje dodatnih funkcij se morate registrirati v aplikaciji. Registrirani uporabniki pridobijo povečane omejitve sporočil in druge ekskluzivne ugodnosti.",
+      "OPENSOURCE": "Dodatno, ta aplikacija je odprtokodna. Spodbujamo uporabnike k raziskovanju izvorne kode in prispevanju k njenemu razvoju."
+    },
+    "RESPONSIBILITIES": {
+      "TITLE": "Odgovornosti uporabnika",
+      "INTRO": "Kot uporabnik te aplikacije se strinjate z naslednjimi odgovornostmi:",
+      "ACCURATE_INFO": "Posredovanje točnih in popolnih informacij pri registraciji.",
+      "CREDENTIALS": "Ohranjanje zaupnosti vaših prijavnih podatkov.",
+      "RESPECT": "Spoštovanje pravic drugih uporabnikov in vzdržnost kakršnegakoli žaljivega vedenja."
+    },
+    "PRIVACY": {
+      "TITLE": "Politika zasebnosti",
+      "TEXT": "Vaša zasebnost nam je pomembna. Prosimo, preberite našo Politiko zasebnosti za razumevanje, kako ravnamo z vašimi osebnimi podatki."
+    },
+    "LIABILITY": {
+      "TITLE": "Omejitev odgovornosti",
+      "TEXT": "Ne odgovarjamo za kakršnokoli škodo ali izgubo, ki izhaja iz vaše uporabe te aplikacije."
+    },
+    "CHANGES": {
+      "TITLE": "Spremembe pogojev",
+      "TEXT": "Pridržujemo si pravico do spremembe teh pogojev kadarkoli. O pomembnih spremembah boste obveščeni."
+    },
+    "CONTACT": "Če imate kakršnakoli vprašanja glede teh pogojev, prosimo",
+    "CONTACT_US": "kontaktirajte nas"
   }
 }

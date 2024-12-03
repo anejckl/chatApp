@@ -116,6 +116,7 @@ export class ChatComponent implements OnInit {
 
   private checkTerms(): void {
     this._termsService.checkTerms().subscribe((response) => {
+      console.log(response);
       if (!response.acceptedTerms) { this.openTerms(); }
     });
   }
