@@ -1,4 +1,5 @@
 {
     "FSharp.suggestGitignore": false,
-    "javascript.memoryLimit": 8192
+    "javascript.memoryLimit": 8192,
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ThemeService {
-  private isDarkTheme: boolean = false;
+  private isDarkTheme = false;
 
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
