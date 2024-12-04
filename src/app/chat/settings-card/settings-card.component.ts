@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 import { Model } from '../../models/model.model';
 import { ChatService } from '../../services/chat.service';
@@ -8,13 +8,13 @@ import { ChatService } from '../../services/chat.service';
   templateUrl: './settings-card.component.html',
   styleUrl: './settings-card.component.scss'
 })
-export class SettingsCardComponent {
+export class SettingsCardComponent implements OnInit {
   private _chatService = inject(ChatService);
   
   private readonly debounceTimeMs = 300;
 
-  modelName: string = '';
-  temperature: number = 0;
+  modelName = '';
+  temperature = 0;
 
   private updateSubject$ = new Subject<Model>();
 

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService, User } from '@auth0/auth0-angular';
 import { translate } from '@jsverse/transloco';
@@ -15,12 +15,12 @@ import { WelcomeComponent } from './welcome/welcome.component';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
   systemPrompts: string[] = [];
 
-  userInput: string = '';
-  isTyping: boolean = false;
+  userInput = '';
+  isTyping = false;
 
   @Input() isCollapsed!: boolean;
 
@@ -64,10 +64,7 @@ export class ChatComponent implements OnInit {
 
   public sendMessage(): void {
     if (this.isMessageLimitReached(this.isAuthenticated)) {
-      this._snackBarService.error(
-        translate('CHAT.MESSAGE-LIMIT-REACHED'),
-        'OK'
-      );
+      this._snackBarService.error(translate('CHAT.MESSAGE-LIMIT-REACHED'), 'OK');
       return;
     }
 
@@ -109,7 +106,7 @@ export class ChatComponent implements OnInit {
   private isMessageLimitReached(isAuthenticated: boolean): boolean {
     if (isAuthenticated) { return false; }
     const userMessagesCount = this.messages.filter(
-      (message) => message.role === 'user') .length;
+      (message) => message.role === 'user').length;
 
     return userMessagesCount >= this.LIMIT_CHAT_RESPONSES;
   }

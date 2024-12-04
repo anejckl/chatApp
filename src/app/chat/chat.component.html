@@ -16,7 +16,8 @@
                 'sender': message.role === 'user',
                 'receiver': message.role === 'assistant'
               }">
-                        <img *ngIf="message.role === 'user' && userProfile?.picture" [src]="userProfile?.picture" class="profile-picture" />
+                        <img *ngIf="message.role === 'user' && userProfile?.picture" [src]="userProfile?.picture"
+                            class="profile-picture" alt="User profile picture" />
                         <mat-icon *ngIf="message.role === 'assistant'" class="profile-picture">smart_toy</mat-icon>
                         <mat-card>
                             <mat-card-content>

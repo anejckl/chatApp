@@ -25,23 +25,17 @@ router.post("/logout", (req, res) => {
     return sendErrorResponse(res, 400, "No active session found.");
   }
 
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      return sendErrorResponse(res, 500, "Failed to log out.");
-    }
+  req.session.user = null;
 
-    res.clearCookie("connect.sid", {
-      path: "/",
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-    });
-
-    console.log("User logged out and session destroyed.");
-
-    return res.status(200).json({ message: "Logged out successfully." });
+  res.clearCookie("connect.sid", {
+    path: "/",
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
   });
+
+  console.log("User logged out and session destroyed.");
+  return res.status(200).json({ message: "Logged out successfully." });
 });
 
 module.exports = router;

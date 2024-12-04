@@ -10,7 +10,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 export class SystemMessageCardComponent implements OnInit {
   @Output() prompt = new EventEmitter<string[]>();
 
-  public systemMessageInput: string = '';
+  public systemMessageInput = '';
 
   private _snackBarService = inject(SnackbarService);
   private _chatService = inject(ChatService);

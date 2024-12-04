@@ -21,11 +21,11 @@ export class HomeComponent implements OnInit {
 
   public isMobile = true;
   public isCollapsed = false;
-  public currentComponent: string = 'home';
+  public currentComponent = 'home';
 
   public isAuthenticated$ = this._authService.isAuthenticated$;
   public userProfile: User | undefined | null;
-  public isAdmin: boolean = false;
+  public isAdmin = false;
 
   ngOnInit(): void {
     this.observer.observe(['(max-width: 800px)']).subscribe(screenSize => {
