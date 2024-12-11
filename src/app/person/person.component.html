@@ -14,9 +14,11 @@
 
         <mat-card-content>
             <div class="user-details">
-                <p *ngFor="let field of userProfileFields" [hidden]="!field.value">
-                    <strong>{{ field.labelKey | transloco }}</strong>
-                    {{ field.value }}
+                <p *ngFor="let field of userProfileFields">
+                    <strong>{{ field.labelKey | transloco }}</strong>:
+                    <span *ngFor="let key of objectKeys(field); let isLast = last" [hidden]="key === 'labelKey'">
+                        {{ field[key] }}<span *ngIf="!isLast">, </span>
+                    </span>
                 </p>
             </div>
         </mat-card-content>

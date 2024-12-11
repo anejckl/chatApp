@@ -13,7 +13,7 @@ export class ApiKeysComponent implements OnInit {
   private _adminService = inject(AdminService);
   private _snackBarService = inject(SnackbarService);
 
-  displayedColumns: string[] = ['id', 'value', 'created', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'value', 'created', 'status', 'test', 'actions'];
   dataSource = new MatTableDataSource<Key>();
 
   ngOnInit(): void {
@@ -21,14 +21,14 @@ export class ApiKeysComponent implements OnInit {
   }
 
   public setStatus(key: Key): void {
-    this._adminService.updateKeys(key.id, !key.status).subscribe((response) => {
+    const newStatus = !key.status;
+    this._adminService.updateKeys(key.id, newStatus).subscribe((response) => {
       this._snackBarService.info(response.message, 'OK');
-
-      key.status = !key.status;
-      this.dataSource.data = [...this.dataSource.data];
+      key.status = newStatus;
+      this.dataSource.data = [...this.dataSource.data]; // Trigger change detection
     });
   }
-
+  
   private fetchKeys(): void {
     this._adminService.getKeys().subscribe((keys: Key[]) => {
         this.dataSource.data = keys;

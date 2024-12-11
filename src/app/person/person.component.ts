@@ -30,6 +30,10 @@ export class PersonComponent implements OnInit {
     });
   }
 
+  objectKeys(obj: UserProfileField): string[] {
+    return Object.keys(obj);
+  }
+
   private fetchRoles(userId: string, user: User): void {
     this._auth0Service.getUserRoles(userId).subscribe((result) => {
       this.userRoles = result;
@@ -40,14 +44,14 @@ export class PersonComponent implements OnInit {
 
   private populateFields(user: User, roles: string): void {
     this.userProfileFields = [
-      { labelKey: 'PERSON-NAME', value: user.name },
-      { labelKey: 'PERSON-NICKNAME', value: user.nickname },
-      { labelKey: 'PERSON-ROLES', value: roles },
-      { labelKey: 'PERSON-GENDER', value: user.gender },
-      { labelKey: 'PERSON-BIRTHDATE', value: user.birthdate },
-      { labelKey: 'PERSON-PHONE', value: user.phone_number },
-      { labelKey: 'PERSON-ADDRESS', value: user.address },
-      { labelKey: 'PERSON-UPDATE', value: user.updated_at },
+      { labelKey: 'PERSON-NAME', name: user.name },
+      { labelKey: 'PERSON-NICKNAME', nickname: user.nickname },
+      { labelKey: 'PERSON-ROLES', roles },
+      { labelKey: 'PERSON-GENDER', gender: user.gender },
+      { labelKey: 'PERSON-BIRTHDATE', birthdate: user.birthdate },
+      { labelKey: 'PERSON-PHONE', phone: user.phone_number },
+      { labelKey: 'PERSON-ADDRESS', address: user.address },
+      { labelKey: 'PERSON-UPDATE', updatedAt: user.updated_at },
     ];
   }
 }

@@ -10,7 +10,7 @@ let apiKeyCache = {
 async function refreshApiKeys() {
   try {
     const [rows] = await pool.query(
-      "SELECT api_key, test FROM api_keys WHERE status = 'active'"
+      "SELECT api_key, test FROM api_keys WHERE status = 1"
     );
 
     apiKeyCache = rows.reduce(
